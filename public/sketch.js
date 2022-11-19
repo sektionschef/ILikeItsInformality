@@ -28,30 +28,31 @@ let YEAR = "2022";
 let PRICE = "ꜩ 1";
 let EDITIONS = "50 editions";
 
-let GRAINAMOUNT = 0.03;  // shader
-let TIMINGSTATE = "Start";
-
-let BRUSHFULLSPEEDMIN = 2;
-let BRUSHFULLSPEEDMAX = 6;
-let BRUSHFULLSPEED = Math.round(getRandomFromInterval(BRUSHFULLSPEEDMIN, BRUSHFULLSPEEDMAX) * 100) / 100;
-let BRUSHFULLSPEEDLABEL = label_feature(BRUSHFULLSPEED, BRUSHFULLSPEEDMIN, BRUSHFULLSPEEDMAX);
 let CURRENTPIXELDENS = 1;
 
-let ROUGHYPUFFYRANGE = [0.1, 0.2, 0.3];
-let ROUGHYPUFFY = getRandomFromList(ROUGHYPUFFYRANGE);
-console.log("ROUGHYPUFFY:" + ROUGHYPUFFY);
-let ROUGHYPUFFYLABEL = label_feature(ROUGHYPUFFY, Math.min(...ROUGHYPUFFYRANGE), Math.max(...ROUGHYPUFFYRANGE));
+// let GRAINAMOUNT = 0.03;  // shader
+// let TIMINGSTATE = "Start";
 
-let BRUSHDIRECTIONLABEL;
-let BRUSHDIRECTION = getRandomFromList([0.25, 0.5, 0.75]);
-console.log("BRUSHDIRECTION:" + BRUSHDIRECTION);
-if (BRUSHDIRECTION == 0.25) {
-  BRUSHDIRECTIONLABEL = "horizontal";
-} else if (BRUSHDIRECTION == 0.5) {
-  BRUSHDIRECTIONLABEL = "both";
-} else {
-  BRUSHDIRECTIONLABEL = "vertical";
-};
+// let BRUSHFULLSPEEDMIN = 2;
+// let BRUSHFULLSPEEDMAX = 6;
+// let BRUSHFULLSPEED = Math.round(getRandomFromInterval(BRUSHFULLSPEEDMIN, BRUSHFULLSPEEDMAX) * 100) / 100;
+// let BRUSHFULLSPEEDLABEL = label_feature(BRUSHFULLSPEED, BRUSHFULLSPEEDMIN, BRUSHFULLSPEEDMAX);
+
+// let ROUGHYPUFFYRANGE = [0.1, 0.2, 0.3];
+// let ROUGHYPUFFY = getRandomFromList(ROUGHYPUFFYRANGE);
+// console.log("ROUGHYPUFFY:" + ROUGHYPUFFY);
+// let ROUGHYPUFFYLABEL = label_feature(ROUGHYPUFFY, Math.min(...ROUGHYPUFFYRANGE), Math.max(...ROUGHYPUFFYRANGE));
+
+// let BRUSHDIRECTIONLABEL;
+// let BRUSHDIRECTION = getRandomFromList([0.25, 0.5, 0.75]);
+// console.log("BRUSHDIRECTION:" + BRUSHDIRECTION);
+// if (BRUSHDIRECTION == 0.25) {
+//   BRUSHDIRECTIONLABEL = "horizontal";
+// } else if (BRUSHDIRECTION == 0.5) {
+//   BRUSHDIRECTIONLABEL = "both";
+// } else {
+//   BRUSHDIRECTIONLABEL = "vertical";
+// };
 
 const PALETTESYSTEM = {
   "Boom": {
@@ -139,8 +140,8 @@ function setup() {
 
   scaleDynamically();
 
-  canvas = createCanvas(rescaling_width, rescaling_height, WEBGL);
-  // canvas = createCanvas(rescaling_width, rescaling_height);
+  // canvas = createCanvas(rescaling_width, rescaling_height, WEBGL);
+  canvas = createCanvas(rescaling_width, rescaling_height);
 
   canvas.id('badAssCanvas');
   if (FRAMED) {
@@ -150,7 +151,7 @@ function setup() {
   }
 
   // camM = createCamera();
-  cam1 = createCamera();
+  // cam1 = createCamera();
   // cam1.perspective();
   // cam1.ortho();
 
@@ -164,6 +165,8 @@ function setup() {
     console.log("Display density: " + displayDensity());
     // console.log("Pixel density: " + pixelDensity())
   }
+
+  gridly = new Gridly();
 
   // BRUSH example
   // A1 = createVector(0.2 * DOMINANTSIDE, width / 2, 0);
@@ -214,6 +217,7 @@ function draw() {
   //   camera(0, 700, 0, 0, 0, 0, 0, 0, 1);
   // }
 
+
   // ambientLight(255, 255, 255);
   // directionalLight(200, 200, 200, 1, -1, 0);
   // pointLight(155, 155, 155, 20 * conv, 0 * conv, -30 * conv)
@@ -229,6 +233,10 @@ function draw() {
     // cam1.setPosition(0, 0, 200);
     // cam1.lookAt(-100, 0, 0);
   }
+
+  // background(230);
+
+  gridly.show();
 
   // hatchesHigh.show();
   // hatchesLong.show();
@@ -246,6 +254,13 @@ function draw() {
 
   // brushBug.update();
   // brushBug.show();
+
+  if (frameCount == 50) {
+    if (gridly.done == true) {
+      ALLDONE = true;
+    }
+  }
+
 
   if (ALLDONE == true) {
     console.log("All done");
