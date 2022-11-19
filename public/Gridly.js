@@ -1,28 +1,31 @@
 class Gridly {
 
-    constructor() {
-        this.countX = 30;
-        this.countY = 60;
-        this.marginX = width * 0.03;
-        this.marginY = height * 0.03;
-        this.distortX = width * 0.01;
-        this.distortY = height * 0.01; // 0.04
+    constructor(data) {
+        this.countX = data.countX;
+        this.countY = data.countY;
+        this.marginX = data.marginX;
+        this.marginY = data.marginY;
+        this.distortX = data.distortX;
+        this.distortY = data.distortY; // 0.04
+        this.once = data.once;
 
         this.stepX = (width - this.marginX * 2) / this.countX;
         this.stepY = (height - this.marginY * 2) / this.countY;
 
-        // this.points = [];
-        // var rowPoints;
-        // for (var row = this.marginY; row < (height - this.marginY); row += this.stepY) {
-        //     rowPoints = [];
-        //     for (var column = this.marginX; column < (width - this.marginX); column += this.stepX) {
-        //         rowPoints.push(createVector(
-        //             column + getRandomFromInterval(-this.distortX, this.distortX),
-        //             row + getRandomFromInterval(-this.distortY, this.distortY)
-        //         ));
-        //     }
-        //     this.points.push(rowPoints);
-        // }
+        if (this.once == true) {
+            this.points = [];
+            var rowPoints;
+            for (var row = this.marginY; row < (height - this.marginY); row += this.stepY) {
+                rowPoints = [];
+                for (var column = this.marginX; column < (width - this.marginX); column += this.stepX) {
+                    rowPoints.push(createVector(
+                        column + getRandomFromInterval(-this.distortX, this.distortX),
+                        row + getRandomFromInterval(-this.distortY, this.distortY)
+                    ));
+                }
+                this.points.push(rowPoints);
+            }
+        }
 
         // stroke(color(50));
         // strokeWeight(getRandomFromInterval(0.2, 1.5));
@@ -32,18 +35,19 @@ class Gridly {
 
 
     show() {
-
-        this.points = [];
-        var rowPoints;
-        for (var row = this.marginY; row < (height - this.marginY); row += this.stepY) {
-            rowPoints = [];
-            for (var column = this.marginX; column < (width - this.marginX); column += this.stepX) {
-                rowPoints.push(createVector(
-                    column + getRandomFromInterval(-this.distortX, this.distortX),
-                    row + getRandomFromInterval(-this.distortY, this.distortY)
-                ));
+        if (this.once == false) {
+            this.points = [];
+            var rowPoints;
+            for (var row = this.marginY; row < (height - this.marginY); row += this.stepY) {
+                rowPoints = [];
+                for (var column = this.marginX; column < (width - this.marginX); column += this.stepX) {
+                    rowPoints.push(createVector(
+                        column + getRandomFromInterval(-this.distortX, this.distortX),
+                        row + getRandomFromInterval(-this.distortY, this.distortY)
+                    ));
+                }
+                this.points.push(rowPoints);
             }
-            this.points.push(rowPoints);
         }
 
         for (var i = 0; i < (this.points.length); i++) {

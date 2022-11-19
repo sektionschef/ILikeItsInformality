@@ -166,7 +166,24 @@ function setup() {
     // console.log("Pixel density: " + pixelDensity())
   }
 
-  gridly = new Gridly();
+  gridly_background = new Gridly({
+    countX: 50,
+    countY: 100,
+    marginX: width * 0.03,
+    marginY: height * 0.03,
+    distortX: width * 0.01,
+    distortY: height * 0.01, // 0.04
+    once: false,
+  });
+  gridly_foreground = new Gridly({
+    countX: 20,
+    countY: 50,
+    marginX: width * 0.08,
+    marginY: height * 0.08,
+    distortX: width * 0.02,
+    distortY: height * 0.02, // 0.04
+    once: true,
+  });
 
   // BRUSH example
   // A1 = createVector(0.2 * DOMINANTSIDE, width / 2, 0);
@@ -225,18 +242,19 @@ function draw() {
   // specularMaterial(255);
 
   if (MODE == 5) {
-    background(200);
+    background(230);
   }
 
   if (frameCount == 1) {
     pixelDensity(CURRENTPIXELDENS);
     // cam1.setPosition(0, 0, 200);
     // cam1.lookAt(-100, 0, 0);
+    background(255);
   }
 
-  // background(230);
 
-  gridly.show();
+  gridly_foreground.show();
+  gridly_background.show();
 
   // hatchesHigh.show();
   // hatchesLong.show();
@@ -256,7 +274,7 @@ function draw() {
   // brushBug.show();
 
   if (frameCount == 50) {
-    if (gridly.done == true) {
+    if (gridly_background.done == true) {
       ALLDONE = true;
     }
   }
