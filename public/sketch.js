@@ -169,8 +169,8 @@ function setup() {
   // gridly_background = new Gridly({
   //   countX: 50,
   //   countY: 100,
-  //   marginX: width * 0.03,
-  //   marginY: height * 0.03,
+  //   marginX: DOMINANTSIDE * 0.03,
+  //   marginY: DOMINANTSIDE * 0.03,
   //   distortX: width * 0.01,
   //   distortY: height * 0.01, // 0.04
   //   once: false,
@@ -178,8 +178,8 @@ function setup() {
   // gridly_foreground = new Gridly({
   //   countX: 10,
   //   countY: 40,
-  //   marginX: width * 0.08,
-  //   marginY: height * 0.08,
+  //   marginX: DOMINANTSIDE * 0.08,
+  //   marginY: DOMINANTSIDE * 0.08,
   //   distortX: width * 0.02,
   //   distortY: height * 0.04, // 0.04
   //   once: true,
@@ -217,6 +217,16 @@ function setup() {
   // hatchesLong = new Hatches("yx", createVector(100, 100), createVector(750, 300), color(30), 0, 0, DISTANCE_BETWEEN_LINES);
 
   // hatchesBug = new Hatches("y", createVector(717, 50), createVector(898, 898), color(30), 0, 0, DISTANCE_BETWEEN_LINES);
+
+  pixies = new Pixies({
+    inc: 0.004,  // noise increase for perlin noise
+    gain: -255,
+    colorBackground: undefined, // color(colors[PALETTE].background),  // drawn pixels for background
+    colorForeground: color(130), // drawn pixels for noise
+    distortion: 0.2,  // random misplacement of the boxes
+    density: 7,
+    margin: 0.06 * DOMINANTSIDE, // distance to the edge
+  });
 }
 
 
@@ -249,7 +259,9 @@ function draw() {
     pixelDensity(CURRENTPIXELDENS);
     // cam1.setPosition(0, 0, 200);
     // cam1.lookAt(-100, 0, 0);
-    background(255);
+
+    background(230);
+
   }
 
 
@@ -273,11 +285,14 @@ function draw() {
   // brushBug.update();
   // brushBug.show();
 
-  if (frameCount == 20) {
-    if (gridly_background.done == true) {
-      ALLDONE = true;
-    }
-  }
+
+  // if (frameCount == 20) {
+  //   if (gridly_background.done == true) {
+  //     ALLDONE = true;
+  //   }
+  // }
+
+  image(pixies.buffer, 0, 0);
 
 
   if (ALLDONE == true) {
