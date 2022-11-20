@@ -11,6 +11,8 @@ let canvas;
 let rescaling_width;
 let rescaling_height;
 
+let foglyPoints = [];
+
 let PALETTE;
 let PALETTE_LABEL;
 let ALLDONE = false;
@@ -161,6 +163,10 @@ function setup() {
 
   // setCamera(cam1);
 
+  for (var i = 0; i < 500; i++) {
+    foglyPoints.push(createVector(Math.round(getRandomFromInterval(0, width)), Math.round(getRandomFromInterval(0, height))));
+  }
+
   if (MODE > 1) {
     console.log("Display density: " + displayDensity());
     // console.log("Pixel density: " + pixelDensity())
@@ -267,10 +273,11 @@ function draw() {
 
   }
 
-
   gridly_foreground.show();
 
-  sunnybunny.show();
+  // console.log(foglyPoints);
+
+  // sunnybunny.show();
 
   // gridly_background.show();
 

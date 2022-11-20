@@ -59,11 +59,18 @@ class Pixies {
                     this.showNoise(index, randomGaussian(0, 5));
 
                     if (index % _density_ == 0) {
-                        this.showNoise(index, randomGaussian(0, 15))
+                        this.showNoise(index, randomGaussian(0, 5))
                     }
 
                     if (pointInPolygon(sunnybunny.coordsList, [x, y])) {
-                        this.showNoise(index, randomGaussian(0, 25));
+                        this.showNoise(index, randomGaussian(0, 15));
+                    }
+
+
+                    for (var i = 0; i < foglyPoints.length; i++) {
+                        if (x == foglyPoints[i].x && y == foglyPoints[i].y) {
+                            this.showNoise(index, 100)
+                        }
                     }
 
                     // if (random() > 0.75) {
