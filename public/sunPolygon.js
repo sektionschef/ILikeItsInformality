@@ -2,13 +2,6 @@ class sunPolygon {
 
     constructor() {
 
-        // sunPolygon = [
-        //   createVector(-0.05 * DOMINANTSIDE, 0.05 * DOMINANTSIDE),
-        //   createVector(0.05 * DOMINANTSIDE, -0.05 * DOMINANTSIDE),
-        //   createVector(width + 0.05 * DOMINANTSIDE, height - 0.05 * DOMINANTSIDE),
-        //   createVector(width - 0.05 * DOMINANTSIDE, height + 0.05 * DOMINANTSIDE),
-        // ]
-
         this.coords = [
             createVector(getRandomFromInterval(0.15, 0.40) * DOMINANTSIDE, getRandomFromInterval(-0.2, 0.3) * DOMINANTSIDE),
             createVector(getRandomFromInterval(0.50, 0.70) * DOMINANTSIDE, getRandomFromInterval(-0.2, 0.3) * DOMINANTSIDE),
@@ -27,7 +20,6 @@ class sunPolygon {
 
     show() {
         push();
-        translate(-width / 2, -height / 2);
         noFill();
         beginShape();
         vertex(this.coords[0].x, this.coords[0].y);
@@ -40,11 +32,12 @@ class sunPolygon {
         pop();
 
         // check polygon script manually
-        push();
-        translate(-width / 2, -height / 2);
-        translate(mouseX, mouseY);
-        ellipse(0, 0, 30)
-        console.log(pointInPolygon(this.coordsList, [mouseX, mouseY]));
-        pop();
+        if (MODE > 1) {
+            push();
+            translate(mouseX, mouseY);
+            ellipse(0, 0, 30)
+            console.log(pointInPolygon(this.coordsList, [mouseX, mouseY]));
+            pop();
+        }
     }
 }

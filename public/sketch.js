@@ -175,15 +175,17 @@ function setup() {
   //   distortY: height * 0.01, // 0.04
   //   once: false,
   // });
-  // gridly_foreground = new Gridly({
-  //   countX: 10,
-  //   countY: 40,
-  //   marginX: DOMINANTSIDE * 0.08,
-  //   marginY: DOMINANTSIDE * 0.08,
-  //   distortX: width * 0.02,
-  //   distortY: height * 0.04, // 0.04
-  //   once: true,
-  // });
+  gridly_foreground = new Gridly({
+    countX: 10,
+    countY: 40,
+    marginX: DOMINANTSIDE * 0.08,
+    marginY: DOMINANTSIDE * 0.08,
+    distortX: width * 0.02,
+    distortY: height * 0.04, // 0.04
+    once: true,
+  });
+
+  sunnybunny = new sunPolygon();
 
   // BRUSH example
   // A1 = createVector(0.2 * DOMINANTSIDE, width / 2, 0);
@@ -260,12 +262,16 @@ function draw() {
     // cam1.setPosition(0, 0, 200);
     // cam1.lookAt(-100, 0, 0);
 
-    background(230);
+    // background(230);
+    image(pixies.buffer, 0, 0);
 
   }
 
 
-  // gridly_foreground.show();
+  gridly_foreground.show();
+
+  sunnybunny.show();
+
   // gridly_background.show();
 
   // hatchesHigh.show();
@@ -286,13 +292,11 @@ function draw() {
   // brushBug.show();
 
 
-  // if (frameCount == 20) {
-  //   if (gridly_background.done == true) {
-  //     ALLDONE = true;
-  //   }
-  // }
-
-  image(pixies.buffer, 0, 0);
+  if (frameCount == 20) {
+    // if (gridly_background.done == true) {
+    ALLDONE = true;
+    // }
+  }
 
 
   if (ALLDONE == true) {

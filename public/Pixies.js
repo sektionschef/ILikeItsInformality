@@ -49,14 +49,23 @@ class Pixies {
 
                 // margin
                 if (
-                    (index % _density_ == 0) &&
+                    // (index % _density_ == 0) &&
                     (index % (this.buffer.width * 4) > this.margin * 4) &&  // horizontal left
                     (index % (this.buffer.width * 4) < ((this.buffer.width - (this.margin)) * 4)) &&  // horizontal right
                     (index > (this.buffer.width * (this.margin)) * 4) && // vertical top
                     (index < (this.totalPixels - this.buffer.width * (this.margin) * 4))  // vertical bottom
                 ) {
 
-                    this.showNoise(index, 0);
+                    this.showNoise(index, randomGaussian(0, 5));
+
+                    if (index % _density_ == 0) {
+                        this.showNoise(index, randomGaussian(0, 15))
+                    }
+
+                    if (pointInPolygon(sunnybunny.coordsList, [x, y])) {
+                        this.showNoise(index, randomGaussian(0, 25));
+                    }
+
                     // if (random() > 0.75) {
                     //     this.draw_big_dot(index, _soft_gain_);
                     // } else {
@@ -75,7 +84,6 @@ class Pixies {
 
     showNoise(index, gain) {
         // this pixel
-        gain = randomGaussian(0, 155);
         this.buffer.pixels[index + 0] = red(this.colorForeground) + gain;
         this.buffer.pixels[index + 1] = green(this.colorForeground) + gain;
         this.buffer.pixels[index + 2] = blue(this.colorForeground) + gain;
