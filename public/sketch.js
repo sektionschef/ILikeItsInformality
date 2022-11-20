@@ -166,24 +166,24 @@ function setup() {
     // console.log("Pixel density: " + pixelDensity())
   }
 
-  gridly_background = new Gridly({
-    countX: 50,
-    countY: 100,
-    marginX: width * 0.03,
-    marginY: height * 0.03,
-    distortX: width * 0.01,
-    distortY: height * 0.01, // 0.04
-    once: false,
-  });
-  gridly_foreground = new Gridly({
-    countX: 20,
-    countY: 50,
-    marginX: width * 0.08,
-    marginY: height * 0.08,
-    distortX: width * 0.02,
-    distortY: height * 0.02, // 0.04
-    once: true,
-  });
+  // gridly_background = new Gridly({
+  //   countX: 50,
+  //   countY: 100,
+  //   marginX: width * 0.03,
+  //   marginY: height * 0.03,
+  //   distortX: width * 0.01,
+  //   distortY: height * 0.01, // 0.04
+  //   once: false,
+  // });
+  // gridly_foreground = new Gridly({
+  //   countX: 10,
+  //   countY: 40,
+  //   marginX: width * 0.08,
+  //   marginY: height * 0.08,
+  //   distortX: width * 0.02,
+  //   distortY: height * 0.04, // 0.04
+  //   once: true,
+  // });
 
   // BRUSH example
   // A1 = createVector(0.2 * DOMINANTSIDE, width / 2, 0);
@@ -253,8 +253,8 @@ function draw() {
   }
 
 
-  gridly_foreground.show();
-  gridly_background.show();
+  // gridly_foreground.show();
+  // gridly_background.show();
 
   // hatchesHigh.show();
   // hatchesLong.show();
@@ -273,7 +273,7 @@ function draw() {
   // brushBug.update();
   // brushBug.show();
 
-  if (frameCount == 50) {
+  if (frameCount == 20) {
     if (gridly_background.done == true) {
       ALLDONE = true;
     }

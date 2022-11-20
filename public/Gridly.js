@@ -1,12 +1,12 @@
 class Gridly {
 
     constructor(data) {
-        this.countX = data.countX;
-        this.countY = data.countY;
+        this.countX = data.countX;  // amount of dots X
+        this.countY = data.countY;  // amount of dots Y
         this.marginX = data.marginX;
         this.marginY = data.marginY;
         this.distortX = data.distortX;
-        this.distortY = data.distortY; // 0.04
+        this.distortY = data.distortY;
         this.once = data.once;
 
         this.stepX = (width - this.marginX * 2) / this.countX;
@@ -17,7 +17,7 @@ class Gridly {
             var rowPoints;
             for (var row = this.marginY; row < (height - this.marginY); row += this.stepY) {
                 rowPoints = [];
-                for (var column = this.marginX; column < (width - this.marginX); column += this.stepX) {
+                for (var column = this.marginX; column < (width); column += this.stepX) {
                     rowPoints.push(createVector(
                         column + getRandomFromInterval(-this.distortX, this.distortX),
                         row + getRandomFromInterval(-this.distortY, this.distortY)
