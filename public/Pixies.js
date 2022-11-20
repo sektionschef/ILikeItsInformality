@@ -56,20 +56,18 @@ class Pixies {
                     (index < (this.totalPixels - this.buffer.width * (this.margin) * 4))  // vertical bottom
                 ) {
 
-                    this.showNoise(index, randomGaussian(0, 5));
-
-                    if (index % _density_ == 0) {
-                        this.showNoise(index, randomGaussian(0, 5))
-                    }
+                    this.showColor(index, color("#60608b"), 5)
 
                     if (pointInPolygon(sunnybunny.coordsList, [x, y])) {
-                        this.showNoise(index, randomGaussian(0, 15));
+                        this.showColor(index, color("#8e8ee7"), 5)
+                        this.showGradient(index);
                     }
 
-
+                    // fields
                     for (var i = 0; i < foglyPoints.length; i++) {
+                        // console.log(foglyPoints[i].x)
                         if (x == foglyPoints[i].x && y == foglyPoints[i].y) {
-                            this.showNoise(index, 100)
+                            this.showColor(index, color("#4f4f9c"), 0);
                         }
                     }
 
@@ -79,6 +77,11 @@ class Pixies {
                     //     this.draw_small_dot(index, _gain_);
                     // }
                     // _density_ = this.density + Math.round(this.density * getP5RandomFromInterval(-this.distortion, this.distortion));
+
+                    // GRID TEXTURE
+                    // if (index % _density_ == 0) {
+                    //     this.changeColor(index, abs(Math.round(randomGaussian(0, 15))))
+                    // }
                 }
                 xoff += this.inc;
             }
@@ -89,12 +92,32 @@ class Pixies {
 
     }
 
-    showNoise(index, gain) {
-        // this pixel
-        this.buffer.pixels[index + 0] = red(this.colorForeground) + gain;
-        this.buffer.pixels[index + 1] = green(this.colorForeground) + gain;
-        this.buffer.pixels[index + 2] = blue(this.colorForeground) + gain;
-        this.buffer.pixels[index + 3] = alpha(this.colorForeground);
+    // change existing color
+    changeColor(index, gain) {
+        this.buffer.pixels[index + 0] += gain;
+        this.buffer.pixels[index + 1] += gain;
+        this.buffer.pixels[index + 2] += gain;
+        // this.buffer.pixels[index + 3] = 
+    }
+
+    // Farbe mit Distort anzeigen
+    showColor(index, colorObject, gain) {
+        var distort = + randomGaussian(0, gain);
+        this.buffer.pixels[index + 0] = red(colorObject) + distort;
+        this.buffer.pixels[index + 1] = green(colorObject) + distort;
+        this.buffer.pixels[index + 2] = blue(colorObject) + distort;
+        this.buffer.pixels[index + 3] = alpha(colorObject);
+    }
+
+    showGradient(index) {
+        // not everywhere
+        if (index % abs(Math.round(randomGaussian(0, 10))) == 0) {
+            var grain = map(index / (this.buffer.width * 4), 0, this.buffer.height, -40, 40)
+
+            this.buffer.pixels[index + 0] += grain;
+            this.buffer.pixels[index + 1] += grain;
+            this.buffer.pixels[index + 2] += grain;
+        }
     }
 
     // draw_small_dot(index, gain) {

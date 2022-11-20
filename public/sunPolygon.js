@@ -3,10 +3,10 @@ class sunPolygon {
     constructor() {
 
         this.coords = [
-            createVector(getRandomFromInterval(0.15, 0.40) * DOMINANTSIDE, getRandomFromInterval(-0.2, 0.3) * DOMINANTSIDE),
-            createVector(getRandomFromInterval(0.50, 0.70) * DOMINANTSIDE, getRandomFromInterval(-0.2, 0.3) * DOMINANTSIDE),
-            createVector(width - getRandomFromInterval(0.15, 0.40) * DOMINANTSIDE, height - getRandomFromInterval(-0.2, 0.3) * DOMINANTSIDE),
-            createVector(width - getRandomFromInterval(0.50, 0.70) * DOMINANTSIDE, height - getRandomFromInterval(-0.2, 0.3) * DOMINANTSIDE),
+            createVector(getRandomFromInterval(0.15, 0.40) * DOMINANTSIDE, getRandomFromInterval(0.1, 0.3) * DOMINANTSIDE),
+            createVector(getRandomFromInterval(0.50, 0.80) * DOMINANTSIDE, getRandomFromInterval(0.1, 0.3) * DOMINANTSIDE),
+            createVector(width - getRandomFromInterval(0.15, 0.40) * DOMINANTSIDE, height - getRandomFromInterval(0.1, 0.3) * DOMINANTSIDE),
+            createVector(width - getRandomFromInterval(0.50, 0.70) * DOMINANTSIDE, height - getRandomFromInterval(0.1, 0.3) * DOMINANTSIDE),
         ]
 
         // check polygon script manually
