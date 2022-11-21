@@ -174,28 +174,6 @@ function setup() {
   //   }
   // }
 
-  sunnybunny = new sunPolygon();
-
-  widthy = sunnybunny.coordsList[1][0] - sunnybunny.coordsList[0][0];
-  heighty = sunnybunny.coordsList[1][1] - sunnybunny.coordsList[0][1];
-  stepy = heighty / widthy;
-
-  for (var v = 0; v < 5; v++) {
-    for (var i = 0; i < widthy; i++) {
-      // console.log(i);
-      foglyPoints.push(createVector(
-        Math.round(sunnybunny.coordsList[0][0] + i),
-        Math.round(sunnybunny.coordsList[0][1] + stepy * i + abs(randomGaussian(0, 10)))
-      ))
-    }
-  }
-
-
-
-  if (MODE > 1) {
-    console.log("Display density: " + displayDensity());
-    // console.log("Pixel density: " + pixelDensity())
-  }
 
   // gridly_background = new Gridly({
   //   countX: 50,
@@ -206,15 +184,25 @@ function setup() {
   //   distortY: height * 0.01, // 0.04
   //   once: false,
   // });
-  // gridly_foreground = new Gridly({
-  //   countX: 10,
-  //   countY: 40,
-  //   marginX: DOMINANTSIDE * 0.08,
-  //   marginY: DOMINANTSIDE * 0.08,
-  //   distortX: width * 0.02,
-  //   distortY: height * 0.04, // 0.04
-  //   once: true,
-  // });
+  gridly_foreground = new Gridly({
+    countX: 10,
+    countY: 40,
+    marginX: DOMINANTSIDE * 0.08,
+    marginY: DOMINANTSIDE * 0.08,
+    distortX: width * 0.02,
+    distortY: height * 0.04, // 0.04
+    once: true,
+  });
+
+
+  sunnybunny = new sunPolygon();
+
+
+
+  if (MODE > 1) {
+    console.log("Display density: " + displayDensity());
+    // console.log("Pixel density: " + pixelDensity())
+  }
 
   // BRUSH example
   // A1 = createVector(0.2 * DOMINANTSIDE, width / 2, 0);
@@ -296,7 +284,7 @@ function draw() {
 
   }
 
-  // gridly_foreground.show();
+  gridly_foreground.show();
 
   // console.log(foglyPoints);
 

@@ -16,6 +16,10 @@ class Pixies {
 
         this.softNoiseFeature = true;
 
+        this.foglyPoints = [];
+
+        this.gradientLineDefine(gridly_foreground.points[0][0], gridly_foreground.points[0][1]);
+
         this.show();
     }
 
@@ -64,12 +68,8 @@ class Pixies {
                     }
 
                     // fields
-                    for (var i = 0; i < foglyPoints.length; i++) {
-                        // console.log(foglyPoints[i].x)
-                        if (x == foglyPoints[i].x && y == foglyPoints[i].y) {
-                            this.showColor(index, color("#4f4f9c"), 0);
-                        }
-                    }
+                    this.gradientLineShow(x, y, index);
+
 
                     // if (random() > 0.75) {
                     //     this.draw_big_dot(index, _soft_gain_);
@@ -119,6 +119,46 @@ class Pixies {
             this.buffer.pixels[index + 2] += grain;
         }
     }
+
+    gradientLineDefine(A, B) {
+
+        var noiseLoops = 10;
+        var noiseDistance = 10;
+
+        // widthy = sunnybunny.coordsList[1][0] - sunnybunny.coordsList[0][0];
+        // heighty = sunnybunny.coordsList[1][1] - sunnybunny.coordsList[0][1];
+
+        // widthy = gridly_foreground.points[0][1].x - gridly_foreground.points[0][0].x;
+        // heighty = gridly_foreground.points[0][1].y - gridly_foreground.points[0][0].y;
+
+        var widthy = B.x - A.x;
+        var heighty = B.y - A.y;
+
+        var stepy = heighty / widthy;
+
+        for (var v = 0; v < noiseLoops; v++) {
+            for (var i = 0; i < widthy; i++) {
+                // console.log(i);
+                this.foglyPoints.push(createVector(
+                    // Math.round(sunnybunny.coordsList[0][0] + i),
+                    // Math.round(sunnybunny.coordsList[0][1] + stepy * i + abs(randomGaussian(0, 10)))
+
+                    Math.round(A.x + i),
+                    Math.round(A.y + stepy * i + abs(randomGaussian(0, noiseDistance)))
+                ))
+            }
+        }
+    }
+
+    gradientLineShow(x, y, index) {
+        for (var i = 0; i < this.foglyPoints.length; i++) {
+            // console.log(foglyPoints[i].x)
+            if (x == this.foglyPoints[i].x && y == this.foglyPoints[i].y) {
+                this.showColor(index, color("#63a724"), 0);
+            }
+        }
+    }
+
 
     // draw_small_dot(index, gain) {
     //     // this pixel

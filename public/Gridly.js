@@ -30,7 +30,8 @@ class Gridly {
         // stroke(color(50));
         // strokeWeight(getRandomFromInterval(0.2, 1.5));
 
-        // console.log(this.points);
+        // console.log(this.points[6][0]);
+        // console.log(this.points[6][1]);
     }
 
 
