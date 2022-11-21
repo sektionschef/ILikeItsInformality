@@ -56,7 +56,7 @@ class Pixies {
                     (index < (this.totalPixels - this.buffer.width * (this.margin) * 4))  // vertical bottom
                 ) {
 
-                    this.showColor(index, color("#60608b"), 5)
+                    this.showColor(index, color("#60608b"), 3)
 
                     if (pointInPolygon(sunnybunny.coordsList, [x, y])) {
                         this.showColor(index, color("#8e8ee7"), 5)
@@ -112,7 +112,7 @@ class Pixies {
     showGradient(index) {
         // not everywhere
         if (index % abs(Math.round(randomGaussian(0, 10))) == 0) {
-            var grain = map(index / (this.buffer.width * 4), 0, this.buffer.height, -40, 40)
+            var grain = map(index / (this.buffer.width * 4), 0, this.buffer.height, -60, 60)
 
             this.buffer.pixels[index + 0] += grain;
             this.buffer.pixels[index + 1] += grain;

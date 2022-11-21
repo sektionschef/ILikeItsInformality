@@ -176,12 +176,16 @@ function setup() {
 
   sunnybunny = new sunPolygon();
 
+  widthy = sunnybunny.coordsList[1][0] - sunnybunny.coordsList[0][0];
+  heighty = sunnybunny.coordsList[1][1] - sunnybunny.coordsList[0][1];
+  stepy = heighty / widthy;
+
   for (var v = 0; v < 5; v++) {
-    for (var i = 0; i < abs(sunnybunny.coordsList[1][0] - sunnybunny.coordsList[0][0]); i++) {
+    for (var i = 0; i < widthy; i++) {
       // console.log(i);
       foglyPoints.push(createVector(
         Math.round(sunnybunny.coordsList[0][0] + i),
-        Math.round(sunnybunny.coordsList[0][1] + abs(randomGaussian(0, 10)))
+        Math.round(sunnybunny.coordsList[0][1] + stepy * i + abs(randomGaussian(0, 10)))
       ))
     }
   }
@@ -252,7 +256,7 @@ function setup() {
     colorForeground: color(130), // drawn pixels for noise
     distortion: 0.2,  // random misplacement of the boxes
     density: 7,
-    margin: 0.06 * DOMINANTSIDE, // distance to the edge
+    margin: Math.round(0.06 * DOMINANTSIDE), // distance to the edge
   });
 }
 
@@ -324,7 +328,8 @@ function draw() {
     // }
   }
 
-  line(sunnybunny.coordsList[0][0], sunnybunny.coordsList[0][1], sunnybunny.coordsList[1][0], sunnybunny.coordsList[1][1])
+  // show line sunnybunny
+  // line(sunnybunny.coordsList[0][0], sunnybunny.coordsList[0][1], sunnybunny.coordsList[1][0], sunnybunny.coordsList[1][1])
 
   if (ALLDONE == true) {
     console.log("All done");
