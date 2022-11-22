@@ -18,7 +18,8 @@ class Pixies {
 
         this.foglyPoints = [];
 
-        this.gradientLineDefine(gridly_foreground.points[0][0], gridly_foreground.points[0][1]);
+        // gradientLine
+        // this.gradientLineDefine(gridly_foreground.points[0][0], gridly_foreground.points[0][1]);
 
         this.show();
     }
@@ -26,6 +27,9 @@ class Pixies {
     show() {
 
         var _density_ = this.density;
+
+        var currentBlock;
+        var nextBlock;
 
         this.buffer.push();
         this.buffer.loadPixels();
@@ -62,13 +66,22 @@ class Pixies {
 
                     this.showColor(index, color("#60608b"), 3)
 
-                    if (pointInPolygon(sunnybunny.coordsList, [x, y])) {
-                        this.showColor(index, color("#8e8ee7"), 5)
-                        this.showGradient(index);
-                    }
+                    // if (pointInPolygon(sunnybunny.coordsList, [x, y])) {
+                    //     this.showColor(index, color("#8e8ee7"), 5)
+                    //     this.showGradient(index);
+                    // }
 
                     // fields
-                    this.gradientLineShow(x, y, index);
+                    // this.gradientLineShow(x, y, index);
+
+                    // this.showFatPixle(x, y, index);
+
+                    for (var i = 0; i < (pixelGrid.leftUpperCorners.length - 1); i++) {
+                        currentBlock = pixelGrid.leftUpperCorners[i];
+                        if (x >= currentBlock.posStart.x && x < currentBlock.posStop.x && y >= currentBlock.posStart.y && y < currentBlock.posStop.y) {
+                            this.showColor(index, currentBlock.color, 10)
+                        }
+                    }
 
 
                     // if (random() > 0.75) {
@@ -159,6 +172,25 @@ class Pixies {
         }
     }
 
+    showFatPixle(x, y, index) {
+
+        var start = createVector(0, 0);
+        var stop = createVector(150, 150);
+
+
+        if (x == stop.x && y == stop.y) {
+            for (var i = 0; i < (stop.x + stop.y * this.buffer.width) * 4; i++) {
+                // console.log(i);
+
+                this.showColor(i, color(0), 0)
+
+                // this.buffer.pixels[i + 0] = 0;
+                // this.buffer.pixels[i + 1] = 0;
+                // this.buffer.pixels[i + 2] = 100;
+                // this.buffer.pixels[i + 3] = 155;
+            }
+        }
+    }
 
     // draw_small_dot(index, gain) {
     //     // this pixel

@@ -18,6 +18,7 @@ let PALETTE_LABEL;
 let ALLDONE = false;
 let DOMINANTSIDE;  // side which is the limiting factor
 
+let MARGIN;
 let RESCALINGCONSTANT = 800;  // the width the painting was designed in
 let FRAMEDWIDTH = 800;
 let FRAMED = false;
@@ -152,6 +153,8 @@ function setup() {
     canvas.parent("canvasHolderPlain");
   }
 
+  MARGIN = Math.round(0.06 * DOMINANTSIDE);
+
   // camM = createCamera();
   // cam1 = createCamera();
   // cam1.perspective();
@@ -184,15 +187,17 @@ function setup() {
   //   distortY: height * 0.01, // 0.04
   //   once: false,
   // });
-  gridly_foreground = new Gridly({
-    countX: 10,
-    countY: 40,
-    marginX: DOMINANTSIDE * 0.08,
-    marginY: DOMINANTSIDE * 0.08,
-    distortX: width * 0.02,
-    distortY: height * 0.04, // 0.04
-    once: true,
-  });
+  // gridly_foreground = new Gridly({
+  //   countX: 10,
+  //   countY: 40,
+  //   marginX: DOMINANTSIDE * 0.08,
+  //   marginY: DOMINANTSIDE * 0.08,
+  //   distortX: width * 0.02,
+  //   distortY: height * 0.04, // 0.04
+  //   once: true,
+  // });
+
+  pixelGrid = new PixelGrid({});
 
 
   sunnybunny = new sunPolygon();
@@ -244,7 +249,7 @@ function setup() {
     colorForeground: color(130), // drawn pixels for noise
     distortion: 0.2,  // random misplacement of the boxes
     density: 7,
-    margin: Math.round(0.06 * DOMINANTSIDE), // distance to the edge
+    margin: MARGIN, // distance to the edge
   });
 }
 
@@ -279,12 +284,12 @@ function draw() {
     // cam1.setPosition(0, 0, 200);
     // cam1.lookAt(-100, 0, 0);
 
-    // background(230);
+    background(170);
     image(pixies.buffer, 0, 0);
 
   }
 
-  gridly_foreground.show();
+  // gridly_foreground.show();
 
   // console.log(foglyPoints);
 
