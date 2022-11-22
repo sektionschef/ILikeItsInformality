@@ -3,9 +3,10 @@ class PixelGrid {
 
     constructor(data) {
         this.margin = MARGIN;
-        this.blockSize = Math.round((DOMINANTSIDE - 2 * this.margin) * 0.05);
+        this.blockNumber = 20;
+        this.blockSize = (DOMINANTSIDE - 2 * this.margin) / this.blockNumber;
         this.blockColors = [color(20), color(70), color(130), color(160), color(200), color(230)];
-        console.log("blocksize: " + this.blockSize);
+        // console.log("blocksize: " + this.blockSize);
 
         this.leftUpperCorners = [];
 
@@ -20,9 +21,5 @@ class PixelGrid {
                 });
             }
         }
-
-        console.log(this.leftUpperCorners[0]);
-        console.log(this.leftUpperCorners[1]);
-
     }
 }

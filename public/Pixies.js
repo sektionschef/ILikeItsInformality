@@ -29,7 +29,6 @@ class Pixies {
         var _density_ = this.density;
 
         var currentBlock;
-        var nextBlock;
 
         this.buffer.push();
         this.buffer.loadPixels();
@@ -64,7 +63,8 @@ class Pixies {
                     (index < (this.totalPixels - this.buffer.width * (this.margin) * 4))  // vertical bottom
                 ) {
 
-                    this.showColor(index, color("#60608b"), 3)
+                    // SIMPLE COLOR
+                    // this.showColor(index, color("#60608b"), 3)
 
                     // if (pointInPolygon(sunnybunny.coordsList, [x, y])) {
                     //     this.showColor(index, color("#8e8ee7"), 5)
@@ -76,13 +76,13 @@ class Pixies {
 
                     // this.showFatPixle(x, y, index);
 
-                    for (var i = 0; i < (pixelGrid.leftUpperCorners.length - 1); i++) {
+
+                    for (var i = 0; i < (pixelGrid.leftUpperCorners.length); i++) {
                         currentBlock = pixelGrid.leftUpperCorners[i];
                         if (x >= currentBlock.posStart.x && x < currentBlock.posStop.x && y >= currentBlock.posStart.y && y < currentBlock.posStop.y) {
                             this.showColor(index, currentBlock.color, 10)
                         }
                     }
-
 
                     // if (random() > 0.75) {
                     //     this.draw_big_dot(index, _soft_gain_);
@@ -92,9 +92,18 @@ class Pixies {
                     // _density_ = this.density + Math.round(this.density * getP5RandomFromInterval(-this.distortion, this.distortion));
 
                     // GRID TEXTURE
-                    // if (index % _density_ == 0) {
-                    //     this.changeColor(index, abs(Math.round(randomGaussian(0, 15))))
-                    // }
+                    if (index % _density_ == 0) {
+                        this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
+                    }
+                } else {
+                    this.showColor(index, color(130), 4)
+
+                    if (x < 60 && y > 54 && y < 95) {
+                        var difference = (60 - x);
+                        if (fxrand() >= map(difference, 0, 40, 0, 1)) {
+                            this.showColor(index, pixelGrid.leftUpperCorners[0].color, 10);
+                        }
+                    }
                 }
                 xoff += this.inc;
             }
@@ -168,26 +177,6 @@ class Pixies {
             // console.log(foglyPoints[i].x)
             if (x == this.foglyPoints[i].x && y == this.foglyPoints[i].y) {
                 this.showColor(index, color("#63a724"), 0);
-            }
-        }
-    }
-
-    showFatPixle(x, y, index) {
-
-        var start = createVector(0, 0);
-        var stop = createVector(150, 150);
-
-
-        if (x == stop.x && y == stop.y) {
-            for (var i = 0; i < (stop.x + stop.y * this.buffer.width) * 4; i++) {
-                // console.log(i);
-
-                this.showColor(i, color(0), 0)
-
-                // this.buffer.pixels[i + 0] = 0;
-                // this.buffer.pixels[i + 1] = 0;
-                // this.buffer.pixels[i + 2] = 100;
-                // this.buffer.pixels[i + 3] = 155;
             }
         }
     }
