@@ -5,7 +5,7 @@ class PixelGrid {
         this.margin = MARGIN;
         this.blockNumber = 20;
         this.blockSize = (DOMINANTSIDE - 2 * this.margin) / this.blockNumber;
-        this.blockColors = [color(20), color(70), color(130), color(160), color(200), color(230)];
+        this.blockColors = PALETTE.pixelColors;
         // console.log("blocksize: " + this.blockSize);
 
         this.leftUpperCorners = [];

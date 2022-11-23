@@ -59,41 +59,9 @@ let CURRENTPIXELDENS = 1;
 
 const PALETTESYSTEM = {
   "Boom": {
-    "background": "#8181BB",
-    "line": "#17171d4f",
-    "base": {
-      fillFirst: "#9D9DCD15",
-      fillSecond: "#9D9DCD15",
-      strokeFirst: "#7f7fda9f",
-      strokeSecond: "#7d7dc7a8",
-      grainColorFirst: "#9c9cd8",  // 7d7dcc
-      grainColorSecond: "#8989c4",
-    },
-    "cLevel": {
-      fillFirst: "#4F4F8D15",
-      fillSecond: "#45458515",
-      strokeFirst: "#03031a15",
-      strokeSecond: "#01010815",
-      grainColorFirst: "#5555944f",
-      grainColorSecond: "#4f4f8067",
-    },
-    "bLevel": {
-      fillFirst: "#B9B9DF15",
-      fillSecond: "#aeaed315",
-      strokeFirst: "#5a5a6b15",
-      strokeSecond: "#4f4f6615",
-      grainColorFirst: "#8080af38",
-      grainColorSecond: "#b6b6da59",
-    },
-    "aLevel": {
-      fillFirst: "#6666A915",
-      fillSecond: "#59599115",
-      strokeFirst: "#2b2b5215",
-      strokeSecond: "#42428815",
-      grainColorFirst: "#40404b38",
-      grainColorSecond: "#1a1a2059",
-    }
-  },
+    "background": "#aaaaaa",
+    "pixelColors": ["#303030", "#606060", "#909090", "#bbbbbb", "#eeeeee"],
+  }
 }
 
 choosePalette();
@@ -197,10 +165,19 @@ function setup() {
   //   once: true,
   // });
 
-  pixelGrid = new PixelGrid({});
+  // pixelGrid = new PixelGrid({});
 
+  // pixies = new Pixies({
+  //   inc: 0.004,  // noise increase for perlin noise
+  //   gain: -255,
+  //   colorBackground: undefined, // color(colors[PALETTE].background),  // drawn pixels for background
+  //   colorForeground: color(130), // drawn pixels for noise
+  //   distortion: 0.2,  // random misplacement of the boxes
+  //   density: 5,
+  //   margin: MARGIN, // distance to the edge
+  // });
 
-  sunnybunny = new sunPolygon();
+  // sunnybunny = new sunPolygon();
 
 
 
@@ -242,21 +219,12 @@ function setup() {
 
   // hatchesBug = new Hatches("y", createVector(717, 50), createVector(898, 898), color(30), 0, 0, DISTANCE_BETWEEN_LINES);
 
-  pixies = new Pixies({
-    inc: 0.004,  // noise increase for perlin noise
-    gain: -255,
-    colorBackground: undefined, // color(colors[PALETTE].background),  // drawn pixels for background
-    colorForeground: color(130), // drawn pixels for noise
-    distortion: 0.2,  // random misplacement of the boxes
-    density: 5,
-    margin: MARGIN, // distance to the edge
-  });
 }
 
 
 function draw() {
 
-  smooth();
+  // smooth();
 
   // orbitControl();
   // cam1.move(mastaBrush.vel.x, mastaBrush.vel.y, 0);
@@ -275,19 +243,72 @@ function draw() {
   // ambientMaterial(255);
   // specularMaterial(255);
 
-  if (MODE == 5) {
-    background(230);
-  }
 
   if (frameCount == 1) {
     pixelDensity(CURRENTPIXELDENS);
     // cam1.setPosition(0, 0, 200);
     // cam1.lookAt(-100, 0, 0);
 
-    background(170);
-    image(pixies.buffer, 0, 0);
+    // background(170);
+    // image(pixies.buffer, 0, 0);
 
   }
+
+  background(170);
+  var block = createVector(200, 200);
+  var blockSize = 50;
+  var haloBlock = createVector(175, 175);
+  var haloBlockSize = 100;
+
+  push();
+  fill("white")
+  rect(haloBlock.x, haloBlock.y, haloBlockSize, haloBlockSize);
+  rect(block.x, block.y, blockSize, blockSize);
+  pop();
+
+  push();
+  if (mouseX >= haloBlock.x && mouseX < block.x &&
+    mouseY >= haloBlock.y && mouseY < block.y) {
+    console.log("a");
+    fill("red");
+  } else if (mouseX >= block.x && mouseX < (block.x + blockSize) &&
+    mouseY >= haloBlock.y && mouseY < block.y) {
+    console.log("b");
+    fill("green");
+  } else if (mouseX >= (block.x + blockSize) && mouseX < haloBlock.x + haloBlockSize &&
+    mouseY >= haloBlock.y && mouseY < block.y) {
+    console.log("c");
+    fill("purple");
+  } else if (mouseX >= haloBlock.x && mouseX < block.x &&
+    mouseY >= block.y && mouseY < (block.y + blockSize)) {
+    console.log("d");
+    fill("blue");
+  } else if (mouseX >= block.x && mouseX < (block.x + blockSize) &&
+    mouseY >= block.y && mouseY < (block.y + blockSize)) {
+    console.log("e");
+    fill("white");
+  } else if (mouseX >= (block.x + blockSize) && mouseX < (haloBlock.x + haloBlockSize) &&
+    mouseY >= block.y && mouseY < (block.y + blockSize)) {
+    console.log("f");
+    fill("orange");
+  } else if (mouseX >= haloBlock.x && mouseX < block.x &&
+    mouseY >= (block.y + blockSize) && mouseY < (haloBlock.y + haloBlockSize)) {
+    console.log("g");
+    fill("yellow");
+  } else if (mouseX >= block.x && mouseX < (block.x + blockSize) &&
+    mouseY >= (block.y + blockSize) && mouseY < (haloBlock.y + haloBlockSize)) {
+    console.log("h");
+    fill("black");
+  } else if (mouseX >= (block.x + blockSize) && mouseX < (haloBlock.x + haloBlockSize) &&
+    mouseY >= (block.y + blockSize) && mouseY < (haloBlock.y + haloBlockSize)) {
+    console.log("i");
+    fill("grey");
+  } else {
+    fill("white");
+  }
+  ellipse(mouseX, mouseY, 10, 10);
+  pop();
+
 
   // gridly_foreground.show();
 
@@ -317,7 +338,7 @@ function draw() {
 
   if (frameCount == 20) {
     // if (gridly_background.done == true) {
-    ALLDONE = true;
+    // ALLDONE = true;
     // }
   }
 

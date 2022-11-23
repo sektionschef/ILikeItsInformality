@@ -96,14 +96,9 @@ class Pixies {
                         this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
                     }
                 } else {
-                    this.showColor(index, color(130), 4)
+                    this.showColor(index, PALETTE.background, 4);
 
-                    if (x < 60 && y > 54 && y < 95) {
-                        var difference = (60 - x);
-                        if (fxrand() >= map(difference, 0, 40, 0, 1)) {
-                            this.showColor(index, pixelGrid.leftUpperCorners[0].color, 10);
-                        }
-                    }
+                    this.blendColors(x, y, index);
                 }
                 xoff += this.inc;
             }
@@ -179,6 +174,27 @@ class Pixies {
                 this.showColor(index, color("#63a724"), 0);
             }
         }
+    }
+
+    blendColors(x, y, index) {
+        var startX = 60;
+        var startY = 54;
+        var stopX = 0;
+        var stopY = 95;
+
+        if (x < startX && y > startY && y < stopY) {
+            var difference = (startX - x);
+            if (fxrand() >= map(difference, 0, abs(stopX - startX) * 0.75, 0, 1)) {
+                this.showColor(index, pixelGrid.leftUpperCorners[0].color, 20);
+            }
+        }
+
+        // if (x < 60 && y > 54 && y < 95) {
+        //     var difference = (60 - x);
+        //     if (fxrand() >= map(difference, 0, 40, 0, 1)) {
+        //         this.showColor(index, pixelGrid.leftUpperCorners[0].color, 10);
+        //     }
+        // }
     }
 
     // draw_small_dot(index, gain) {
