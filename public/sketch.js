@@ -180,6 +180,12 @@ function setup() {
   // sunnybunny = new sunPolygon();
 
 
+  blockA = new Block({
+    x: 200,
+    y: 200,
+    blocksize: 50,
+  })
+
 
   if (MODE > 1) {
     console.log("Display density: " + displayDensity());
@@ -254,60 +260,8 @@ function draw() {
   }
 
   background(170);
-  var block = createVector(200, 200);
-  var blockSize = 50;
-  var haloBlock = createVector(block.x - blockSize / 2, block.y - blockSize / 2);
-  var haloBlockSize = blockSize * 2;
 
-  push();
-  fill("white")
-  rect(haloBlock.x, haloBlock.y, haloBlockSize, haloBlockSize);
-  rect(block.x, block.y, blockSize, blockSize);
-  pop();
-
-  push();
-  if (mouseX >= haloBlock.x && mouseX < block.x &&
-    mouseY >= haloBlock.y && mouseY < block.y) {
-    console.log("a");
-    fill("red");
-  } else if (mouseX >= block.x && mouseX < (block.x + blockSize) &&
-    mouseY >= haloBlock.y && mouseY < block.y) {
-    console.log("b");
-    fill("green");
-  } else if (mouseX >= (block.x + blockSize) && mouseX < haloBlock.x + haloBlockSize &&
-    mouseY >= haloBlock.y && mouseY < block.y) {
-    console.log("c");
-    fill("purple");
-  } else if (mouseX >= haloBlock.x && mouseX < block.x &&
-    mouseY >= block.y && mouseY < (block.y + blockSize)) {
-    console.log("d");
-    fill("blue");
-  } else if (mouseX >= block.x && mouseX < (block.x + blockSize) &&
-    mouseY >= block.y && mouseY < (block.y + blockSize)) {
-    console.log("e");
-    fill("white");
-  } else if (mouseX >= (block.x + blockSize) && mouseX < (haloBlock.x + haloBlockSize) &&
-    mouseY >= block.y && mouseY < (block.y + blockSize)) {
-    console.log("f");
-    fill("orange");
-  } else if (mouseX >= haloBlock.x && mouseX < block.x &&
-    mouseY >= (block.y + blockSize) && mouseY < (haloBlock.y + haloBlockSize)) {
-    console.log("g");
-    fill("yellow");
-  } else if (mouseX >= block.x && mouseX < (block.x + blockSize) &&
-    mouseY >= (block.y + blockSize) && mouseY < (haloBlock.y + haloBlockSize)) {
-    console.log("h");
-    fill("black");
-  } else if (mouseX >= (block.x + blockSize) && mouseX < (haloBlock.x + haloBlockSize) &&
-    mouseY >= (block.y + blockSize) && mouseY < (haloBlock.y + haloBlockSize)) {
-    console.log("i");
-    fill("grey");
-  } else {
-    fill("white");
-  }
-  ellipse(mouseX, mouseY, 10, 10);
-  pop();
-
+  blockA.show();
 
   // gridly_foreground.show();
 
@@ -356,3 +310,4 @@ function draw() {
 function mousePressed() {
   // console.log("frameCount; " + frameCount);
 }
+
