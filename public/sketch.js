@@ -12,6 +12,7 @@ let rescaling_width;
 let rescaling_height;
 
 let foglyPoints = [];
+let pixies;
 
 let PALETTE;
 let PALETTE_LABEL;
@@ -173,25 +174,12 @@ function setup() {
     colorBackground: undefined, // color(colors[PALETTE].background),  // drawn pixels for background
     colorForeground: color(130), // drawn pixels for noise
     distortion: 0.2,  // random misplacement of the boxes
-    density: 5,
+    density: Math.round(DOMINANTSIDE * 0.007),
     margin: MARGIN, // distance to the edge
   });
 
   // sunnybunny = new sunPolygon();
 
-
-  blockA = new Block({
-    x: 200,
-    y: 200,
-    blocksize: 50,
-    color: color(200),
-  })
-  blockB = new Block({
-    x: 250,
-    y: 200,
-    blocksize: 50,
-    color: color(200),
-  })
 
 
   if (MODE > 1) {
@@ -263,6 +251,7 @@ function draw() {
     // cam1.lookAt(-100, 0, 0);
 
     // background(170);
+    pixies.show();
     image(pixies.buffer, 0, 0);
   }
 

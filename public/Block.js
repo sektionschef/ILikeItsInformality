@@ -7,10 +7,115 @@ class Block {
         this.haloPos = createVector(this.blockPos.x - this.blockSize / 2, this.blockPos.y - this.blockSize / 2);
         this.haloBlockSize = this.blockSize * 2;
         this.color = data.color;
+
+        this.getState();
+    }
+
+    getState() {
+        this.a = false;
+        this.b = true;
+        this.c = false;
+        this.d = true;
+        this.e = true;
+        this.f = false;
+        this.g = false;
+        this.h = false;
+        this.i = false;
+        this.j = false;
+    }
+
+    pixelate(x, y, index) {
+        if (this.a) {
+            this.pixelateA(x, y, index)
+        }
+        if (this.b) {
+            this.pixelateB(x, y, index)
+        }
+        if (this.c) {
+            this.pixelateC(x, y, index)
+        }
+        if (this.d) {
+            this.pixelateD(x, y, index)
+        }
+        if (this.e) {
+            this.pixelateE(x, y, index)
+        }
+        if (this.f) {
+            this.pixelateF(x, y, index)
+        }
+        if (this.g) {
+            this.pixelateG(x, y, index)
+        }
+        if (this.h) {
+            this.pixelateH(x, y, index)
+        }
+        if (this.i) {
+            this.pixelateI(x, y, index)
+        }
+    }
+
+    pixelateA(x, y, index) {
+        if (x >= this.haloPos.x && x < this.blockPos.x &&
+            y >= this.haloPos.y && y < this.blockPos.y) {
+            // pixies.showColor(index, this.color, 10);
+        }
+    }
+
+    pixelateB(x, y, index) {
+        if (x >= this.blockPos.x && x < (this.blockPos.x + this.blockSize) &&
+            y >= this.haloPos.y && y < this.blockPos.y) {
+            pixies.blendColors(x, y, index, this.blockPos.x, this.blockPos.y, this.blockSize, this.color, "b");
+        }
+    }
+
+    pixelateC(x, y, index) {
+        if (x >= (this.blockPos.x + this.blockSize) && x < this.haloPos.x + this.haloBlockSize &&
+            y >= this.haloPos.y && y < this.blockPos.y) {
+            // pixies.showColor(index, this.color, 10);
+        }
+    }
+
+    pixelateD(x, y, index) {
+        if (x >= this.haloPos.x && x < this.blockPos.x &&
+            y >= this.blockPos.y && y < (this.blockPos.y + this.blockSize)) {
+            pixies.blendColors(x, y, index, this.blockPos.x, this.blockPos.y, this.blockSize, this.color, "d");
+        }
+    }
+
+    // CENTER
+    pixelateE(x, y, index) {
+        if (x >= this.blockPos.x && x < (this.blockPos.x + this.blockSize) && y >= this.blockPos.y && y < (this.blockPos.y + this.blockSize)) {
+            pixies.showColor(index, this.color, 10);
+        }
+    }
+
+    pixelateF(x, y, index) {
+        if (x >= (this.blockPos.x + this.blockSize) && x < (this.haloPos.x + this.haloBlockSize) &&
+            y >= this.blockPos.y && y < (this.blockPos.y + this.blockSize)) {
+            pixies.blendColors(x, y, index, this.blockPos.x, this.blockPos.y, this.blockSize, this.color);
+        }
+    }
+    pixelateG(x, y, index) {
+        if (x >= this.haloPos.x && x < this.blockPos.x &&
+            y >= (this.blockPos.y + this.blockSize) && y < (this.haloPos.y + this.haloBlockSize)) {
+            // pixies.showColor(index, this.color, 10);
+        }
+    }
+    pixelateH(x, y, index) {
+        if (x >= this.blockPos.x && x < (this.blockPos.x + this.blockSize) &&
+            y >= (this.blockPos.y + this.blockSize) && y < (this.haloPos.y + this.haloBlockSize)) {
+            // pixies.showColor(index, this.color, 10);
+        }
+    }
+    pixelateI(x, y, index) {
+        if (x >= (this.blockPos.x + this.blockSize) && x < (this.haloPos.x + this.haloBlockSize) &&
+            y >= (this.blockPos.y + this.blockSize) && y < (this.haloPos.y + this.haloBlockSize)) {
+            // pixies.showColor(index, this.color, 10);
+        }
     }
 
 
-    show() {
+    showdebug() {
 
         push();
         fill(color(200, 100));

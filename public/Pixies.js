@@ -20,8 +20,6 @@ class Pixies {
 
         // gradientLine
         // this.gradientLineDefine(gridly_foreground.points[0][0], gridly_foreground.points[0][1]);
-
-        this.show();
     }
 
     show() {
@@ -78,13 +76,10 @@ class Pixies {
 
 
                     for (var i = 0; i < (blockGrid.blocks.length); i++) {
-                        this.currentBlock = blockGrid.blocks[i];
+                        currentBlock = blockGrid.blocks[i];
 
-                        if (x >= this.currentBlock.blockPos.x && x < (this.currentBlock.blockPos.x + this.currentBlock.blockSize) && y >= this.currentBlock.blockPos.y && y < (this.currentBlock.blockPos.y + this.currentBlock.blockSize)) {
-                            this.showColor(index, this.currentBlock.color, 10)
-                        }
+                        currentBlock.pixelate(x, y, index);
 
-                        this.blendColors(x, y, index);
                     }
 
 
@@ -96,12 +91,12 @@ class Pixies {
                     // }
                     // _density_ = this.density + Math.round(this.density * getP5RandomFromInterval(-this.distortion, this.distortion));
 
-                    // GRID TEXTURE
-                    if (index % _density_ == 0) {
-                        this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
-                    }
                 } else {
                     this.showColor(index, PALETTE.background, 4);
+                }
+                // GRID TEXTURE
+                if (index % _density_ == 0) {
+                    this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
                 }
                 xoff += this.inc;
             }
@@ -179,33 +174,29 @@ class Pixies {
         }
     }
 
-    blendColors(x, y, index) {
-        // var currentBlock = blockGrid.blocks[30];
-        var startX = this.currentBlock.blockPos.x;
-        var startY = this.currentBlock.blockPos.y;
-        var stopX = startX + this.currentBlock.blockSize / 2;
-        var stopY = startY + this.currentBlock.blockSize;
-        var colorObject = this.currentBlock.color;
+    blendColors(x, y, index, blockPosX, blockPosY, blockSize, colorObject, orientation) {
+        // var startX = this.currentBlock.blockPos.x;
+        // var startY = this.currentBlock.blockPos.y;
+        // var blockSize = blockSize
+        // var colorObject = this.currentBlock.color;
 
-        // console.log("asfa");
-        if (x < startX && y > startY && y < stopY) {
-            var difference = abs(startX - x);
-            if (fxrand() >= map(difference, 0, abs(stopX - startX) * 0.75, 0, 1)) {
+        if (orientation == "d") {
+            var stopX = blockPosX + blockSize / 2;
+            var stopY = blockPosY + blockSize;
+
+            var difference = abs(blockPosX - x);
+            if (fxrand() >= map(difference, 0, abs(stopX - blockPosX) * 0.75, 0, 1)) {
+                this.showColor(index, colorObject, 20);
+            }
+        } else if (orientation == "b") {
+            var stopX = blockPosX + blockSize;
+            var stopY = blockPosY + blockSize / 2;
+
+            var difference = abs(blockPosY - y);
+            if (fxrand() >= map(difference, 0, abs(stopY - blockPosY) * 0.75, 0, 1)) {
                 this.showColor(index, colorObject, 20);
             }
         }
-
-        // var startX = 60;
-        // var startY = 54;
-        // var stopX = 0;
-        // var stopY = 95;
-
-        // if (x < startX && y > startY && y < stopY) {
-        //     var difference = (startX - x);
-        //     if (fxrand() >= map(difference, 0, abs(stopX - startX) * 0.75, 0, 1)) {
-        //         this.showColor(index, currentBlock.color, 20);
-        //     }
-        // }
     }
 
     // draw_small_dot(index, gain) {
