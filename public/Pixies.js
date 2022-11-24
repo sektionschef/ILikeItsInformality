@@ -78,11 +78,16 @@ class Pixies {
 
 
                     for (var i = 0; i < (blockGrid.blocks.length); i++) {
-                        currentBlock = blockGrid.blocks[i];
-                        if (x >= currentBlock.blockPos.x && x < (currentBlock.blockPos.x + currentBlock.blockSize) && y >= currentBlock.blockPos.y && y < (currentBlock.blockPos.y + currentBlock.blockSize)) {
-                            this.showColor(index, currentBlock.color, 10)
+                        this.currentBlock = blockGrid.blocks[i];
+
+                        if (x >= this.currentBlock.blockPos.x && x < (this.currentBlock.blockPos.x + this.currentBlock.blockSize) && y >= this.currentBlock.blockPos.y && y < (this.currentBlock.blockPos.y + this.currentBlock.blockSize)) {
+                            this.showColor(index, this.currentBlock.color, 10)
                         }
+
+                        this.blendColors(x, y, index);
                     }
+
+
 
                     // if (random() > 0.75) {
                     //     this.draw_big_dot(index, _soft_gain_);
@@ -97,8 +102,6 @@ class Pixies {
                     }
                 } else {
                     this.showColor(index, PALETTE.background, 4);
-
-                    this.blendColors(x, y, index);
                 }
                 xoff += this.inc;
             }
@@ -177,22 +180,30 @@ class Pixies {
     }
 
     blendColors(x, y, index) {
-        var startX = 60;
-        var startY = 54;
-        var stopX = 0;
-        var stopY = 95;
+        // var currentBlock = blockGrid.blocks[30];
+        var startX = this.currentBlock.blockPos.x;
+        var startY = this.currentBlock.blockPos.y;
+        var stopX = startX + this.currentBlock.blockSize / 2;
+        var stopY = startY + this.currentBlock.blockSize;
+        var colorObject = this.currentBlock.color;
 
+        // console.log("asfa");
         if (x < startX && y > startY && y < stopY) {
-            var difference = (startX - x);
+            var difference = abs(startX - x);
             if (fxrand() >= map(difference, 0, abs(stopX - startX) * 0.75, 0, 1)) {
-                this.showColor(index, blockGrid.blocks[0].color, 20);
+                this.showColor(index, colorObject, 20);
             }
         }
 
-        // if (x < 60 && y > 54 && y < 95) {
-        //     var difference = (60 - x);
-        //     if (fxrand() >= map(difference, 0, 40, 0, 1)) {
-        //         this.showColor(index, blockGrid.leftUpperCorners[0].color, 10);
+        // var startX = 60;
+        // var startY = 54;
+        // var stopX = 0;
+        // var stopY = 95;
+
+        // if (x < startX && y > startY && y < stopY) {
+        //     var difference = (startX - x);
+        //     if (fxrand() >= map(difference, 0, abs(stopX - startX) * 0.75, 0, 1)) {
+        //         this.showColor(index, currentBlock.color, 20);
         //     }
         // }
     }
