@@ -251,14 +251,13 @@ function draw() {
 
     // background(170);
     // image(pixies.buffer, 0, 0);
-
   }
 
   background(170);
   var block = createVector(200, 200);
   var blockSize = 50;
-  var haloBlock = createVector(175, 175);
-  var haloBlockSize = 100;
+  var haloBlock = createVector(block.x - blockSize / 2, block.y - blockSize / 2);
+  var haloBlockSize = blockSize * 2;
 
   push();
   fill("white")
