@@ -12,7 +12,7 @@ class Block {
     }
 
     getState() {
-        this.a = false;
+        this.a = true;
         this.b = true;
         this.c = false;
         this.d = true;
@@ -57,28 +57,28 @@ class Block {
     pixelateA(x, y, index) {
         if (x >= this.haloPos.x && x < this.blockPos.x &&
             y >= this.haloPos.y && y < this.blockPos.y) {
-            // pixies.showColor(index, this.color, 10);
+            pixies.blendColors(x, y, index, this.blockPos.x, this.blockPos.y, this.blockSize, this.color, "a");
         }
     }
 
     pixelateB(x, y, index) {
         if (x >= this.blockPos.x && x < (this.blockPos.x + this.blockSize) &&
             y >= this.haloPos.y && y < this.blockPos.y) {
-            pixies.blendColors(x, y, index, this.blockPos.x, this.blockPos.y, this.blockSize, this.color, "b");
+            // pixies.blendColors(x, y, index, this.blockPos.x, this.blockPos.y, this.blockSize, this.color, "b");
         }
     }
 
     pixelateC(x, y, index) {
         if (x >= (this.blockPos.x + this.blockSize) && x < this.haloPos.x + this.haloBlockSize &&
             y >= this.haloPos.y && y < this.blockPos.y) {
-            // pixies.showColor(index, this.color, 10);
+
         }
     }
 
     pixelateD(x, y, index) {
         if (x >= this.haloPos.x && x < this.blockPos.x &&
             y >= this.blockPos.y && y < (this.blockPos.y + this.blockSize)) {
-            pixies.blendColors(x, y, index, this.blockPos.x, this.blockPos.y, this.blockSize, this.color, "d");
+            // pixies.blendColors(x, y, index, this.blockPos.x, this.blockPos.y, this.blockSize, this.color, "d");
         }
     }
 

@@ -95,9 +95,9 @@ class Pixies {
                     this.showColor(index, PALETTE.background, 4);
                 }
                 // GRID TEXTURE
-                if (index % _density_ == 0) {
-                    this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
-                }
+                // if (index % _density_ == 0) {
+                // this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
+                // }
                 xoff += this.inc;
             }
             yoff += this.inc;
@@ -194,6 +194,15 @@ class Pixies {
 
             var difference = abs(blockPosY - y);
             if (fxrand() >= map(difference, 0, abs(stopY - blockPosY) * 0.75, 0, 1)) {
+                this.showColor(index, colorObject, 20);
+            }
+        }
+        if (orientation == "a") {
+            var stopX = blockPosX + blockSize / 2;
+            var stopY = blockPosY + blockSize / 2;
+
+            var difference = abs(blockPosX - x) + abs(blockPosY - y);
+            if (fxrand() >= map(difference, 0, blockSize * 0.75, 0, 1)) {
                 this.showColor(index, colorObject, 20);
             }
         }
