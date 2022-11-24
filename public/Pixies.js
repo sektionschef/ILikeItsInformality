@@ -77,9 +77,9 @@ class Pixies {
                     // this.showFatPixle(x, y, index);
 
 
-                    for (var i = 0; i < (pixelGrid.leftUpperCorners.length); i++) {
-                        currentBlock = pixelGrid.leftUpperCorners[i];
-                        if (x >= currentBlock.posStart.x && x < currentBlock.posStop.x && y >= currentBlock.posStart.y && y < currentBlock.posStop.y) {
+                    for (var i = 0; i < (blockGrid.blocks.length); i++) {
+                        currentBlock = blockGrid.blocks[i];
+                        if (x >= currentBlock.blockPos.x && x < (currentBlock.blockPos.x + currentBlock.blockSize) && y >= currentBlock.blockPos.y && y < (currentBlock.blockPos.y + currentBlock.blockSize)) {
                             this.showColor(index, currentBlock.color, 10)
                         }
                     }
@@ -185,14 +185,14 @@ class Pixies {
         if (x < startX && y > startY && y < stopY) {
             var difference = (startX - x);
             if (fxrand() >= map(difference, 0, abs(stopX - startX) * 0.75, 0, 1)) {
-                this.showColor(index, pixelGrid.leftUpperCorners[0].color, 20);
+                this.showColor(index, blockGrid.blocks[0].color, 20);
             }
         }
 
         // if (x < 60 && y > 54 && y < 95) {
         //     var difference = (60 - x);
         //     if (fxrand() >= map(difference, 0, 40, 0, 1)) {
-        //         this.showColor(index, pixelGrid.leftUpperCorners[0].color, 10);
+        //         this.showColor(index, blockGrid.leftUpperCorners[0].color, 10);
         //     }
         // }
     }

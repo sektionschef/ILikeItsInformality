@@ -1,5 +1,4 @@
-
-class PixelGrid {
+class BlockGrid {
 
     constructor(data) {
         this.margin = MARGIN;
@@ -8,17 +7,18 @@ class PixelGrid {
         this.blockColors = PALETTE.pixelColors;
         // console.log("blocksize: " + this.blockSize);
 
-        this.leftUpperCorners = [];
+        this.blocks = [];
 
         for (var blockX = this.margin; blockX < (width - this.margin); blockX += this.blockSize) {
             // console.log(blockX);
             for (var blockY = this.margin; blockY < (height - this.margin); blockY += this.blockSize) {
                 // console.log(blockY);
-                this.leftUpperCorners.push({
-                    "posStart": createVector(blockX, blockY),
-                    "posStop": createVector(blockX + this.blockSize, blockY + this.blockSize),
-                    "color": getRandomFromList(this.blockColors)
-                });
+                this.blocks.push(new Block({
+                    "x": blockX,
+                    "y": blockY,
+                    "blocksize": this.blockSize,
+                    "color": getRandomFromList(this.blockColors),
+                }));
             }
         }
     }

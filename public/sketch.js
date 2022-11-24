@@ -23,7 +23,7 @@ let RESCALINGCONSTANT = 800;  // the width the painting was designed in
 let FRAMEDWIDTH = 800;
 let FRAMED = false;
 
-let TITLE = "Oida";
+let TITLE = "I like its informality";
 let ARTIST = "Stefan Schwaha, @sektionschef";
 let DESCRIPTION = "Javascript on html canvas";
 let URL = "https://digitalitility.com";
@@ -165,17 +165,17 @@ function setup() {
   //   once: true,
   // });
 
-  // pixelGrid = new PixelGrid({});
+  blockGrid = new BlockGrid({});
 
-  // pixies = new Pixies({
-  //   inc: 0.004,  // noise increase for perlin noise
-  //   gain: -255,
-  //   colorBackground: undefined, // color(colors[PALETTE].background),  // drawn pixels for background
-  //   colorForeground: color(130), // drawn pixels for noise
-  //   distortion: 0.2,  // random misplacement of the boxes
-  //   density: 5,
-  //   margin: MARGIN, // distance to the edge
-  // });
+  pixies = new Pixies({
+    inc: 0.004,  // noise increase for perlin noise
+    gain: -255,
+    colorBackground: undefined, // color(colors[PALETTE].background),  // drawn pixels for background
+    colorForeground: color(130), // drawn pixels for noise
+    distortion: 0.2,  // random misplacement of the boxes
+    density: 5,
+    margin: MARGIN, // distance to the edge
+  });
 
   // sunnybunny = new sunPolygon();
 
@@ -184,6 +184,13 @@ function setup() {
     x: 200,
     y: 200,
     blocksize: 50,
+    color: color(200),
+  })
+  blockB = new Block({
+    x: 250,
+    y: 200,
+    blocksize: 50,
+    color: color(200),
   })
 
 
@@ -256,12 +263,13 @@ function draw() {
     // cam1.lookAt(-100, 0, 0);
 
     // background(170);
-    // image(pixies.buffer, 0, 0);
+    image(pixies.buffer, 0, 0);
   }
 
-  background(170);
+  // background(170);
 
-  blockA.show();
+  // blockA.show();
+  // blockB.show();
 
   // gridly_foreground.show();
 
