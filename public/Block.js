@@ -64,7 +64,7 @@ class Block {
     pixelateB(x, y, index) {
         if (x >= this.blockPos.x && x < (this.blockPos.x + this.blockSize) &&
             y >= this.haloPos.y && y < this.blockPos.y) {
-            // pixies.blendColors(x, y, index, this.blockPos.x, this.blockPos.y, this.blockSize, this.color, "b");
+            pixies.blendColors(x, y, index, this.blockPos.x, this.blockPos.y, this.blockSize, this.color, "b");
         }
     }
 
@@ -78,7 +78,7 @@ class Block {
     pixelateD(x, y, index) {
         if (x >= this.haloPos.x && x < this.blockPos.x &&
             y >= this.blockPos.y && y < (this.blockPos.y + this.blockSize)) {
-            // pixies.blendColors(x, y, index, this.blockPos.x, this.blockPos.y, this.blockSize, this.color, "d");
+            pixies.blendColors(x, y, index, this.blockPos.x, this.blockPos.y, this.blockSize, this.color, "d");
         }
     }
 

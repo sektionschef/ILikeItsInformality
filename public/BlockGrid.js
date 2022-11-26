@@ -2,7 +2,7 @@ class BlockGrid {
 
     constructor(data) {
         this.margin = MARGIN;
-        this.blockNumber = 2;// 20;
+        this.blockNumber = 20;
         this.blockSize = (DOMINANTSIDE - 2 * this.margin) / this.blockNumber;
         this.blockColors = PALETTE.pixelColors;
         // console.log("blocksize: " + this.blockSize);

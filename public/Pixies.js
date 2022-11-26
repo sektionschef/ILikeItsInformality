@@ -25,6 +25,7 @@ class Pixies {
     show() {
 
         var _density_ = this.density;
+        var backgroundTemp = getRandomFromList(PALETTE.pixelColors);
 
         var currentBlock;
 
@@ -92,7 +93,7 @@ class Pixies {
                     // _density_ = this.density + Math.round(this.density * getP5RandomFromInterval(-this.distortion, this.distortion));
 
                 } else {
-                    this.showColor(index, PALETTE.background, 4);
+                    this.showColor(index, backgroundTemp, 5);
                 }
                 // GRID TEXTURE
                 // if (index % _density_ == 0) {
@@ -180,12 +181,14 @@ class Pixies {
         // var blockSize = blockSize
         // var colorObject = this.currentBlock.color;
 
+        var distanceMax = 0.75;
+
         if (orientation == "d") {
             var stopX = blockPosX + blockSize / 2;
             var stopY = blockPosY + blockSize;
 
             var difference = abs(blockPosX - x);
-            if (fxrand() >= map(difference, 0, abs(stopX - blockPosX) * 0.75, 0, 1)) {
+            if (fxrand() >= map(difference, 0, abs(stopX - blockPosX) * distanceMax, 0, 1)) {
                 this.showColor(index, colorObject, 20);
             }
         } else if (orientation == "b") {
@@ -193,7 +196,7 @@ class Pixies {
             var stopY = blockPosY + blockSize / 2;
 
             var difference = abs(blockPosY - y);
-            if (fxrand() >= map(difference, 0, abs(stopY - blockPosY) * 0.75, 0, 1)) {
+            if (fxrand() >= map(difference, 0, abs(stopY - blockPosY) * distanceMax, 0, 1)) {
                 this.showColor(index, colorObject, 20);
             }
         }
@@ -202,7 +205,7 @@ class Pixies {
             var stopY = blockPosY + blockSize / 2;
 
             var difference = abs(blockPosX - x) + abs(blockPosY - y);
-            if (fxrand() >= map(difference, 0, blockSize * 0.75, 0, 1)) {
+            if (fxrand() >= map(difference, 0, blockSize / 2 * distanceMax, 0, 1)) {
                 this.showColor(index, colorObject, 20);
             }
         }
