@@ -169,7 +169,7 @@ function setup() {
   blockGrid = new BlockGrid({});
 
   pixies = new Pixies({
-    inc: 0.002,// 0.004,  // noise increase for perlin noise
+    inc: 0.008,// 0.004,  // noise increase for perlin noise
     gain: 255,
     colorBackground: undefined, // color(colors[PALETTE].background),  // drawn pixels for background
     colorForeground: color(130), // drawn pixels for noise
