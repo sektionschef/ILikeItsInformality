@@ -37,8 +37,8 @@ class Pixies {
             for (let x = 0; x < this.buffer.width; x++) {
 
                 let index = (x + y * this.buffer.width) * 4;
-                // var noiseF = noise(xoff, yoff);
-                // var _gain_ = noiseF * this.gain;
+                var noiseF = noise(xoff, yoff);
+                var _gain_ = noiseF * this.gain;
                 // if (this.softNoiseFeature == true) {
                 //     var _soft_gain_ = _gain_ / 2;
                 // } else {
@@ -46,16 +46,15 @@ class Pixies {
                 // }
 
                 // draw the background
-                if (typeof this.colorBackground != "undefined") {
-                    this.buffer.pixels[index + 0] = red(this.colorBackground);
-                    this.buffer.pixels[index + 1] = green(this.colorBackground);
-                    this.buffer.pixels[index + 2] = blue(this.colorBackground);
-                    this.buffer.pixels[index + 3] = alpha(this.colorBackground);
-                }
+                // if (typeof this.colorBackground != "undefined") {
+                //     this.buffer.pixels[index + 0] = red(this.colorBackground);
+                //     this.buffer.pixels[index + 1] = green(this.colorBackground);
+                //     this.buffer.pixels[index + 2] = blue(this.colorBackground);
+                //     this.buffer.pixels[index + 3] = alpha(this.colorBackground);
+                // }
 
                 // margin
                 if (
-                    // (index % _density_ == 0) &&
                     (index % (this.buffer.width * 4) > this.margin * 4) &&  // horizontal left
                     (index % (this.buffer.width * 4) < ((this.buffer.width - (this.margin)) * 4)) &&  // horizontal right
                     (index > (this.buffer.width * (this.margin)) * 4) && // vertical top
@@ -76,13 +75,34 @@ class Pixies {
                     // this.showFatPixle(x, y, index);
 
 
-                    for (var i = 0; i < (blockGrid.blocks.length); i++) {
-                        currentBlock = blockGrid.blocks[i];
+                    // for (var i = 0; i < (blockGrid.blocks.length); i++) {
+                    //     currentBlock = blockGrid.blocks[i];
+                    //     currentBlock.pixelate(x, y, index);
+                    // }
 
-                        currentBlock.pixelate(x, y, index);
 
+                    // show gain noise file
+                    // this.buffer.pixels[index + 0] = _gain_;
+                    // this.buffer.pixels[index + 1] = _gain_;
+                    // this.buffer.pixels[index + 2] = _gain_;
+                    // this.buffer.pixels[index + 3] = 255;
+
+                    var colorNoise = color(_gain_, _gain_, _gain_, 255);
+                    var coldiff = [];
+                    for (var colory of PALETTE.pixelColors) {
+                        coldiff.push(abs(Math.round(brightness(colorNoise) - brightness(colory))));
                     }
+                    // console.log(_gain_ - brightness(colory));
+                    // console.log(coldiff);
+                    var min = Math.min(...coldiff);
+                    // console.log(min);
+                    var match = coldiff.indexOf(min);
+                    // console.log(PALETTE.pixelColors[match]);
 
+                    this.buffer.pixels[index + 0] = red(PALETTE.pixelColors[match]);
+                    this.buffer.pixels[index + 1] = green(PALETTE.pixelColors[match]);
+                    this.buffer.pixels[index + 2] = blue(PALETTE.pixelColors[match]);
+                    this.buffer.pixels[index + 3] = 255;
 
 
                     // if (random() > 0.75) {
