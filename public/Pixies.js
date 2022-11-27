@@ -33,9 +33,14 @@ class Pixies {
         this.buffer.push();
         this.buffer.loadPixels();
         let yoff = 0;
+
+        var blockColor = getRandomFromList(PALETTE.pixelColors);
+
         for (let y = 0; y < this.buffer.height; y++) {
+            yoff += this.incY;
             let xoff = 0;
             for (let x = 0; x < this.buffer.width; x++) {
+                xoff += this.incX;
 
                 let index = (x + y * this.buffer.width) * 4;
                 var noiseF = noise(xoff, yoff);
@@ -79,13 +84,49 @@ class Pixies {
                 // }
                 // }
 
+                // Moritz und Emma
+
                 // try out something
-                // if () {
-                //     this.buffer.pixels[index + 0] = red(PALETTE.pixelColors[match]);
-                //     this.buffer.pixels[index + 1] = green(PALETTE.pixelColors[match]);
-                //     this.buffer.pixels[index + 2] = blue(PALETTE.pixelColors[match]);
-                //     this.buffer.pixels[index + 3] = 255;
-                // }
+                var pointy = createVector(400, 500);
+                var distAX = 30;
+                var distAY = 30;
+                var distBX = 20;
+                var distBY = 20;
+                var distCX = 10;
+                var distCY = 10;
+                var distDX = 5;
+                var distDY = 5;
+
+                if (abs(x - pointy.x) <= distDX && abs(y - pointy.y) <= distDY) {
+                    if (fxrand() >= 0) {
+                        this.showColor(index, blockColor, 0)
+                        continue;
+                    } else {
+                        // continue;
+                    }
+                } else if (abs(x - pointy.x) <= distCX && abs(y - pointy.y) <= distCY) {
+                    if (fxrand() >= 0.25) {
+                        this.showColor(index, blockColor, 0)
+                        continue;
+                    } else {
+                        // continue;
+                    }
+                } else if (abs(x - pointy.x) <= distBX && abs(y - pointy.y) <= distBY) {
+                    if (fxrand() >= 0.5) {
+                        this.showColor(index, blockColor, 0)
+                        continue;
+                    } else {
+                        // continue;
+                    }
+
+                } else if (abs(x - pointy.x) <= distAX && abs(y - pointy.y) <= distAY) {
+                    if (fxrand() >= 0.75) {
+                        this.showColor(index, blockColor, 0)
+                        continue;
+                    } else {
+                        // continue;
+                    }
+                }
 
 
                 // show gain noise file
@@ -94,7 +135,8 @@ class Pixies {
                 // this.buffer.pixels[index + 2] = _gain_;
                 // this.buffer.pixels[index + 3] = 255;
 
-                if (fxrand() > 0.5) {
+                var noisePaletteSwitch = fxrand();
+                if (noisePaletteSwitch > 0.5) {
                     var colorNoise = color(_gain_, _gain_, _gain_, 255);
                     var coldiff = [];
                     for (var colory of PALETTE.pixelColors) {
@@ -107,18 +149,13 @@ class Pixies {
                     var match = coldiff.indexOf(min);
                     // console.log(PALETTE.pixelColors[match]);
 
+                    this.showColor(index, PALETTE.pixelColors[match], 25)
 
-                    this.buffer.pixels[index + 0] = red(PALETTE.pixelColors[match]);
-                    this.buffer.pixels[index + 1] = green(PALETTE.pixelColors[match]);
-                    this.buffer.pixels[index + 2] = blue(PALETTE.pixelColors[match]);
-                    this.buffer.pixels[index + 3] = 255;
                     // random pixelcolor
-                } else if (fxrand() <= 0.5) {
+                } else if (noisePaletteSwitch <= 0.5) {
                     var pick = getRandomFromList(PALETTE.pixelColors);
-                    this.buffer.pixels[index + 0] = red(pick);
-                    this.buffer.pixels[index + 1] = green(pick);
-                    this.buffer.pixels[index + 2] = blue(pick);
-                    this.buffer.pixels[index + 3] = 255;
+
+                    this.showColor(index, pick, 25)
 
                 } else {
                     // this.showColor(index, backgroundTemp, 5);
@@ -127,9 +164,7 @@ class Pixies {
                 // if (index % _density_ == 0) {
                 //     this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
                 // }
-                xoff += this.incX;
             }
-            yoff += this.incY;
         }
         this.buffer.updatePixels();
         this.buffer.pop();
