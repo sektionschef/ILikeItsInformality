@@ -73,12 +73,18 @@ class Pixies {
                 // fields
                 // this.gradientLineShow(x, y, index);
 
-                // this.showFatPixle(x, y, index);
-
-
                 // for (var i = 0; i < (blockGrid.blocks.length); i++) {
                 //     currentBlock = blockGrid.blocks[i];
                 //     currentBlock.pixelate(x, y, index);
+                // }
+                // }
+
+                // try out something
+                // if () {
+                //     this.buffer.pixels[index + 0] = red(PALETTE.pixelColors[match]);
+                //     this.buffer.pixels[index + 1] = green(PALETTE.pixelColors[match]);
+                //     this.buffer.pixels[index + 2] = blue(PALETTE.pixelColors[match]);
+                //     this.buffer.pixels[index + 3] = 255;
                 // }
 
 
@@ -88,7 +94,7 @@ class Pixies {
                 // this.buffer.pixels[index + 2] = _gain_;
                 // this.buffer.pixels[index + 3] = 255;
 
-                if (fxrand() > 0.7) {
+                if (fxrand() > 0.5) {
                     var colorNoise = color(_gain_, _gain_, _gain_, 255);
                     var coldiff = [];
                     for (var colory of PALETTE.pixelColors) {
@@ -107,28 +113,19 @@ class Pixies {
                     this.buffer.pixels[index + 2] = blue(PALETTE.pixelColors[match]);
                     this.buffer.pixels[index + 3] = 255;
                     // random pixelcolor
-                } else if (fxrand() > 0.9) {
+                } else if (fxrand() <= 0.5) {
                     var pick = getRandomFromList(PALETTE.pixelColors);
                     this.buffer.pixels[index + 0] = red(pick);
                     this.buffer.pixels[index + 1] = green(pick);
                     this.buffer.pixels[index + 2] = blue(pick);
                     this.buffer.pixels[index + 3] = 255;
-                    // }
-
-
-                    // if (random() > 0.75) {
-                    //     this.draw_big_dot(index, _soft_gain_);
-                    // } else {
-                    //     this.draw_small_dot(index, _gain_);
-                    // }
-                    // _density_ = this.density + Math.round(this.density * getP5RandomFromInterval(-this.distortion, this.distortion));
 
                 } else {
-                    this.showColor(index, backgroundTemp, 5);
+                    // this.showColor(index, backgroundTemp, 5);
                 }
-                // GRID TEXTURE
+                // // GRID TEXTURE
                 // if (index % _density_ == 0) {
-                // this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
+                //     this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
                 // }
                 xoff += this.incX;
             }
@@ -241,38 +238,4 @@ class Pixies {
             }
         }
     }
-
-    // draw_small_dot(index, gain) {
-    //     // this pixel
-    //     this.buffer.pixels[index + 0] = red(this.colorForeground) + gain;
-    //     this.buffer.pixels[index + 1] = green(this.colorForeground) + gain;
-    //     this.buffer.pixels[index + 2] = blue(this.colorForeground) + gain;
-    //     this.buffer.pixels[index + 3] = alpha(this.colorForeground);
-    // }
-
-    // draw_big_dot(index, gain) {
-    //     // this pixel
-    //     this.buffer.pixels[index + 0] = red(this.colorForeground) + gain;
-    //     this.buffer.pixels[index + 1] = green(this.colorForeground) + gain;
-    //     this.buffer.pixels[index + 2] = blue(this.colorForeground) + gain;
-    //     this.buffer.pixels[index + 3] = alpha(this.colorForeground);
-
-    //     // preceding pixel, the pixel left
-    //     this.buffer.pixels[index - 4] = red(this.colorForeground) + gain;
-    //     this.buffer.pixels[index - 3] = green(this.colorForeground) + gain;
-    //     this.buffer.pixels[index - 2] = blue(this.colorForeground) + gain;
-    //     this.buffer.pixels[index - 1] = alpha(this.colorForeground);
-
-    //     // pixel above on y axis
-    //     this.buffer.pixels[index - this.buffer.width * 4] = red(this.colorForeground) + gain;
-    //     this.buffer.pixels[index - this.buffer.width * 4 + 1] = green(this.colorForeground) + gain;
-    //     this.buffer.pixels[index - this.buffer.width * 4 + 2] = blue(this.colorForeground) + gain;
-    //     this.buffer.pixels[index - this.buffer.width * 4 + 3] = alpha(this.colorForeground);
-
-    //     // pixel above on y axis
-    //     this.buffer.pixels[index - this.buffer.width * 4 - 4] = red(this.colorForeground) + gain;
-    //     this.buffer.pixels[index - this.buffer.width * 4 - 3] = green(this.colorForeground) + gain;
-    //     this.buffer.pixels[index - this.buffer.width * 4 - 2] = blue(this.colorForeground) + gain;
-    //     this.buffer.pixels[index - this.buffer.width * 4 - 1] = alpha(this.colorForeground);
-    // }
 }
