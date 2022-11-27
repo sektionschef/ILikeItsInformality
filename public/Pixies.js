@@ -34,8 +34,6 @@ class Pixies {
         this.buffer.loadPixels();
         let yoff = 0;
 
-        var blockColor = getRandomFromList(PALETTE.pixelColors);
-
         for (let y = 0; y < this.buffer.height; y++) {
             yoff += this.incY;
             let xoff = 0;
@@ -88,7 +86,7 @@ class Pixies {
                             currentBlock.pixelate(x, y, index);
                         } else if (currentBlock["nature"] == "premature") {
                             // console.log(currentBlock.blockCenter);
-                            if (this.corrodedBlock(x, y, index, blockColor, currentBlock.blockCenter)) {
+                            if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter)) {
                                 continue;
                             };
                         }
@@ -96,35 +94,7 @@ class Pixies {
 
                 } else {
 
-                    // show gain noise file
-                    // this.buffer.pixels[index + 0] = _gain_;
-                    // this.buffer.pixels[index + 1] = _gain_;
-                    // this.buffer.pixels[index + 2] = _gain_;
-                    // this.buffer.pixels[index + 3] = 255;
-
-                    var noisePaletteSwitch = fxrand();
-                    if (noisePaletteSwitch > 0.5) {
-                        var colorNoise = color(_gain_, _gain_, _gain_, 255);
-                        var coldiff = [];
-                        for (var colory of PALETTE.pixelColors) {
-                            coldiff.push(abs(Math.round(brightness(colorNoise) - brightness(colory))));
-                        }
-                        // console.log(_gain_ - brightness(colory));
-                        // console.log(coldiff);
-                        var min = Math.min(...coldiff);
-                        // console.log(min);
-                        var match = coldiff.indexOf(min);
-                        // console.log(PALETTE.pixelColors[match]);
-
-                        this.showColor(index, PALETTE.pixelColors[match], 25)
-
-                        // random pixelcolor
-                    } else if (noisePaletteSwitch <= 0.5) {
-                        var pick = getRandomFromList(PALETTE.pixelColors);
-
-                        this.showColor(index, pick, 25)
-
-                    }
+                    this.createNoiseFloor(x, y, index, _gain_);
                 }
 
                 // // GRID TEXTURE
@@ -136,6 +106,32 @@ class Pixies {
         this.buffer.updatePixels();
         this.buffer.pop();
 
+    }
+
+    createNoiseFloor(x, y, index, _gain_) {
+        var noisePaletteSwitch = fxrand();
+        if (noisePaletteSwitch > 0.5) {
+            var colorNoise = color(_gain_, _gain_, _gain_, 255);
+            var coldiff = [];
+            for (var colory of PALETTE.pixelColors) {
+                coldiff.push(abs(Math.round(brightness(colorNoise) - brightness(colory))));
+            }
+            // console.log(_gain_ - brightness(colory));
+            // console.log(coldiff);
+            var min = Math.min(...coldiff);
+            // console.log(min);
+            var match = coldiff.indexOf(min);
+            // console.log(PALETTE.pixelColors[match]);
+
+            this.showColor(index, PALETTE.pixelColors[match], 25)
+
+            // random pixelcolor
+        } else if (noisePaletteSwitch <= 0.5) {
+            var pick = getRandomFromList(PALETTE.pixelColors);
+
+            this.showColor(index, pick, 25)
+
+        }
     }
 
     // change existing color
