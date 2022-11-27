@@ -43,19 +43,8 @@ class Pixies {
                 let index = (x + y * this.buffer.width) * 4;
                 var noiseF = noise(xoff, yoff);
                 var _gain_ = noiseF * this.gain;
-                // if (this.softNoiseFeature == true) {
-                //     var _soft_gain_ = _gain_ / 2;
-                // } else {
-                //     var _soft_gain_ = _gain_;
-                // }
 
-                // draw the background
-                // if (typeof this.colorBackground != "undefined") {
-                //     this.buffer.pixels[index + 0] = red(this.colorBackground);
-                //     this.buffer.pixels[index + 1] = green(this.colorBackground);
-                //     this.buffer.pixels[index + 2] = blue(this.colorBackground);
-                //     this.buffer.pixels[index + 3] = alpha(this.colorBackground);
-                // }
+                this.createNoiseFloor(x, y, index, _gain_);
 
                 // margin
                 if (
@@ -92,9 +81,6 @@ class Pixies {
                         }
                     }
 
-                } else {
-
-                    this.createNoiseFloor(x, y, index, _gain_);
                 }
 
                 // // GRID TEXTURE
