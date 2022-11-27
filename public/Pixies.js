@@ -83,10 +83,10 @@ class Pixies {
 
                 }
 
-                // // GRID TEXTURE
-                // if (index % _density_ == 0) {
-                //     this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
-                // }
+                // GRID TEXTURE
+                if (index % _density_ == 0) {
+                    this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
+                }
             }
         }
         this.buffer.updatePixels();
@@ -225,14 +225,14 @@ class Pixies {
 
     corrodedBlock(x, y, index, blockColor, blockCenter) {
         // RANDOM RANGES HERE
-        var distAX = 30;
-        var distAY = 30;
-        var distBX = 20;
-        var distBY = 20;
-        var distCX = 10;
-        var distCY = 10;
-        var distDX = 5;
-        var distDY = 5;
+        var distAX = getRandomFromInterval(25, 35);
+        var distAY = getRandomFromInterval(25, 35);
+        var distBX = getRandomFromInterval(15, 25);
+        var distBY = getRandomFromInterval(15, 25);
+        var distCX = getRandomFromInterval(5, 15);
+        var distCY = getRandomFromInterval(5, 15);
+        var distDX = getRandomFromInterval(2, 7);
+        var distDY = getRandomFromInterval(2, 7);
 
         if (abs(x - blockCenter.x) <= distDX && abs(y - blockCenter.y) <= distDY) {
             if (fxrand() >= 0.1) {
