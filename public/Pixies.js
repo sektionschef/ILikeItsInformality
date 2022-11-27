@@ -2,7 +2,8 @@
 class Pixies {
 
     constructor(data) {
-        this.inc = data.inc;
+        this.incX = data.incX;
+        this.incY = data.incY;
         this.gain = data.gain;
         this.colorBackground = data.colorBackground;
         this.colorForeground = data.colorForeground;
@@ -54,64 +55,65 @@ class Pixies {
                 // }
 
                 // margin
-                if (
-                    (index % (this.buffer.width * 4) > this.margin * 4) &&  // horizontal left
-                    (index % (this.buffer.width * 4) < ((this.buffer.width - (this.margin)) * 4)) &&  // horizontal right
-                    (index > (this.buffer.width * (this.margin)) * 4) && // vertical top
-                    (index < (this.totalPixels - this.buffer.width * (this.margin) * 4))  // vertical bottom
-                ) {
+                // if (
+                //     (index % (this.buffer.width * 4) > this.margin * 4) &&  // horizontal left
+                //     (index % (this.buffer.width * 4) < ((this.buffer.width - (this.margin)) * 4)) &&  // horizontal right
+                //     (index > (this.buffer.width * (this.margin)) * 4) && // vertical top
+                //     (index < (this.totalPixels - this.buffer.width * (this.margin) * 4))  // vertical bottom
+                // ) {
 
-                    // SIMPLE COLOR
-                    // this.showColor(index, color("#60608b"), 3)
+                // SIMPLE COLOR
+                // this.showColor(index, color("#60608b"), 3)
 
-                    // if (pointInPolygon(sunnybunny.coordsList, [x, y])) {
-                    //     this.showColor(index, color("#8e8ee7"), 5)
-                    //     this.showGradient(index);
-                    // }
+                // if (pointInPolygon(sunnybunny.coordsList, [x, y])) {
+                //     this.showColor(index, color("#8e8ee7"), 5)
+                //     this.showGradient(index);
+                // }
 
-                    // fields
-                    // this.gradientLineShow(x, y, index);
+                // fields
+                // this.gradientLineShow(x, y, index);
 
-                    // this.showFatPixle(x, y, index);
-
-
-                    // for (var i = 0; i < (blockGrid.blocks.length); i++) {
-                    //     currentBlock = blockGrid.blocks[i];
-                    //     currentBlock.pixelate(x, y, index);
-                    // }
+                // this.showFatPixle(x, y, index);
 
 
-                    // show gain noise file
-                    // this.buffer.pixels[index + 0] = _gain_;
-                    // this.buffer.pixels[index + 1] = _gain_;
-                    // this.buffer.pixels[index + 2] = _gain_;
-                    // this.buffer.pixels[index + 3] = 255;
-
-                    if (fxrand() > 0.70) {
-                        var colorNoise = color(_gain_, _gain_, _gain_, 255);
-                        var coldiff = [];
-                        for (var colory of PALETTE.pixelColors) {
-                            coldiff.push(abs(Math.round(brightness(colorNoise) - brightness(colory))));
-                        }
-                        // console.log(_gain_ - brightness(colory));
-                        // console.log(coldiff);
-                        var min = Math.min(...coldiff);
-                        // console.log(min);
-                        var match = coldiff.indexOf(min);
-                        // console.log(PALETTE.pixelColors[match]);
+                // for (var i = 0; i < (blockGrid.blocks.length); i++) {
+                //     currentBlock = blockGrid.blocks[i];
+                //     currentBlock.pixelate(x, y, index);
+                // }
 
 
-                        this.buffer.pixels[index + 0] = red(PALETTE.pixelColors[match]);
-                        this.buffer.pixels[index + 1] = green(PALETTE.pixelColors[match]);
-                        this.buffer.pixels[index + 2] = blue(PALETTE.pixelColors[match]);
-                        this.buffer.pixels[index + 3] = 255;
-                    } else {
-                        var pick = getRandomFromList(PALETTE.pixelColors);
-                        this.buffer.pixels[index + 0] = red(pick);
-                        this.buffer.pixels[index + 1] = green(pick);
-                        this.buffer.pixels[index + 2] = blue(pick);
-                        this.buffer.pixels[index + 3] = 255;
+                // show gain noise file
+                // this.buffer.pixels[index + 0] = _gain_;
+                // this.buffer.pixels[index + 1] = _gain_;
+                // this.buffer.pixels[index + 2] = _gain_;
+                // this.buffer.pixels[index + 3] = 255;
+
+                if (fxrand() > 0.7) {
+                    var colorNoise = color(_gain_, _gain_, _gain_, 255);
+                    var coldiff = [];
+                    for (var colory of PALETTE.pixelColors) {
+                        coldiff.push(abs(Math.round(brightness(colorNoise) - brightness(colory))));
                     }
+                    // console.log(_gain_ - brightness(colory));
+                    // console.log(coldiff);
+                    var min = Math.min(...coldiff);
+                    // console.log(min);
+                    var match = coldiff.indexOf(min);
+                    // console.log(PALETTE.pixelColors[match]);
+
+
+                    this.buffer.pixels[index + 0] = red(PALETTE.pixelColors[match]);
+                    this.buffer.pixels[index + 1] = green(PALETTE.pixelColors[match]);
+                    this.buffer.pixels[index + 2] = blue(PALETTE.pixelColors[match]);
+                    this.buffer.pixels[index + 3] = 255;
+                    // random pixelcolor
+                } else if (fxrand() > 0.9) {
+                    var pick = getRandomFromList(PALETTE.pixelColors);
+                    this.buffer.pixels[index + 0] = red(pick);
+                    this.buffer.pixels[index + 1] = green(pick);
+                    this.buffer.pixels[index + 2] = blue(pick);
+                    this.buffer.pixels[index + 3] = 255;
+                    // }
 
 
                     // if (random() > 0.75) {
@@ -128,9 +130,9 @@ class Pixies {
                 // if (index % _density_ == 0) {
                 // this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
                 // }
-                xoff += this.inc;
+                xoff += this.incX;
             }
-            yoff += this.inc;
+            yoff += this.incY;
         }
         this.buffer.updatePixels();
         this.buffer.pop();
