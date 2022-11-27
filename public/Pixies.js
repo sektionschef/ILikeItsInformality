@@ -86,48 +86,9 @@ class Pixies {
 
                 // Moritz und Emma
 
-                // try out something
-                var pointy = createVector(400, 500);
-                var distAX = 30;
-                var distAY = 30;
-                var distBX = 20;
-                var distBY = 20;
-                var distCX = 10;
-                var distCY = 10;
-                var distDX = 5;
-                var distDY = 5;
-
-                if (abs(x - pointy.x) <= distDX && abs(y - pointy.y) <= distDY) {
-                    if (fxrand() >= 0) {
-                        this.showColor(index, blockColor, 0)
-                        continue;
-                    } else {
-                        // continue;
-                    }
-                } else if (abs(x - pointy.x) <= distCX && abs(y - pointy.y) <= distCY) {
-                    if (fxrand() >= 0.25) {
-                        this.showColor(index, blockColor, 0)
-                        continue;
-                    } else {
-                        // continue;
-                    }
-                } else if (abs(x - pointy.x) <= distBX && abs(y - pointy.y) <= distBY) {
-                    if (fxrand() >= 0.5) {
-                        this.showColor(index, blockColor, 0)
-                        continue;
-                    } else {
-                        // continue;
-                    }
-
-                } else if (abs(x - pointy.x) <= distAX && abs(y - pointy.y) <= distAY) {
-                    if (fxrand() >= 0.75) {
-                        this.showColor(index, blockColor, 0)
-                        continue;
-                    } else {
-                        // continue;
-                    }
-                }
-
+                if (this.corrodedBlock(x, y, index, blockColor)) {
+                    continue;
+                };
 
                 // show gain noise file
                 // this.buffer.pixels[index + 0] = _gain_;
@@ -270,6 +231,41 @@ class Pixies {
             var difference = abs(blockPosX - x) + abs(blockPosY - y);
             if (fxrand() >= map(difference, 0, blockSize / 2 * distanceMax, 0, 1)) {
                 this.showColor(index, colorObject, 20);
+            }
+        }
+    }
+
+    corrodedBlock(x, y, index, blockColor) {
+        // try out something
+        var pointy = createVector(400, 500);
+        var distAX = 30;
+        var distAY = 30;
+        var distBX = 20;
+        var distBY = 20;
+        var distCX = 10;
+        var distCY = 10;
+        var distDX = 5;
+        var distDY = 5;
+
+        if (abs(x - pointy.x) <= distDX && abs(y - pointy.y) <= distDY) {
+            if (fxrand() >= 0.1) {
+                this.showColor(index, blockColor, 5)
+                return true;
+            }
+        } else if (abs(x - pointy.x) <= distCX && abs(y - pointy.y) <= distCY) {
+            if (fxrand() >= 0.25) {
+                this.showColor(index, blockColor, 5)
+                return true;
+            }
+        } else if (abs(x - pointy.x) <= distBX && abs(y - pointy.y) <= distBY) {
+            if (fxrand() >= 0.5) {
+                this.showColor(index, blockColor, 5)
+                return true;
+            }
+        } else if (abs(x - pointy.x) <= distAX && abs(y - pointy.y) <= distAY) {
+            if (fxrand() >= 0.75) {
+                this.showColor(index, blockColor, 5)
+                return true;
             }
         }
     }
