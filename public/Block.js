@@ -3,25 +3,36 @@ class Block {
 
     constructor(data) {
         this.blockPos = createVector(data.x, data.y);
+        this.blockCenter = data.blockCenter;
         this.blockSize = data.blocksize;
         this.haloPos = createVector(this.blockPos.x - this.blockSize / 2, this.blockPos.y - this.blockSize / 2);
         this.haloBlockSize = this.blockSize * 2;
         this.color = data.color;
+        this.nature = data.nature;
 
-        this.getState();
-    }
-
-    getState() {
-        this.a = true;
-        this.b = true;
-        this.c = false;
-        this.d = true;
-        this.e = true;
-        this.f = false;
-        this.g = false;
-        this.h = false;
-        this.i = false;
-        this.j = false;
+        if (this.nature == "pure") {
+            this.a = false;
+            this.b = false;
+            this.c = false;
+            this.d = false;
+            this.e = true;
+            this.f = false;
+            this.g = false;
+            this.h = false;
+            this.i = false;
+            this.j = false;
+        } else if (this.nature == "obscure") {
+            this.a = true;
+            this.b = true;
+            this.c = false;
+            this.d = true;
+            this.e = true;
+            this.f = false;
+            this.g = false;
+            this.h = false;
+            this.i = false;
+            this.j = false;
+        }
     }
 
     pixelate(x, y, index) {
