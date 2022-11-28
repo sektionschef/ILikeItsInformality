@@ -32,8 +32,8 @@ class Pixies {
 
         this.buffer.push();
         this.buffer.loadPixels();
-        let yoff = 0;
 
+        let yoff = 0;
         for (let y = 0; y < this.buffer.height; y++) {
             yoff += this.incY;
             let xoff = 0;
@@ -65,21 +65,20 @@ class Pixies {
                     // fields
                     // this.gradientLineShow(x, y, index);
 
-                    for (var i = 0; i < (blockGrid.blocks.length); i++) {
-                        currentBlock = blockGrid.blocks[i];
-                        // console.log(currentBlock);
-
-                        if (currentBlock["nature"] == "pure") {
-                            currentBlock.pixelate(x, y, index);
-                        } else if (currentBlock["nature"] == "obscure") {
-                            currentBlock.pixelate(x, y, index);
-                        } else if (currentBlock["nature"] == "premature") {
-                            // console.log(currentBlock.blockCenter);
-                            if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter)) {
-                                continue;
-                            };
-                        }
-                    }
+                    // for (var i = 0; i < (blockGrid.blocks.length); i++) {
+                    //     currentBlock = blockGrid.blocks[i];
+                    //     if (currentBlock["nature"] == "pure") {
+                    //         currentBlock.pixelate(x, y, index);
+                    //     } else if (currentBlock["nature"] == "obscure") {
+                    //         currentBlock.pixelate(x, y, index);
+                    //     } else if (currentBlock["nature"] == "premature") {
+                    //         if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter)) {
+                    //             continue;
+                    //         };
+                    //     } else if (currentBlock["nature"] == "dissolved") {
+                    //         continue;
+                    //     }
+                    // }
 
                 }
 
@@ -224,6 +223,7 @@ class Pixies {
     }
 
     corrodedBlock(x, y, index, blockColor, blockCenter) {
+
         // RANDOM RANGES HERE
         var distAX = getRandomFromInterval(25, 35);
         var distAY = getRandomFromInterval(25, 35);
@@ -234,23 +234,24 @@ class Pixies {
         var distDX = getRandomFromInterval(2, 7);
         var distDY = getRandomFromInterval(2, 7);
 
+        var pickNumber = fxrand();
         if (abs(x - blockCenter.x) <= distDX && abs(y - blockCenter.y) <= distDY) {
-            if (fxrand() >= 0.1) {
+            if (pickNumber >= 0.1) {
                 this.showColor(index, blockColor, 5)
                 return true;
             }
         } else if (abs(x - blockCenter.x) <= distCX && abs(y - blockCenter.y) <= distCY) {
-            if (fxrand() >= 0.25) {
+            if (pickNumber >= 0.25) {
                 this.showColor(index, blockColor, 5)
                 return true;
             }
         } else if (abs(x - blockCenter.x) <= distBX && abs(y - blockCenter.y) <= distBY) {
-            if (fxrand() >= 0.5) {
+            if (pickNumber >= 0.5) {
                 this.showColor(index, blockColor, 5)
                 return true;
             }
         } else if (abs(x - blockCenter.x) <= distAX && abs(y - blockCenter.y) <= distAY) {
-            if (fxrand() >= 0.75) {
+            if (pickNumber >= 0.75) {
                 this.showColor(index, blockColor, 5)
                 return true;
             }
