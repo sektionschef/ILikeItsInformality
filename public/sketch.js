@@ -252,8 +252,20 @@ function draw() {
     // cam1.lookAt(-100, 0, 0);
 
     // background(170);
+
+
+
     pixies.show();
     image(pixies.buffer, 0, 0);
+
+    // push();
+    // for (var i = 0; i < 1000; i++) {
+    //   blendMode(OVERLAY);
+    //   noStroke();
+    //   fill("#db9de0");
+    //   rect(getRandomFromInterval(0, width), getRandomFromInterval(0, height), 40, 40);
+    // }
+    // pop();
   }
 
   // background(170);

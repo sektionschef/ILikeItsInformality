@@ -83,9 +83,9 @@ class Pixies {
                 }
 
                 // GRID TEXTURE
-                if (index % _density_ == 0) {
-                    this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
-                }
+                // if (index % _density_ == 0) {
+                //     this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
+                // }
             }
         }
         this.buffer.updatePixels();

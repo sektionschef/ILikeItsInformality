@@ -12,11 +12,15 @@ class BlockGrid {
         this.spot = createVector(400, 600);
 
         var pickNumber;
+        var gain = 6;  // 4 natures
 
+        let noiseOff = 0;
         for (var blockX = this.margin; blockX < (width - this.margin); blockX += this.blockSize) {
             // console.log(blockX);
             for (var blockY = this.margin; blockY < (height - this.margin); blockY += this.blockSize) {
-                // console.log(createVector((blockX + this.blockSize / 2), (blockY + this.blockSize / 2)));
+
+                var noiseB = noise(blockX, blockY);
+                var _gain_ = Math.round(noiseB * gain);
 
                 this.center = createVector(blockX + this.blockSize / 2, blockY + this.blockSize / 2);
 
@@ -29,13 +33,24 @@ class BlockGrid {
                 //     this.nature = "premature"
                 // }
 
-                pickNumber = fxrand();
+                // pickNumber = fxrand();
 
-                if (pickNumber < 0.1) {
+                // if (pickNumber < 0.1) {
+                //     this.nature = "pure";
+                // } else if (pickNumber < 0.3) {
+                //     this.nature = "obscure";
+                // } else if (pickNumber < 0.5) {
+                //     this.nature = "premature";
+                // } else {
+                //     this.nature = "dissolved";
+                // }
+
+                // console.log(_gain_);
+                if (_gain_ == 1) {
                     this.nature = "pure";
-                } else if (pickNumber < 0.3) {
+                } else if (_gain_ == 2) {
                     this.nature = "obscure";
-                } else if (pickNumber < 0.5) {
+                } else if (_gain_ == 3) {
                     this.nature = "premature";
                 } else {
                     this.nature = "dissolved";

@@ -96,7 +96,7 @@ class Block {
     // CENTER
     pixelateE(x, y, index) {
         if (x >= this.blockPos.x && x < (this.blockPos.x + this.blockSize) && y >= this.blockPos.y && y < (this.blockPos.y + this.blockSize)) {
-            pixies.showColor(index, this.color, 10);
+            pixies.showColor(index, this.color, 20);  // 10
         }
     }
 
