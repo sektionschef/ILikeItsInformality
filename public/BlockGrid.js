@@ -47,9 +47,9 @@ class BlockGrid {
 
                 // console.log(_gain_);
                 if (_gain_ == 1) {
-                    this.nature = "pure";
+                    // this.nature = "pure";
                 } else if (_gain_ == 2) {
-                    this.nature = "obscure";
+                    // this.nature = "obscure";
                 } else if (_gain_ == 3) {
                     this.nature = "premature";
                 } else {

@@ -44,43 +44,41 @@ class Pixies {
                 var noiseF = noise(xoff, yoff);
                 var _gain_ = noiseF * this.gain;
 
-                this.createNoiseFloor(x, y, index, _gain_);
+                // this.createNoiseFloor(x, y, index, _gain_);
 
                 // margin
-                if (
-                    (index % (this.buffer.width * 4) > this.margin * 4) &&  // horizontal left
-                    (index % (this.buffer.width * 4) < ((this.buffer.width - (this.margin)) * 4)) &&  // horizontal right
-                    (index > (this.buffer.width * (this.margin)) * 4) && // vertical top
-                    (index < (this.totalPixels - this.buffer.width * (this.margin) * 4))  // vertical bottom
-                ) {
+                // if (
+                //     (index % (this.buffer.width * 4) > this.margin * 4) &&  // horizontal left
+                //     (index % (this.buffer.width * 4) < ((this.buffer.width - (this.margin)) * 4)) &&  // horizontal right
+                //     (index > (this.buffer.width * (this.margin)) * 4) && // vertical top
+                //     (index < (this.totalPixels - this.buffer.width * (this.margin) * 4))  // vertical bottom
+                // ) {
 
-                    // SIMPLE COLOR
-                    // this.showColor(index, color("#60608b"), 3)
 
-                    // if (pointInPolygon(sunnybunny.coordsList, [x, y])) {
-                    //     this.showColor(index, color("#8e8ee7"), 5)
-                    //     this.showGradient(index);
-                    // }
+                // if (pointInPolygon(sunnybunny.coordsList, [x, y])) {
+                //     this.showColor(index, color("#8e8ee7"), 5)
+                //     this.showGradient(index);
+                // }
 
-                    // fields
-                    // this.gradientLineShow(x, y, index);
+                // fields
+                // this.gradientLineShow(x, y, index);
 
-                    // for (var i = 0; i < (blockGrid.blocks.length); i++) {
-                    //     currentBlock = blockGrid.blocks[i];
-                    //     if (currentBlock["nature"] == "pure") {
-                    //         currentBlock.pixelate(x, y, index);
-                    //     } else if (currentBlock["nature"] == "obscure") {
-                    //         currentBlock.pixelate(x, y, index);
-                    //     } else if (currentBlock["nature"] == "premature") {
-                    //         if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter)) {
-                    //             continue;
-                    //         };
-                    //     } else if (currentBlock["nature"] == "dissolved") {
-                    //         continue;
-                    //     }
-                    // }
-
+                for (var i = 0; i < (blockGrid.blocks.length); i++) {
+                    currentBlock = blockGrid.blocks[i];
+                    if (currentBlock["nature"] == "pure") {
+                        currentBlock.pixelate(x, y, index);
+                    } else if (currentBlock["nature"] == "obscure") {
+                        currentBlock.pixelate(x, y, index);
+                    } else if (currentBlock["nature"] == "premature") {
+                        if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter)) {
+                            continue;
+                        };
+                    } else if (currentBlock["nature"] == "dissolved") {
+                        continue;
+                    }
                 }
+
+                // }
 
                 // GRID TEXTURE
                 // if (index % _density_ == 0) {
@@ -108,13 +106,13 @@ class Pixies {
             var match = coldiff.indexOf(min);
             // console.log(PALETTE.pixelColors[match]);
 
-            this.showColor(index, PALETTE.pixelColors[match], 25)
+            this.showColor(index, PALETTE.pixelColors[match], 55)
 
             // random pixelcolor
         } else if (noisePaletteSwitch <= 0.5) {
             var pick = getRandomFromList(PALETTE.pixelColors);
 
-            this.showColor(index, pick, 25)
+            this.showColor(index, pick, 0)
 
         }
     }
@@ -224,37 +222,62 @@ class Pixies {
 
     corrodedBlock(x, y, index, blockColor, blockCenter) {
 
-        // RANDOM RANGES HERE
-        var distAX = getRandomFromInterval(25, 35);
-        var distAY = getRandomFromInterval(25, 35);
-        var distBX = getRandomFromInterval(15, 25);
-        var distBY = getRandomFromInterval(15, 25);
-        var distCX = getRandomFromInterval(5, 15);
-        var distCY = getRandomFromInterval(5, 15);
-        var distDX = getRandomFromInterval(2, 7);
-        var distDY = getRandomFromInterval(2, 7);
+        var distortion = 33;
+        var density = DOMINANTSIDE * 0.01;
+        // var density = DOMINANTSIDE * 0.03;
 
+        // RANDOM RANGES HERE
+        // var distAX = getRandomFromInterval(25, 35);
+        // var distAY = getRandomFromInterval(25, 35);
+        // var distBX = getRandomFromInterval(15, 25);
+        // var distBY = getRandomFromInterval(15, 25);
+        // var distCX = getRandomFromInterval(5, 15);
+        // var distCY = getRandomFromInterval(5, 15);
+        // var distDX = getRandomFromInterval(2, 7);
+        // var distDY = getRandomFromInterval(2, 7);
+
+        // var distAX = DOMINANTSIDE * 0.03;
+        // var distAY = DOMINANTSIDE * 0.03;
+        // var distBX = DOMINANTSIDE * 0.02;
+        // var distBY = DOMINANTSIDE * 0.02;
+        // var distCX = DOMINANTSIDE * 0.01;
+        // var distCY = DOMINANTSIDE * 0.01;
+        // var distDX = DOMINANTSIDE * 0.005;
+        // var distDY = DOMINANTSIDE * 0.005;
+
+        // var pickNumber = fxrand();
+        // if (abs(x - blockCenter.x) <= distDX && abs(y - blockCenter.y) <= distDY) {
+        //     if (pickNumber >= 0.1) {
+        //         this.showColor(index, blockColor, distortion);
+        //         return true;
+        //     }
+        // } else if (abs(x - blockCenter.x) <= distCX && abs(y - blockCenter.y) <= distCY) {
+        //     if (pickNumber >= 0.25) {
+        //         this.showColor(index, blockColor, distortion);
+        //         return true;
+        //     }
+        // } else if (abs(x - blockCenter.x) <= distBX && abs(y - blockCenter.y) <= distBY) {
+        //     if (pickNumber >= 0.5) {
+        //         this.showColor(index, blockColor, distortion);
+        //         return true;
+        //     }
+        // } else if (abs(x - blockCenter.x) <= distAX && abs(y - blockCenter.y) <= distAY) {
+        //     if (pickNumber >= 0.75) {
+        //         this.showColor(index, blockColor, distortion);
+        //         return true;
+        //     }
+        // }
+
+        var dist = getRandomFromInterval(0, density);
         var pickNumber = fxrand();
-        if (abs(x - blockCenter.x) <= distDX && abs(y - blockCenter.y) <= distDY) {
-            if (pickNumber >= 0.1) {
-                this.showColor(index, blockColor, 5)
-                return true;
-            }
-        } else if (abs(x - blockCenter.x) <= distCX && abs(y - blockCenter.y) <= distCY) {
-            if (pickNumber >= 0.25) {
-                this.showColor(index, blockColor, 5)
-                return true;
-            }
-        } else if (abs(x - blockCenter.x) <= distBX && abs(y - blockCenter.y) <= distBY) {
-            if (pickNumber >= 0.5) {
-                this.showColor(index, blockColor, 5)
-                return true;
-            }
-        } else if (abs(x - blockCenter.x) <= distAX && abs(y - blockCenter.y) <= distAY) {
-            if (pickNumber >= 0.75) {
-                this.showColor(index, blockColor, 5)
-                return true;
-            }
+
+        if (
+            pickNumber >= map(abs(x - blockCenter.x), 0, dist * 1.5, 0, 1) &&
+            pickNumber >= map(abs(y - blockCenter.y), 0, dist * 1.5, 0, 1)
+        ) {
+            this.showColor(index, blockColor, distortion);
+            return true;
         }
+
     }
 }
