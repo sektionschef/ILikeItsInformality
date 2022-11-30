@@ -65,16 +65,25 @@ class Pixies {
 
                 for (var i = 0; i < (blockGrid.blocks.length); i++) {
                     currentBlock = blockGrid.blocks[i];
-                    if (currentBlock["nature"] == "pure") {
-                        currentBlock.pixelate(x, y, index);
-                    } else if (currentBlock["nature"] == "obscure") {
-                        currentBlock.pixelate(x, y, index);
-                    } else if (currentBlock["nature"] == "premature") {
-                        if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter)) {
+
+                    if (
+                        x >= currentBlock.blockPos.x &&
+                        x <= (currentBlock.blockPos.x + currentBlock.blockSize) &&
+                        y >= currentBlock.blockPos.y &&
+                        y <= (currentBlock.blockPos.y + currentBlock.blockSize)
+                    ) {
+
+                        if (currentBlock["nature"] == "pure") {
+                            currentBlock.pixelate(x, y, index);
+                        } else if (currentBlock["nature"] == "obscure") {
+                            currentBlock.pixelate(x, y, index);
+                        } else if (currentBlock["nature"] == "premature") {
+                            if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter)) {
+                                continue;
+                            };
+                        } else if (currentBlock["nature"] == "dissolved") {
                             continue;
-                        };
-                    } else if (currentBlock["nature"] == "dissolved") {
-                        continue;
+                        }
                     }
                 }
 
@@ -222,10 +231,6 @@ class Pixies {
 
     corrodedBlock(x, y, index, blockColor, blockCenter) {
 
-        var distortion = 33;
-        var density = DOMINANTSIDE * 0.01;
-        // var density = DOMINANTSIDE * 0.03;
-
         // RANDOM RANGES HERE
         // var distAX = getRandomFromInterval(25, 35);
         // var distAY = getRandomFromInterval(25, 35);
@@ -268,8 +273,13 @@ class Pixies {
         //     }
         // }
 
+        var distortion = 33;
+        var density = DOMINANTSIDE * 0.01;
+        // var density = DOMINANTSIDE * 0.03;
+
         var dist = getRandomFromInterval(0, density);
         var pickNumber = fxrand();
+
 
         if (
             pickNumber >= map(abs(x - blockCenter.x), 0, dist * 1.5, 0, 1) &&
