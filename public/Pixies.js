@@ -67,10 +67,10 @@ class Pixies {
                     currentBlock = blockGrid.blocks[i];
 
                     if (
-                        x >= currentBlock.blockPos.x &&
-                        x <= (currentBlock.blockPos.x + currentBlock.blockSize) &&
-                        y >= currentBlock.blockPos.y &&
-                        y <= (currentBlock.blockPos.y + currentBlock.blockSize)
+                        x >= (currentBlock.blockPos.x - currentBlock.blockSize) &&
+                        x <= (currentBlock.blockPos.x + currentBlock.blockSize * 2) &&
+                        y >= (currentBlock.blockPos.y - currentBlock.blockSize) &&
+                        y <= (currentBlock.blockPos.y + currentBlock.blockSize * 2)
                     ) {
 
                         if (currentBlock["nature"] == "pure") {
@@ -78,7 +78,7 @@ class Pixies {
                         } else if (currentBlock["nature"] == "obscure") {
                             currentBlock.pixelate(x, y, index);
                         } else if (currentBlock["nature"] == "premature") {
-                            if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter)) {
+                            if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, currentBlock.blockSize)) {
                                 continue;
                             };
                         } else if (currentBlock["nature"] == "dissolved") {
@@ -229,7 +229,7 @@ class Pixies {
         }
     }
 
-    corrodedBlock(x, y, index, blockColor, blockCenter) {
+    corrodedBlock(x, y, index, blockColor, blockCenter, blockSize, min, max) {
 
         // RANDOM RANGES HERE
         // var distAX = getRandomFromInterval(25, 35);
@@ -273,17 +273,20 @@ class Pixies {
         //     }
         // }
 
+        var blockSize = abs(x - blockCenter.x)
         var distortion = 33;
-        var density = DOMINANTSIDE * 0.01;
+        // var density = DOMINANTSIDE * 0.01;
         // var density = DOMINANTSIDE * 0.03;
 
-        var dist = getRandomFromInterval(0, density);
-        var pickNumber = fxrand();
+        var max = DOMINANTSIDE * 0.03;  // 0.05
+        var min = DOMINANTSIDE * 0.01;  // 0 - some is fix
 
+        var max = DOMINANTSIDE * 0.03;
+        var min = blockSize;
 
         if (
-            pickNumber >= map(abs(x - blockCenter.x), 0, dist * 1.5, 0, 1) &&
-            pickNumber >= map(abs(y - blockCenter.y), 0, dist * 1.5, 0, 1)
+            fxrand() >= map(abs(x - blockCenter.x), min, max, 0, 1) &&
+            fxrand() >= map(abs(y - blockCenter.y), min, max, 0, 1)
         ) {
             this.showColor(index, blockColor, distortion);
             return true;
