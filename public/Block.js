@@ -10,7 +10,7 @@ class Block {
         this.color = data.color;
         this.nature = data.nature;
 
-        if (this.nature == "pure") {
+        if (this.nature == 0) {
             this.a = false;
             this.b = false;
             this.c = false;
@@ -21,7 +21,7 @@ class Block {
             this.h = false;
             this.i = false;
             this.j = false;
-        } else if (this.nature == "obscure") {
+        } else if (this.nature == 1) {
             this.a = true;
             this.b = true;
             this.c = false;

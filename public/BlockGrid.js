@@ -6,20 +6,25 @@ class BlockGrid {
         this.blockSize = (DOMINANTSIDE - 2 * this.margin) / this.blockNumber;
         this.blockColors = PALETTE.pixelColors;
         // console.log("blocksize: " + this.blockSize);
+        this.incX = 0.5;
+        this.incY = 0.5;
 
         this.blocks = [];
 
         this.spot = createVector(400, 600);
 
         var pickNumber;
-        var gain = 6;  // 4 natures
+        var gain = 4;  // 4 natures
 
-        let noiseOff = 0;
+        this.noiseOffX = 0;
         for (var blockX = this.margin; blockX < (width - this.margin); blockX += this.blockSize) {
+            this.noiseOffX += this.incX;
             // console.log(blockX);
+            this.noiseOffY = 0;
             for (var blockY = this.margin; blockY < (height - this.margin); blockY += this.blockSize) {
+                this.noiseOffY += this.incY;
 
-                var noiseB = noise(blockX, blockY);
+                var noiseB = noise(this.noiseOffX, this.noiseOffY);
                 var _gain_ = Math.round(noiseB * gain);
 
                 this.center = createVector(blockX + this.blockSize / 2, blockY + this.blockSize / 2);
@@ -47,13 +52,13 @@ class BlockGrid {
 
                 // console.log(_gain_);
                 if (_gain_ == 1) {
-                    // this.nature = "pure";
+                    this.nature = 0;
                 } else if (_gain_ == 2) {
-                    // this.nature = "obscure";
+                    this.nature = 1;
                 } else if (_gain_ == 3) {
-                    this.nature = "premature";
+                    this.nature = 2;
                 } else {
-                    this.nature = "dissolved";
+                    this.nature = 3;
                 }
 
                 this.blocks.push(new Block({

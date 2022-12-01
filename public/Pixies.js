@@ -44,7 +44,7 @@ class Pixies {
                 var noiseF = noise(xoff, yoff);
                 var _gain_ = noiseF * this.gain;
 
-                // this.createNoiseFloor(x, y, index, _gain_);
+                this.createNoiseFloor(x, y, index, _gain_);
 
                 // margin
                 // if (
@@ -68,20 +68,28 @@ class Pixies {
 
                     if (
                         x >= (currentBlock.blockPos.x - currentBlock.blockSize) &&
-                        x <= (currentBlock.blockPos.x + currentBlock.blockSize * 2) &&
+                        x <= (currentBlock.blockPos.x + currentBlock.blockSize) &&
                         y >= (currentBlock.blockPos.y - currentBlock.blockSize) &&
-                        y <= (currentBlock.blockPos.y + currentBlock.blockSize * 2)
+                        y <= (currentBlock.blockPos.y + currentBlock.blockSize)
                     ) {
 
-                        if (currentBlock["nature"] == "pure") {
+                        if (currentBlock["nature"] == 0) {
                             currentBlock.pixelate(x, y, index);
-                        } else if (currentBlock["nature"] == "obscure") {
-                            currentBlock.pixelate(x, y, index);
-                        } else if (currentBlock["nature"] == "premature") {
-                            if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, currentBlock.blockSize)) {
+                        } else if (currentBlock["nature"] == 1) {
+                            // currentBlock.pixelate(x, y, index);
+
+                            if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 1.25)) {
                                 continue;
                             };
-                        } else if (currentBlock["nature"] == "dissolved") {
+                        } else if (currentBlock["nature"] == 2) {
+                            if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 1.5)) {
+                                continue;
+                            };
+
+                        } else if (currentBlock["nature"] == 3) {
+                            if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 2)) {
+                                continue;
+                            };
                             continue;
                         }
                     }
@@ -229,7 +237,7 @@ class Pixies {
         }
     }
 
-    corrodedBlock(x, y, index, blockColor, blockCenter, blockSize, min, max) {
+    corrodedBlock(x, y, index, blockColor, blockCenter, min, max) {
 
         // RANDOM RANGES HERE
         // var distAX = getRandomFromInterval(25, 35);
@@ -273,16 +281,17 @@ class Pixies {
         //     }
         // }
 
-        var blockSize = abs(x - blockCenter.x)
+        // var blockSize = abs(x - blockCenter.x)
         var distortion = 33;
+
         // var density = DOMINANTSIDE * 0.01;
         // var density = DOMINANTSIDE * 0.03;
 
-        var max = DOMINANTSIDE * 0.03;  // 0.05
-        var min = DOMINANTSIDE * 0.01;  // 0 - some is fix
+        // var max = DOMINANTSIDE * 0.03;  // 0.05
+        // var min = DOMINANTSIDE * 0.01;  // 0 - some is fix
 
-        var max = DOMINANTSIDE * 0.03;
-        var min = blockSize;
+        // var max = blockSize * 1.5;  // 1.5
+        // var min = blockSize * 0.5;  // 0.5
 
         if (
             fxrand() >= map(abs(x - blockCenter.x), min, max, 0, 1) &&
