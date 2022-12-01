@@ -78,16 +78,16 @@ class Pixies {
                         } else if (currentBlock["nature"] == 1) {
                             // currentBlock.pixelate(x, y, index);
 
-                            if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 1.25)) {
+                            if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 1.0)) {
                                 continue;
                             };
                         } else if (currentBlock["nature"] == 2) {
-                            if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 1.5)) {
+                            if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 1.25)) {
                                 continue;
                             };
 
                         } else if (currentBlock["nature"] == 3) {
-                            if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 2)) {
+                            if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 1.5)) {
                                 continue;
                             };
                             continue;
@@ -98,9 +98,9 @@ class Pixies {
                 // }
 
                 // GRID TEXTURE
-                // if (index % _density_ == 0) {
-                //     this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
-                // }
+                if (index % _density_ == 0) {
+                    this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
+                }
             }
         }
         this.buffer.updatePixels();
@@ -293,9 +293,15 @@ class Pixies {
         // var max = blockSize * 1.5;  // 1.5
         // var min = blockSize * 0.5;  // 0.5
 
+        var minX = getRandomFromInterval(min - (min * 1.1), min + (min * 1.1));
+        var maxX = getRandomFromInterval(max - (max * 1.1), max + (max * 1.1));
+        var minY = getRandomFromInterval(min - (min * 1.1), min + (min * 1.1));
+        var maxY = getRandomFromInterval(max - (max * 1.1), max + (max * 1.1));
+
+
         if (
-            fxrand() >= map(abs(x - blockCenter.x), min, max, 0, 1) &&
-            fxrand() >= map(abs(y - blockCenter.y), min, max, 0, 1)
+            fxrand() >= map(abs(x - blockCenter.x), minX, maxX, 0, 1) &&
+            fxrand() >= map(abs(y - blockCenter.y), minY, maxY, 0, 1)
         ) {
             this.showColor(index, blockColor, distortion);
             return true;
