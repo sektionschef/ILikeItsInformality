@@ -293,9 +293,9 @@ class Pixies {
         // var max = blockSize * 1.5;  // 1.5
         // var min = blockSize * 0.5;  // 0.5
 
-        var minX = getRandomFromInterval(min - (min * 1.1), min + (min * 1.1));
+        var minX = 0; //getRandomFromInterval(min - (min * 1.1), min + (min * 1.1));
         var maxX = getRandomFromInterval(max - (max * 1.1), max + (max * 1.1));
-        var minY = getRandomFromInterval(min - (min * 1.1), min + (min * 1.1));
+        var minY = 0; //getRandomFromInterval(min - (min * 1.1), min + (min * 1.1));
         var maxY = getRandomFromInterval(max - (max * 1.1), max + (max * 1.1));
 
 
