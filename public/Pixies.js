@@ -76,18 +76,17 @@ class Pixies {
                         if (currentBlock["nature"] == 0) {
                             currentBlock.pixelate(x, y, index);
                         } else if (currentBlock["nature"] == 1) {
-                            // currentBlock.pixelate(x, y, index);
-
-                            if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 1.0)) {
-                                continue;
-                            };
+                            currentBlock.pixelate(x, y, index);
+                            // if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize / 2)) {
+                            //     continue;
+                            // };
                         } else if (currentBlock["nature"] == 2) {
-                            if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 1.25)) {
+                            if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 1.5)) {
                                 continue;
                             };
 
                         } else if (currentBlock["nature"] == 3) {
-                            if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 1.5)) {
+                            if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 2.5)) {
                                 continue;
                             };
                             continue;

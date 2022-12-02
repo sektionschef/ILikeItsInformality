@@ -14,7 +14,7 @@ class BlockGrid {
         this.spot = createVector(400, 600);
 
         var pickNumber;
-        var gain = 4;  // 4 natures
+        var gain = 5;  // 4 natures
 
         this.noiseOffX = 0;
         for (var blockX = this.margin; blockX < (width - this.margin); blockX += this.blockSize) {
@@ -52,10 +52,12 @@ class BlockGrid {
 
                 // console.log(_gain_);
                 if (_gain_ == 1) {
-                    this.nature = 0;
+                    this.nature = 4
                 } else if (_gain_ == 2) {
-                    this.nature = 1;
+                    this.nature = 0;
                 } else if (_gain_ == 3) {
+                    this.nature = 1;
+                } else if (_gain_ == 4) {
                     this.nature = 2;
                 } else {
                     this.nature = 3;
