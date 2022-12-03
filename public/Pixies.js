@@ -77,10 +77,10 @@ class Pixies {
                     currentBlock = blockGrid.blocks[i];
 
                     if (
-                        x >= (currentBlock.blockPos.x - currentBlock.blockSize) &&
-                        x <= (currentBlock.blockPos.x + currentBlock.blockSize) &&
-                        y >= (currentBlock.blockPos.y - currentBlock.blockSize) &&
-                        y <= (currentBlock.blockPos.y + currentBlock.blockSize)
+                        x >= (currentBlock.blockPos.x - currentBlock.blockSize * 2) &&
+                        x <= (currentBlock.blockPos.x + currentBlock.blockSize * 2) &&
+                        y >= (currentBlock.blockPos.y - currentBlock.blockSize * 2) &&
+                        y <= (currentBlock.blockPos.y + currentBlock.blockSize * 2)
                     ) {
 
                         if (currentBlock["nature"] == 0) {
@@ -96,16 +96,22 @@ class Pixies {
                             // if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize / 2)) {
                             //     continue;
                             // };
+
+                            // GRID TEXTURE
+                            // if (index % Math.round(DOMINANTSIDE * 0.009) == 0) {
+                            //     // this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
+                            //     this.changeColor(index, 60)
+                            // }
                         } else if (currentBlock["nature"] == 2) {
-                            if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 1.5)) {
-                                continue;
-                            };
+                            // if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 1.5)) {
+                            //     continue;
+                            // };
 
                         } else if (currentBlock["nature"] == 3) {
-                            if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 2.5)) {
-                                continue;
-                            };
-                            continue;
+                            // if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 2.5)) {
+                            //     continue;
+                            // };
+                            // continue;
                         }
                     }
                 }
@@ -122,7 +128,46 @@ class Pixies {
         this.buffer.updatePixels();
         this.buffer.pop();
 
+
+        // SECOND LOOP
+        // this.buffer.push();
+        // this.buffer.loadPixels();
+
+        // for (let y = 0; y < this.buffer.height; y++) {
+        //     for (let x = 0; x < this.buffer.width; x++) {
+
+        //         let index = (x + y * this.buffer.width) * 4;
+
+        //         for (var i = 0; i < (blockGrid.blocks.length); i++) {
+        //             currentBlock = blockGrid.blocks[i];
+
+        //             if (
+        //                 x >= (currentBlock.blockPos.x - currentBlock.blockSize * 2) &&
+        //                 x <= (currentBlock.blockPos.x + currentBlock.blockSize * 2) &&
+        //                 y >= (currentBlock.blockPos.y - currentBlock.blockSize * 2) &&
+        //                 y <= (currentBlock.blockPos.y + currentBlock.blockSize * 2)
+        //             ) {
+
+        //                 if (currentBlock["nature"] == 2) {
+        //                     if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 1.5)) {
+        //                         continue;
+        //                     };
+
+        //                 } else if (currentBlock["nature"] == 3) {
+        //                     if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 2.5)) {
+        //                         continue;
+        //                     };
+        //                     continue;
+        //                 }
+        //             }
+        //         }
+
+        //     }
+        // }
+        // this.buffer.updatePixels();
+        // this.buffer.pop();
     }
+
 
     createNoiseFloor(x, y, index, _gain_) {
         var colorDistort = 55; // 55

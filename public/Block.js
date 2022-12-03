@@ -22,7 +22,7 @@ class Block {
             this.i = false;
             this.j = false;
 
-            this.colorNoise = 0;
+            this.colorNoise = 10;
         } else if (this.nature == 1) {
             this.a = true;
             this.b = true;

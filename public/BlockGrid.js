@@ -12,7 +12,7 @@ class BlockGrid {
         this.blocks = [];
 
         var pickNumber;
-        // var gain = 4;  // 4 natures
+        var gain = 3;  // 4 natures
 
         this.noiseOffX = 0;
         for (var blockX = this.margin; blockX < (width - this.margin); blockX += this.blockSize) {
@@ -24,7 +24,7 @@ class BlockGrid {
 
                 // var noiseB = noise(this.noiseOffX, this.noiseOffY);
                 // var _gain_ = Math.round(noiseB * gain);
-                // var _gain_ = Math.round(randomGaussian(2, 1));
+                // var _gain_ = Math.round(randomGaussian(1.5, 0.5));
                 var _gain_ = Math.round(getRandomFromInterval(0, 3));
 
                 this.center = createVector(blockX + this.blockSize / 2, blockY + this.blockSize / 2);
@@ -56,13 +56,14 @@ class BlockGrid {
                     this.color = color("#fafafa")
                 } else if (_gain_ == 1) {
                     this.nature = 1;
-                    this.color = color("#eeeeee")
+                    this.color = color("#d1d1d1")
                 } else if (_gain_ == 2) {
                     this.nature = 2;
-                    this.color = color("#dfdddd")
+                    // this.color = color("#cacaca")
+                    this.color = color("#af7777")
                 } else if (_gain_ == 3) {
                     this.nature = 3;
-                    this.color = color("#bdbaba")
+                    this.color = color("#a8a8a8")
                 } else {
                     // this.nature = 4;
                 }
