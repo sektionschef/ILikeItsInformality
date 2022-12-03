@@ -59,10 +59,14 @@ let CURRENTPIXELDENS = 1;
 // };
 
 const PALETTESYSTEM = {
-  "Boom": {
-    "background": "#aaaaaa",
-    "pixelColors": ["#303030", "#606060", "#909090", "#bbbbbb", "#eeeeee"],
-  }
+  // "Boom": {
+  //   "background": "#aaaaaa",
+  //   "pixelColors": ["#303030", "#606060", "#909090", "#bbbbbb", "#eeeeee"],
+  // },
+  "Fillitz": {
+    // "background": "#ffffff",
+    "pixelColors": ["#ffffff", "#cfcfcf", "#969696", "#3a3a3a", "#131313"],
+  },
 }
 
 choosePalette();
@@ -171,7 +175,7 @@ function setup() {
   pixies = new Pixies({
     incX: 0.03,
     incY: 0.008,
-    gain: 255,
+    gain: 155,  // 255
     colorBackground: undefined, // color(colors[PALETTE].background),  // drawn pixels for background
     colorForeground: color(130), // drawn pixels for noise
     distortion: 0.2,  // random misplacement of the boxes

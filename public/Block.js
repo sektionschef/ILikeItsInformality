@@ -21,6 +21,8 @@ class Block {
             this.h = false;
             this.i = false;
             this.j = false;
+
+            this.colorNoise = 0;
         } else if (this.nature == 1) {
             this.a = true;
             this.b = true;
@@ -32,6 +34,8 @@ class Block {
             this.h = false;
             this.i = false;
             this.j = false;
+
+            this.colorNoise = 20;
         }
     }
 
@@ -96,7 +100,7 @@ class Block {
     // CENTER
     pixelateE(x, y, index) {
         if (x >= this.blockPos.x && x < (this.blockPos.x + this.blockSize) && y >= this.blockPos.y && y < (this.blockPos.y + this.blockSize)) {
-            pixies.showColor(index, this.color, 20);  // 10
+            pixies.showColor(index, this.color, this.colorNoise);  // 10
         }
     }
 

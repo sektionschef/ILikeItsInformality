@@ -41,10 +41,20 @@ class Pixies {
                 xoff += this.incX;
 
                 let index = (x + y * this.buffer.width) * 4;
-                var noiseF = noise(xoff, yoff);
-                var _gain_ = noiseF * this.gain;
 
-                this.createNoiseFloor(x, y, index, _gain_);
+                // NOISE FLOOR
+                // var noiseF = noise(xoff, yoff);
+                // var _gain_ = noiseF * this.gain;
+                // this.createNoiseFloor(x, y, index, _gain_);
+
+                // STATIC COLOR BACKGROUND
+                this.showColor(index, color("#dfdfdf"), 15)
+
+                // GRID TEXTURE
+                if (index % _density_ == 0) {
+                    // this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
+                    this.changeColor(index, 60)
+                }
 
                 // margin
                 // if (
@@ -75,6 +85,12 @@ class Pixies {
 
                         if (currentBlock["nature"] == 0) {
                             currentBlock.pixelate(x, y, index);
+
+                            // GRID TEXTURE
+                            if (index % Math.round(DOMINANTSIDE * 0.008) == 0) {
+                                // this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
+                                this.changeColor(index, 60)
+                            }
                         } else if (currentBlock["nature"] == 1) {
                             currentBlock.pixelate(x, y, index);
                             // if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize / 2)) {
@@ -96,10 +112,11 @@ class Pixies {
 
                 // }
 
-                // GRID TEXTURE
-                if (index % _density_ == 0) {
-                    this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
-                }
+                // // GRID TEXTURE
+                // if (index % _density_ == 0) {
+                //     // this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
+                //     this.changeColor(index, 60)
+                // }
             }
         }
         this.buffer.updatePixels();
@@ -108,28 +125,29 @@ class Pixies {
     }
 
     createNoiseFloor(x, y, index, _gain_) {
+        var colorDistort = 55; // 55
         var noisePaletteSwitch = fxrand();
-        if (noisePaletteSwitch > 0.5) {
+
+        // ATTENTION
+        if (noisePaletteSwitch > 0) {
             var colorNoise = color(_gain_, _gain_, _gain_, 255);
             var coldiff = [];
             for (var colory of PALETTE.pixelColors) {
                 coldiff.push(abs(Math.round(brightness(colorNoise) - brightness(colory))));
             }
-            // console.log(_gain_ - brightness(colory));
-            // console.log(coldiff);
+
             var min = Math.min(...coldiff);
             // console.log(min);
             var match = coldiff.indexOf(min);
             // console.log(PALETTE.pixelColors[match]);
 
-            this.showColor(index, PALETTE.pixelColors[match], 55)
+            this.showColor(index, PALETTE.pixelColors[match], colorDistort)
 
             // random pixelcolor
         } else if (noisePaletteSwitch <= 0.5) {
             var pick = getRandomFromList(PALETTE.pixelColors);
 
-            this.showColor(index, pick, 0)
-
+            this.showColor(index, pick, colorDistort)
         }
     }
 
@@ -238,50 +256,8 @@ class Pixies {
 
     corrodedBlock(x, y, index, blockColor, blockCenter, min, max) {
 
-        // RANDOM RANGES HERE
-        // var distAX = getRandomFromInterval(25, 35);
-        // var distAY = getRandomFromInterval(25, 35);
-        // var distBX = getRandomFromInterval(15, 25);
-        // var distBY = getRandomFromInterval(15, 25);
-        // var distCX = getRandomFromInterval(5, 15);
-        // var distCY = getRandomFromInterval(5, 15);
-        // var distDX = getRandomFromInterval(2, 7);
-        // var distDY = getRandomFromInterval(2, 7);
-
-        // var distAX = DOMINANTSIDE * 0.03;
-        // var distAY = DOMINANTSIDE * 0.03;
-        // var distBX = DOMINANTSIDE * 0.02;
-        // var distBY = DOMINANTSIDE * 0.02;
-        // var distCX = DOMINANTSIDE * 0.01;
-        // var distCY = DOMINANTSIDE * 0.01;
-        // var distDX = DOMINANTSIDE * 0.005;
-        // var distDY = DOMINANTSIDE * 0.005;
-
-        // var pickNumber = fxrand();
-        // if (abs(x - blockCenter.x) <= distDX && abs(y - blockCenter.y) <= distDY) {
-        //     if (pickNumber >= 0.1) {
-        //         this.showColor(index, blockColor, distortion);
-        //         return true;
-        //     }
-        // } else if (abs(x - blockCenter.x) <= distCX && abs(y - blockCenter.y) <= distCY) {
-        //     if (pickNumber >= 0.25) {
-        //         this.showColor(index, blockColor, distortion);
-        //         return true;
-        //     }
-        // } else if (abs(x - blockCenter.x) <= distBX && abs(y - blockCenter.y) <= distBY) {
-        //     if (pickNumber >= 0.5) {
-        //         this.showColor(index, blockColor, distortion);
-        //         return true;
-        //     }
-        // } else if (abs(x - blockCenter.x) <= distAX && abs(y - blockCenter.y) <= distAY) {
-        //     if (pickNumber >= 0.75) {
-        //         this.showColor(index, blockColor, distortion);
-        //         return true;
-        //     }
-        // }
-
         // var blockSize = abs(x - blockCenter.x)
-        var distortion = 33;
+        var distortion = 10;  // 33
 
         // var density = DOMINANTSIDE * 0.01;
         // var density = DOMINANTSIDE * 0.03;
@@ -293,9 +269,9 @@ class Pixies {
         // var min = blockSize * 0.5;  // 0.5
 
         var minX = 0; //getRandomFromInterval(min - (min * 1.1), min + (min * 1.1));
-        var maxX = getRandomFromInterval(max - (max * 1.1), max + (max * 1.1));
+        var maxX = getRandomFromInterval(max * 0.9, max * 1.1);
         var minY = 0; //getRandomFromInterval(min - (min * 1.1), min + (min * 1.1));
-        var maxY = getRandomFromInterval(max - (max * 1.1), max + (max * 1.1));
+        var maxY = getRandomFromInterval(max * 0.9, max * 1.1);
 
 
         if (

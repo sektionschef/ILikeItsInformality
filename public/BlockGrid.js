@@ -2,7 +2,7 @@ class BlockGrid {
 
     constructor(data) {
         this.margin = MARGIN;
-        this.blockNumber = 20;
+        this.blockNumber = 30;
         this.blockSize = (DOMINANTSIDE - 2 * this.margin) / this.blockNumber;
         this.blockColors = PALETTE.pixelColors;
         // console.log("blocksize: " + this.blockSize);
@@ -11,10 +11,8 @@ class BlockGrid {
 
         this.blocks = [];
 
-        this.spot = createVector(400, 600);
-
         var pickNumber;
-        var gain = 5;  // 4 natures
+        // var gain = 4;  // 4 natures
 
         this.noiseOffX = 0;
         for (var blockX = this.margin; blockX < (width - this.margin); blockX += this.blockSize) {
@@ -24,8 +22,10 @@ class BlockGrid {
             for (var blockY = this.margin; blockY < (height - this.margin); blockY += this.blockSize) {
                 this.noiseOffY += this.incY;
 
-                var noiseB = noise(this.noiseOffX, this.noiseOffY);
-                var _gain_ = Math.round(noiseB * gain);
+                // var noiseB = noise(this.noiseOffX, this.noiseOffY);
+                // var _gain_ = Math.round(noiseB * gain);
+                // var _gain_ = Math.round(randomGaussian(2, 1));
+                var _gain_ = Math.round(getRandomFromInterval(0, 3));
 
                 this.center = createVector(blockX + this.blockSize / 2, blockY + this.blockSize / 2);
 
@@ -51,16 +51,20 @@ class BlockGrid {
                 // }
 
                 // console.log(_gain_);
-                if (_gain_ == 1) {
-                    this.nature = 4
-                } else if (_gain_ == 2) {
-                    this.nature = 0;
-                } else if (_gain_ == 3) {
+                if (_gain_ == 0) {
+                    this.nature = 0
+                    this.color = color("#fafafa")
+                } else if (_gain_ == 1) {
                     this.nature = 1;
-                } else if (_gain_ == 4) {
+                    this.color = color("#eeeeee")
+                } else if (_gain_ == 2) {
                     this.nature = 2;
-                } else {
+                    this.color = color("#dfdddd")
+                } else if (_gain_ == 3) {
                     this.nature = 3;
+                    this.color = color("#bdbaba")
+                } else {
+                    // this.nature = 4;
                 }
 
                 this.blocks.push(new Block({
@@ -68,7 +72,7 @@ class BlockGrid {
                     "y": blockY,
                     "blockCenter": this.center,
                     "blocksize": this.blockSize,
-                    "color": getRandomFromList(this.blockColors),
+                    "color": this.color, // getRandomFromList(this.blockColors),
                     "nature": this.nature,
                 }));
             }
