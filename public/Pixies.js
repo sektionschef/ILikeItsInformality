@@ -148,16 +148,35 @@ class Pixies {
         //                 y <= (currentBlock.blockPos.y + currentBlock.blockSize * 2)
         //             ) {
 
-        //                 if (currentBlock["nature"] == 2) {
+        //                 if (currentBlock["nature"] == 0) {
+        //                     currentBlock.pixelate(x, y, index);
+
+        //                     // GRID TEXTURE
+        //                     if (index % Math.round(DOMINANTSIDE * 0.008) == 0) {
+        //                         // this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
+        //                         this.changeColor(index, 60)
+        //                     }
+        //                 } else if (currentBlock["nature"] == 1) {
+        //                     currentBlock.pixelate(x, y, index);
+        //                     // if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize / 2)) {
+        //                     //     continue;
+        //                     // };
+
+        //                     // GRID TEXTURE
+        //                     if (index % Math.round(DOMINANTSIDE * 0.009) == 0) {
+        //                         // this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
+        //                         this.changeColor(index, 60)
+        //                     }
+        //                 } else if (currentBlock["nature"] == 2) {
         //                     if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 1.5)) {
         //                         continue;
         //                     };
 
         //                 } else if (currentBlock["nature"] == 3) {
-        //                     if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 2.5)) {
-        //                         continue;
-        //                     };
-        //                     continue;
+        //                     // if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 2.5)) {
+        //                     //     continue;
+        //                     // };
+        //                     // continue;
         //                 }
         //             }
         //         }
