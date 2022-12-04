@@ -120,6 +120,8 @@ class Pixies {
 
                         } else if (currentBlock["nature"] == 10) {
                             currentBlock.pixelate(x, y, index);
+                        } else if (currentBlock["nature"] == 11) {
+                            currentBlock.pixelate(x, y, index);
                         }
                     }
                 }

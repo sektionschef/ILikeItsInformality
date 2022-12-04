@@ -42,6 +42,22 @@ class Block {
             this.colorNoise = 20;
             this.highlight = true;
 
+        } else if (this.nature == 11) {
+
+            this.a = false;
+            this.b = false;
+            this.c = false;
+            this.d = false;
+            this.e = true;
+            this.f = false;
+            this.g = false;
+            this.h = false;
+            this.i = false;
+            this.j = false;
+
+            this.colorNoise = 20;
+            this.highlight = true;
+
         } else if (this.nature == 1 || this.nature == 2) {
             this.a = true;
             this.b = true;
