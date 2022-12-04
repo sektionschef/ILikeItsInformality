@@ -66,14 +66,14 @@ class BlockGrid {
                 // console.log(_gain_);
                 if (_gain_ == 0) {
                     this.nature = 0
-                    this.color = color("#fafafa")
+                    this.color = color("#f1f1f1")
                 } else if (_gain_ == 1) {
                     this.nature = 1;
-                    this.color = color("#aaaaaa")
+                    this.color = color("#8b8b8b")
                     // this.color = color("#dddddd")
                 } else if (_gain_ == 2) {
                     this.nature = 2;
-                    this.color = color("#d6d6d6")
+                    this.color = color("#979797")
                     // this.color = color("#bbbbbb")
                 } else if (_gain_ == 3) {
                     this.nature = 3;

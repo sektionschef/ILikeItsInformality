@@ -46,7 +46,7 @@ class Pixies {
                 // this.createNoiseFloor(x, y, index, noiseF);
 
                 // STATIC COLOR BACKGROUND
-                // this.showColor(index, color("#dfdfdf"), 15)
+                this.showColor(index, color("#868686"), 15)
 
                 // GRID TEXTURE
                 if (index % _density_ == 0) {
@@ -89,23 +89,23 @@ class Pixies {
                             };
                             // continue;
                         } else if (currentBlock["nature"] == 2) {
-                            currentBlock.pixelate(x, y, index);
-                            // if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 1.5)) {
-                            //     continue;
-                            // };
+                            // currentBlock.pixelate(x, y, index);
+                            if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 1.2)) {
+                                continue;
+                            };
                         } else if (currentBlock["nature"] == 1) {
                             currentBlock.pixelate(x, y, index);
                             // if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize / 2)) {
                             //     continue;
                             // };
 
-                            // if (this.above == 0) {
-                            //     // GRID TEXTURE
-                            //     if (index % Math.round(DOMINANTSIDE * 0.008) == 0) {
-                            //         // this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
-                            //         this.changeColor(index, 60)
-                            //     }
-                            // }
+                            if (this.above == 0) {
+                                // GRID TEXTURE
+                                if (index % Math.round(DOMINANTSIDE * 0.008) == 0) {
+                                    // this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
+                                    this.changeColor(index, -20)
+                                }
+                            }
 
                         } else if (currentBlock["nature"] == 0) {
                             currentBlock.pixelate(x, y, index);
@@ -114,7 +114,7 @@ class Pixies {
                                 // GRID TEXTURE
                                 if (index % Math.round(DOMINANTSIDE * 0.008) == 0) {
                                     // this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
-                                    this.changeColor(index, 60)
+                                    this.changeColor(index, 20)
                                 }
                             }
 
@@ -124,7 +124,7 @@ class Pixies {
 
                 // }
 
-                // // GRID TEXTURE
+                // GRID TEXTURE
                 // if (index % _density_ == 0) {
                 //     // this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
                 //     this.changeColor(index, 60)
@@ -312,7 +312,7 @@ class Pixies {
     corrodedBlock(x, y, index, blockColor, blockCenter, min, max) {
 
         // var blockSize = abs(x - blockCenter.x)
-        var distortion = 10;  // 33
+        var distortion = 20;  // 33
 
         // var density = DOMINANTSIDE * 0.01;
         // var density = DOMINANTSIDE * 0.03;
