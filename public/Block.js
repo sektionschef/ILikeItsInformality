@@ -22,8 +22,8 @@ class Block {
             this.i = false;
             this.j = false;
 
-            this.colorNoise = 10;
-        } else if (this.nature == 1) {
+            this.colorNoise = 20;
+        } else if (this.nature == 1 || this.nature == 2) {
             this.a = true;
             this.b = true;
             this.c = false;

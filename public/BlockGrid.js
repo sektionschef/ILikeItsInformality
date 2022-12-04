@@ -56,14 +56,14 @@ class BlockGrid {
                     this.color = color("#fafafa")
                 } else if (_gain_ == 1) {
                     this.nature = 1;
-                    this.color = color("#d1d1d1")
+                    this.color = color("#aaaaaa")
                 } else if (_gain_ == 2) {
                     this.nature = 2;
-                    this.color = color("#c0c0c0")
+                    this.color = color("#d6d6d6")
                     // this.color = color("#af7777")
                 } else if (_gain_ == 3) {
                     this.nature = 3;
-                    this.color = color("#a8a8a8")
+                    this.color = color("#c5c5c5")
                 } else {
                     // this.nature = 4;
                 }

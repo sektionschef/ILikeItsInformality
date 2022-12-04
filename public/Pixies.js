@@ -4,7 +4,6 @@ class Pixies {
     constructor(data) {
         this.incX = data.incX;
         this.incY = data.incY;
-        this.gain = data.gain;
         this.colorBackground = data.colorBackground;
         this.colorForeground = data.colorForeground;
         this.distortion = data.distortion;
@@ -43,17 +42,16 @@ class Pixies {
                 let index = (x + y * this.buffer.width) * 4;
 
                 // NOISE FLOOR
-                // var noiseF = noise(xoff, yoff);
-                // var _gain_ = noiseF * this.gain;
-                // this.createNoiseFloor(x, y, index, _gain_);
+                var noiseF = noise(xoff, yoff);
+                this.createNoiseFloor(x, y, index, noiseF);
 
                 // STATIC COLOR BACKGROUND
-                this.showColor(index, color("#dfdfdf"), 15)
+                // this.showColor(index, color("#dfdfdf"), 15)
 
                 // GRID TEXTURE
                 if (index % _density_ == 0) {
                     // this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
-                    this.changeColor(index, 60)
+                    this.changeColor(index, 60)  // 60
                 }
 
                 // margin
@@ -83,13 +81,17 @@ class Pixies {
                         y <= (currentBlock.blockPos.y + currentBlock.blockSize * 2)
                     ) {
 
+                        this.above = getRandomFromList([0, 1]);
+
                         if (currentBlock["nature"] == 0) {
                             currentBlock.pixelate(x, y, index);
 
-                            // GRID TEXTURE
-                            if (index % Math.round(DOMINANTSIDE * 0.008) == 0) {
-                                // this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
-                                this.changeColor(index, 60)
+                            if (this.above == 1) {
+                                // GRID TEXTURE
+                                if (index % Math.round(DOMINANTSIDE * 0.008) == 0) {
+                                    // this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
+                                    this.changeColor(index, 60)
+                                }
                             }
                         } else if (currentBlock["nature"] == 1) {
                             currentBlock.pixelate(x, y, index);
@@ -97,20 +99,24 @@ class Pixies {
                             //     continue;
                             // };
 
-                            // GRID TEXTURE
-                            // if (index % Math.round(DOMINANTSIDE * 0.009) == 0) {
-                            //     // this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
-                            //     this.changeColor(index, 60)
+                            // if (this.above == 0) {
+                            //     // GRID TEXTURE
+                            //     if (index % Math.round(DOMINANTSIDE * 0.008) == 0) {
+                            //         // this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
+                            //         this.changeColor(index, 60)
+                            //     }
                             // }
+
                         } else if (currentBlock["nature"] == 2) {
+                            currentBlock.pixelate(x, y, index);
                             // if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 1.5)) {
                             //     continue;
                             // };
 
                         } else if (currentBlock["nature"] == 3) {
-                            // if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 2.5)) {
-                            //     continue;
-                            // };
+                            if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 1.5)) {
+                                continue;
+                            };
                             // continue;
                         }
                     }
@@ -130,86 +136,70 @@ class Pixies {
 
 
         // SECOND LOOP
-        // this.buffer.push();
-        // this.buffer.loadPixels();
+        this.buffer.push();
+        this.buffer.loadPixels();
 
-        // for (let y = 0; y < this.buffer.height; y++) {
-        //     for (let x = 0; x < this.buffer.width; x++) {
+        for (let y = 0; y < this.buffer.height; y++) {
+            for (let x = 0; x < this.buffer.width; x++) {
 
-        //         let index = (x + y * this.buffer.width) * 4;
+                let index = (x + y * this.buffer.width) * 4;
 
-        //         for (var i = 0; i < (blockGrid.blocks.length); i++) {
-        //             currentBlock = blockGrid.blocks[i];
+                for (var i = 0; i < (blockGrid.blocks.length); i++) {
+                    currentBlock = blockGrid.blocks[i];
 
-        //             if (
-        //                 x >= (currentBlock.blockPos.x - currentBlock.blockSize * 2) &&
-        //                 x <= (currentBlock.blockPos.x + currentBlock.blockSize * 2) &&
-        //                 y >= (currentBlock.blockPos.y - currentBlock.blockSize * 2) &&
-        //                 y <= (currentBlock.blockPos.y + currentBlock.blockSize * 2)
-        //             ) {
+                    if (
+                        x >= (currentBlock.blockPos.x - currentBlock.blockSize) &&
+                        x <= (currentBlock.blockPos.x + currentBlock.blockSize) &&
+                        y >= (currentBlock.blockPos.y - currentBlock.blockSize) &&
+                        y <= (currentBlock.blockPos.y + currentBlock.blockSize)
+                    ) {
 
-        //                 if (currentBlock["nature"] == 0) {
-        //                     currentBlock.pixelate(x, y, index);
+                        if (i % 3 == 0) {
+                            // GRID TEXTURE
+                            if (index % Math.round(DOMINANTSIDE * 0.005) == 0) {
+                                // this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
+                                this.changeColor(index, -60)
+                            }
+                        }
 
-        //                     // GRID TEXTURE
-        //                     if (index % Math.round(DOMINANTSIDE * 0.008) == 0) {
-        //                         // this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
-        //                         this.changeColor(index, 60)
-        //                     }
-        //                 } else if (currentBlock["nature"] == 1) {
-        //                     currentBlock.pixelate(x, y, index);
-        //                     // if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize / 2)) {
-        //                     //     continue;
-        //                     // };
+                    }
+                }
 
-        //                     // GRID TEXTURE
-        //                     if (index % Math.round(DOMINANTSIDE * 0.009) == 0) {
-        //                         // this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
-        //                         this.changeColor(index, 60)
-        //                     }
-        //                 } else if (currentBlock["nature"] == 2) {
-        //                     if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 1.5)) {
-        //                         continue;
-        //                     };
-
-        //                 } else if (currentBlock["nature"] == 3) {
-        //                     // if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 2.5)) {
-        //                     //     continue;
-        //                     // };
-        //                     // continue;
-        //                 }
-        //             }
-        //         }
-
-        //     }
-        // }
-        // this.buffer.updatePixels();
-        // this.buffer.pop();
+            }
+        }
+        this.buffer.updatePixels();
+        this.buffer.pop();
     }
 
 
-    createNoiseFloor(x, y, index, _gain_) {
-        var colorDistort = 55; // 55
+    createNoiseFloor(x, y, index, noiseF) {
+        var colorDistort = 0; // 55
+
+        var _gain_ = Math.round(noiseF * 50 + 170);
+        // console.log(_gain_)
         var noisePaletteSwitch = fxrand();
 
         // ATTENTION
-        if (noisePaletteSwitch > 0) {
+        if (noisePaletteSwitch > 0.25) {
             var colorNoise = color(_gain_, _gain_, _gain_, 255);
-            var coldiff = [];
-            for (var colory of PALETTE.pixelColors) {
-                coldiff.push(abs(Math.round(brightness(colorNoise) - brightness(colory))));
-            }
 
-            var min = Math.min(...coldiff);
-            // console.log(min);
-            var match = coldiff.indexOf(min);
-            // console.log(PALETTE.pixelColors[match]);
+            // var coldiff = [];
+            // for (var colory of PALETTE.pixelColors) {
+            //     coldiff.push(abs(Math.round(brightness(colorNoise) - brightness(colory))));
+            // }
 
-            this.showColor(index, PALETTE.pixelColors[match], colorDistort)
+            // var min = Math.min(...coldiff);
+            // // console.log(min);
+            // var match = coldiff.indexOf(min);
+            // // console.log(PALETTE.pixelColors[match]);
+
+            // this.showColor(index, PALETTE.pixelColors[match], colorDistort)
+            this.showColor(index, colorNoise, colorDistort)
 
             // random pixelcolor
-        } else if (noisePaletteSwitch <= 0.5) {
-            var pick = getRandomFromList(PALETTE.pixelColors);
+        } else {
+            // var pick = getRandomFromList(PALETTE.pixelColors);
+            var pick = getRandomFromList(["#cacaca", "#ececec", "#9c9c9c", "#949393"]);
 
             this.showColor(index, pick, colorDistort)
         }

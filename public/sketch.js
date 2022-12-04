@@ -65,7 +65,7 @@ const PALETTESYSTEM = {
   // },
   "Fillitz": {
     // "background": "#ffffff",
-    "pixelColors": ["#ffffff", "#cfcfcf", "#969696", "#3a3a3a", "#131313"],
+    "pixelColors": ["#ffffff", "#cfcfcf", "#d6d6d6", "#c4c4c4", "#b3b3b3"],
   },
 }
 
@@ -175,11 +175,10 @@ function setup() {
   pixies = new Pixies({
     incX: 0.03,
     incY: 0.008,
-    gain: 155,  // 255
     colorBackground: undefined, // color(colors[PALETTE].background),  // drawn pixels for background
     colorForeground: color(130), // drawn pixels for noise
     distortion: 0.2,  // random misplacement of the boxes
-    density: Math.round(DOMINANTSIDE * 0.007),
+    density: Math.round(DOMINANTSIDE * 0.017),
     margin: MARGIN, // distance to the edge
   });
 
