@@ -126,7 +126,7 @@ function setup() {
     canvas.parent("canvasHolderPlain");
   }
 
-  MARGIN = Math.round(0.1 * DOMINANTSIDE);
+  MARGIN = 0 // Math.round(0.1 * DOMINANTSIDE);
 
   // camM = createCamera();
   // cam1 = createCamera();

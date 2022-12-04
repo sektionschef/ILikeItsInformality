@@ -2,6 +2,7 @@ class BlockGrid {
 
     constructor(data) {
         this.margin = MARGIN;
+        this.marginNew = DOMINANTSIDE * 0.07;
         this.blockNumber = 30;
         this.blockSize = (DOMINANTSIDE - 2 * this.margin) / this.blockNumber;
         this.blockColors = PALETTE.pixelColors;
@@ -13,6 +14,7 @@ class BlockGrid {
 
         var pickNumber;
         var gain = 3;  // 4 natures
+        var _gain_;
 
         this.noiseOffX = 0;
         for (var blockX = this.margin; blockX < (width - this.margin); blockX += this.blockSize) {
@@ -25,7 +27,18 @@ class BlockGrid {
                 // var noiseB = noise(this.noiseOffX, this.noiseOffY);
                 // var _gain_ = Math.round(noiseB * gain);
                 // var _gain_ = Math.round(randomGaussian(1.5, 0.5));
-                var _gain_ = Math.round(getRandomFromInterval(0, 3));
+
+                // if (blockX < 100 && blockX > (width - 100) && blockY < 100 && blockY > (height - 100)) {
+                // console.log(blockX);
+                if (blockX < this.marginNew || blockX > (width - this.marginNew) || blockY < this.marginNew || blockY > (height - this.marginNew)) {
+                    _gain_ = Math.round(getRandomFromInterval(2, 3));
+                } else {
+                    if (fxrand() > 0.4) {
+                        _gain_ = Math.round(getRandomFromInterval(0, 1));
+                    } else {
+                        _gain_ = Math.round(getRandomFromInterval(2, 3));
+                    }
+                }
 
                 this.center = createVector(blockX + this.blockSize / 2, blockY + this.blockSize / 2);
 
