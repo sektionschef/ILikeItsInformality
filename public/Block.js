@@ -26,6 +26,22 @@ class Block {
 
             this.colorNoise = 20;
             this.highlight = true;
+        } else if (this.nature == 10) {
+
+            this.a = false;
+            this.b = false;
+            this.c = false;
+            this.d = false;
+            this.e = true;
+            this.f = false;
+            this.g = false;
+            this.h = false;
+            this.i = false;
+            this.j = false;
+
+            this.colorNoise = 20;
+            this.highlight = true;
+
         } else if (this.nature == 1 || this.nature == 2) {
             this.a = true;
             this.b = true;
@@ -107,8 +123,8 @@ class Block {
         }
 
         if (highlight) {
-            var gain = -100;
-            var fraction = 15;
+            var gain = -50;
+            var fraction = 20;
             // TESTING HIGHLIGHT
             if (x >= this.blockPos.x && x < (this.blockPos.x + this.blockSize / fraction) && y >= this.blockPos.y && y < (this.blockPos.y + this.blockSize)) {
                 pixies.showColor(index, color(red(this.color) + gain, green(this.color) + gain, blue(this.color) + gain), this.colorNoise);  // 10

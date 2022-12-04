@@ -31,13 +31,9 @@ class BlockGrid {
                 // if (blockX < 100 && blockX > (width - 100) && blockY < 100 && blockY > (height - 100)) {
                 // console.log(blockX);
                 if (blockX < this.marginNew || blockX > (width - this.marginNew) || blockY < this.marginNew || blockY > (height - this.marginNew)) {
-                    _gain_ = Math.round(getRandomFromInterval(2, 3));
+                    _gain_ = Math.round(getRandomFromList([2, 3, 4]));
                 } else {
-                    _gain_ = Math.round(getRandomFromInterval(0, 3));
-                    // if (fxrand() > 0.4) {
-                    // } else {
-                    //     _gain_ = Math.round(getRandomFromInterval(2, 3));
-                    // }
+                    _gain_ = Math.round(getRandomFromList([0, 1, 2, 3, 10]));
                 }
 
                 this.center = createVector(blockX + this.blockSize / 2, blockY + this.blockSize / 2);
@@ -79,8 +75,11 @@ class BlockGrid {
                     this.nature = 3;
                     this.color = color("#bebebe")
                     // this.color = color("#aaaaaa")
+                } else if (_gain_ == 10) {
+                    this.nature = 10;
+                    this.color = color("#707070");
                 } else {
-                    // this.nature = 4;
+                    this.nature = 4;
                 }
 
                 this.blocks.push(new Block({

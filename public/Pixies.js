@@ -118,6 +118,8 @@ class Pixies {
                                 }
                             }
 
+                        } else if (currentBlock["nature"] == 10) {
+                            currentBlock.pixelate(x, y, index);
                         }
                     }
                 }
