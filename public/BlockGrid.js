@@ -33,11 +33,11 @@ class BlockGrid {
                 if (blockX < this.marginNew || blockX > (width - this.marginNew) || blockY < this.marginNew || blockY > (height - this.marginNew)) {
                     _gain_ = Math.round(getRandomFromInterval(2, 3));
                 } else {
-                    if (fxrand() > 0.4) {
-                        _gain_ = Math.round(getRandomFromInterval(0, 1));
-                    } else {
-                        _gain_ = Math.round(getRandomFromInterval(2, 3));
-                    }
+                    _gain_ = Math.round(getRandomFromInterval(0, 3));
+                    // if (fxrand() > 0.4) {
+                    // } else {
+                    //     _gain_ = Math.round(getRandomFromInterval(2, 3));
+                    // }
                 }
 
                 this.center = createVector(blockX + this.blockSize / 2, blockY + this.blockSize / 2);
@@ -69,16 +69,16 @@ class BlockGrid {
                     this.color = color("#fafafa")
                 } else if (_gain_ == 1) {
                     this.nature = 1;
-                    // this.color = color("#aaaaaa")
-                    this.color = color("#dddddd")
+                    this.color = color("#aaaaaa")
+                    // this.color = color("#dddddd")
                 } else if (_gain_ == 2) {
                     this.nature = 2;
-                    // this.color = color("#d6d6d6")
-                    this.color = color("#bbbbbb")
+                    this.color = color("#d6d6d6")
+                    // this.color = color("#bbbbbb")
                 } else if (_gain_ == 3) {
                     this.nature = 3;
-                    // this.color = color("#bebebe")
-                    this.color = color("#aaaaaa")
+                    this.color = color("#bebebe")
+                    // this.color = color("#aaaaaa")
                 } else {
                     // this.nature = 4;
                 }

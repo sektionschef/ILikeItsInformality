@@ -43,7 +43,7 @@ class Pixies {
 
                 // NOISE FLOOR
                 var noiseF = noise(xoff, yoff);
-                this.createNoiseFloor(x, y, index, noiseF);
+                // this.createNoiseFloor(x, y, index, noiseF);
 
                 // STATIC COLOR BACKGROUND
                 // this.showColor(index, color("#dfdfdf"), 15)
