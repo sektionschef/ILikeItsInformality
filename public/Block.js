@@ -10,6 +10,8 @@ class Block {
         this.color = data.color;
         this.nature = data.nature;
 
+        this.highlight = false;
+
         if (this.nature == 0) {
             this.a = false;
             this.b = false;
@@ -23,6 +25,7 @@ class Block {
             this.j = false;
 
             this.colorNoise = 20;
+            this.highlight = true;
         } else if (this.nature == 1 || this.nature == 2) {
             this.a = true;
             this.b = true;
@@ -53,7 +56,7 @@ class Block {
             this.pixelateD(x, y, index)
         }
         if (this.e) {
-            this.pixelateE(x, y, index)
+            this.pixelateE(x, y, index, this.highlight)
         }
         if (this.f) {
             this.pixelateF(x, y, index)
@@ -98,9 +101,18 @@ class Block {
     }
 
     // CENTER
-    pixelateE(x, y, index) {
+    pixelateE(x, y, index, highlight = false) {
         if (x >= this.blockPos.x && x < (this.blockPos.x + this.blockSize) && y >= this.blockPos.y && y < (this.blockPos.y + this.blockSize)) {
             pixies.showColor(index, this.color, this.colorNoise);  // 10
+        }
+
+        if (highlight) {
+            var gain = -100;
+            var fraction = 15;
+            // TESTING HIGHLIGHT
+            if (x >= this.blockPos.x && x < (this.blockPos.x + this.blockSize / fraction) && y >= this.blockPos.y && y < (this.blockPos.y + this.blockSize)) {
+                pixies.showColor(index, color(red(this.color) + gain, green(this.color) + gain, blue(this.color) + gain), this.colorNoise);  // 10
+            }
         }
     }
 

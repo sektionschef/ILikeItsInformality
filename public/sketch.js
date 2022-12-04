@@ -178,7 +178,8 @@ function setup() {
     colorBackground: undefined, // color(colors[PALETTE].background),  // drawn pixels for background
     colorForeground: color(130), // drawn pixels for noise
     distortion: 0.2,  // random misplacement of the boxes
-    density: Math.round(DOMINANTSIDE * 0.017),
+    // density: Math.round(DOMINANTSIDE * 0.017),
+    density: Math.round(DOMINANTSIDE * 0.05),
     margin: MARGIN, // distance to the edge
   });
 

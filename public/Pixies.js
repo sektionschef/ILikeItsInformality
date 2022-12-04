@@ -83,16 +83,16 @@ class Pixies {
 
                         this.above = getRandomFromList([0, 1]);
 
-                        if (currentBlock["nature"] == 0) {
+                        if (currentBlock["nature"] == 3) {
+                            if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 1.5)) {
+                                continue;
+                            };
+                            // continue;
+                        } else if (currentBlock["nature"] == 2) {
                             currentBlock.pixelate(x, y, index);
-
-                            if (this.above == 1) {
-                                // GRID TEXTURE
-                                if (index % Math.round(DOMINANTSIDE * 0.008) == 0) {
-                                    // this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
-                                    this.changeColor(index, 60)
-                                }
-                            }
+                            // if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 1.5)) {
+                            //     continue;
+                            // };
                         } else if (currentBlock["nature"] == 1) {
                             currentBlock.pixelate(x, y, index);
                             // if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize / 2)) {
@@ -107,17 +107,17 @@ class Pixies {
                             //     }
                             // }
 
-                        } else if (currentBlock["nature"] == 2) {
+                        } else if (currentBlock["nature"] == 0) {
                             currentBlock.pixelate(x, y, index);
-                            // if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 1.5)) {
-                            //     continue;
-                            // };
 
-                        } else if (currentBlock["nature"] == 3) {
-                            if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 1.5)) {
-                                continue;
-                            };
-                            // continue;
+                            if (this.above == 1) {
+                                // GRID TEXTURE
+                                if (index % Math.round(DOMINANTSIDE * 0.008) == 0) {
+                                    // this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
+                                    this.changeColor(index, 60)
+                                }
+                            }
+
                         }
                     }
                 }
@@ -136,46 +136,46 @@ class Pixies {
 
 
         // SECOND LOOP
-        this.buffer.push();
-        this.buffer.loadPixels();
+        // this.buffer.push();
+        // this.buffer.loadPixels();
 
-        for (let y = 0; y < this.buffer.height; y++) {
-            for (let x = 0; x < this.buffer.width; x++) {
+        // for (let y = 0; y < this.buffer.height; y++) {
+        //     for (let x = 0; x < this.buffer.width; x++) {
 
-                let index = (x + y * this.buffer.width) * 4;
+        //         let index = (x + y * this.buffer.width) * 4;
 
-                for (var i = 0; i < (blockGrid.blocks.length); i++) {
-                    currentBlock = blockGrid.blocks[i];
+        //         for (var i = 0; i < (blockGrid.blocks.length); i++) {
+        //             currentBlock = blockGrid.blocks[i];
 
-                    if (
-                        x >= (currentBlock.blockPos.x - currentBlock.blockSize) &&
-                        x <= (currentBlock.blockPos.x + currentBlock.blockSize) &&
-                        y >= (currentBlock.blockPos.y - currentBlock.blockSize) &&
-                        y <= (currentBlock.blockPos.y + currentBlock.blockSize)
-                    ) {
+        //             if (
+        //                 x >= (currentBlock.blockPos.x - currentBlock.blockSize) &&
+        //                 x <= (currentBlock.blockPos.x + currentBlock.blockSize) &&
+        //                 y >= (currentBlock.blockPos.y - currentBlock.blockSize) &&
+        //                 y <= (currentBlock.blockPos.y + currentBlock.blockSize)
+        //             ) {
 
-                        if (i % 3 == 0) {
-                            // GRID TEXTURE
-                            if (index % Math.round(DOMINANTSIDE * 0.005) == 0) {
-                                // this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
-                                this.changeColor(index, -60)
-                            }
-                        }
+        //                 if (i % 3 == 0) {
+        //                     // GRID TEXTURE
+        //                     if (index % Math.round(DOMINANTSIDE * 0.005) == 0) {
+        //                         // this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
+        //                         this.changeColor(index, -60)
+        //                     }
+        //                 }
 
-                    }
-                }
+        //             }
+        //         }
 
-            }
-        }
-        this.buffer.updatePixels();
-        this.buffer.pop();
+        //     }
+        // }
+        // this.buffer.updatePixels();
+        // this.buffer.pop();
     }
 
 
     createNoiseFloor(x, y, index, noiseF) {
         var colorDistort = 0; // 55
 
-        var _gain_ = Math.round(noiseF * 50 + 170);
+        var _gain_ = Math.round(noiseF * 50 + 140);
         // console.log(_gain_)
         var noisePaletteSwitch = fxrand();
 
@@ -199,7 +199,8 @@ class Pixies {
             // random pixelcolor
         } else {
             // var pick = getRandomFromList(PALETTE.pixelColors);
-            var pick = getRandomFromList(["#cacaca", "#ececec", "#9c9c9c", "#949393"]);
+            // var pick = getRandomFromList(["#cacaca", "#ececec", "#9c9c9c", "#949393"]);
+            var pick = getRandomFromList(["#aaaaaa", "#cccccc", "#dddddd"]);
 
             this.showColor(index, pick, colorDistort)
         }
