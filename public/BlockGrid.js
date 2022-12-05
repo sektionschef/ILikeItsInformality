@@ -66,15 +66,13 @@ class BlockGrid {
                 } else if (_gain_ == 1) {
                     this.nature = 1;
                     this.color = color("#8b8b8b")
-                    // this.color = color("#dddddd")
                 } else if (_gain_ == 2) {
                     this.nature = 2;
                     this.color = color("#979797")
-                    // this.color = color("#bbbbbb")
                 } else if (_gain_ == 3) {
                     this.nature = 3;
-                    this.color = color("#bebebe")
-                    // this.color = color("#aaaaaa")
+                    // this.color = color("#bebebe");
+                    this.color = getRandomFromList([color("#707070"), color("#8b8b8b"), color("#979797")])
                 } else if (_gain_ == 10) {
                     this.nature = 10;
                     this.color = color("#707070");

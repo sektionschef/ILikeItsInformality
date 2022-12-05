@@ -90,7 +90,7 @@ class Pixies {
                             // continue;
                         } else if (currentBlock["nature"] == 2) {
                             // currentBlock.pixelate(x, y, index);
-                            if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 1.2)) {
+                            if (this.corrodedBlock(x, y, index, currentBlock.color, currentBlock.blockCenter, 0, currentBlock.blockSize * 1)) {
                                 continue;
                             };
                         } else if (currentBlock["nature"] == 1) {
@@ -316,7 +316,8 @@ class Pixies {
     corrodedBlock(x, y, index, blockColor, blockCenter, min, max) {
 
         // var blockSize = abs(x - blockCenter.x)
-        var distortion = 20;  // 33
+        // var distortion = 20;  // 33
+        var distortion = getRandomFromInterval(20, 50);
 
         // var density = DOMINANTSIDE * 0.01;
         // var density = DOMINANTSIDE * 0.03;

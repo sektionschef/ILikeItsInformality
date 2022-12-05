@@ -25,6 +25,7 @@ class Block {
             this.j = false;
 
             this.colorNoise = 20;
+            // this.colorNoise = getRandomFromInterval(10, 50);  // 20
             this.highlight = true;
         } else if (this.nature == 10) {
 
@@ -40,6 +41,7 @@ class Block {
             this.j = false;
 
             this.colorNoise = 20;
+            // this.colorNoise = getRandomFromInterval(10, 50);  // 20
             this.highlight = true;
 
         } else if (this.nature == 11) {
@@ -56,6 +58,7 @@ class Block {
             this.j = false;
 
             this.colorNoise = 20;
+            // this.colorNoise = getRandomFromInterval(10, 50);  // 20
             this.highlight = true;
 
         } else if (this.nature == 1 || this.nature == 2) {
@@ -71,6 +74,7 @@ class Block {
             this.j = false;
 
             this.colorNoise = 20;
+            // this.colorNoise = getRandomFromInterval(10, 50);  // 20
         }
     }
 
