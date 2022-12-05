@@ -49,10 +49,10 @@ class Pixies {
                 this.showColor(index, color("#868686"), 15)
 
                 // GRID TEXTURE
-                if (index % _density_ == 0) {
-                    // this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
-                    this.changeColor(index, 60)  // 60
-                }
+                // if (index % _density_ == 0) {
+                //     // this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
+                //     this.changeColor(index, 60)  // 60
+                // }
 
                 // margin
                 // if (
@@ -126,13 +126,14 @@ class Pixies {
                     }
                 }
 
-                // }
-
                 // GRID TEXTURE
                 // if (index % _density_ == 0) {
-                //     // this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
-                //     this.changeColor(index, 60)
-                // }
+                // if (index % Math.round(width * 0.1) == 0) {
+                // if (index % 24 == 0) {  // vertical
+                if (index - width * 400 * 4 >= 0 && index - width * 400 * 4 <= width * 4) {  // vertical
+                    // this.changeColor(index, abs(Math.round(randomGaussian(0, 35))))
+                    this.changeColor(index, 60)
+                }
             }
         }
         this.buffer.updatePixels();
