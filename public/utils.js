@@ -125,19 +125,12 @@ function scaleDynamically() {
             rescaling_height = Math.floor(windowHeight);
         }
 
-        rescaling_width = 1000;
-        rescaling_height = 1000;
-        DOMINANTSIDE = 1000;
-
     } else {
 
-        // rescaling_width = FRAMEDWIDTH;
-        // rescaling_height = FRAMEDWIDTH;
-        // DOMINANTSIDE = FRAMEDWIDTH;
+        rescaling_width = FRAMEDWIDTH;
+        rescaling_height = FRAMEDWIDTH;
+        DOMINANTSIDE = FRAMEDWIDTH;
 
-        rescaling_width = 1000;
-        rescaling_height = 1000;
-        DOMINANTSIDE = 1000;
     }
 
 

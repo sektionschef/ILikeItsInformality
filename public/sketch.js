@@ -170,18 +170,19 @@ function setup() {
   //   once: true,
   // });
 
-  blockGrid = new BlockGrid({});
 
-  pixies = new Pixies({
-    incX: 0.03,
-    incY: 0.008,
-    colorBackground: undefined, // color(colors[PALETTE].background),  // drawn pixels for background
-    colorForeground: color(130), // drawn pixels for noise
-    distortion: 0.2,  // random misplacement of the boxes
-    // density: Math.round(DOMINANTSIDE * 0.017),
-    density: Math.round(DOMINANTSIDE * 0.05),
-    margin: MARGIN, // distance to the edge
-  });
+  // blockGrid = new BlockGrid({});
+
+  // pixies = new Pixies({
+  //   incX: 0.03,
+  //   incY: 0.008,
+  //   colorBackground: undefined, // color(colors[PALETTE].background),  // drawn pixels for background
+  //   colorForeground: color(130), // drawn pixels for noise
+  //   distortion: 0.2,  // random misplacement of the boxes
+  //   // density: Math.round(DOMINANTSIDE * 0.017),
+  //   density: Math.round(DOMINANTSIDE * 0.05),
+  //   margin: MARGIN, // distance to the edge
+  // });
 
   // sunnybunny = new sunPolygon();
 
@@ -225,6 +226,8 @@ function setup() {
 
   // hatchesBug = new Hatches("y", createVector(717, 50), createVector(898, 898), color(30), 0, 0, DISTANCE_BETWEEN_LINES);
 
+  pupselGrid = new PupselGrid();
+
 }
 
 
@@ -257,19 +260,12 @@ function draw() {
 
     // background(170);
 
+    pupselGrid.show();
+
+    // pixies.show();
+    // image(pixies.buffer, 0, 0);
 
 
-    pixies.show();
-    image(pixies.buffer, 0, 0);
-
-    // push();
-    // for (var i = 0; i < 1000; i++) {
-    //   blendMode(OVERLAY);
-    //   noStroke();
-    //   fill("#db9de0");
-    //   rect(getRandomFromInterval(0, width), getRandomFromInterval(0, height), 40, 40);
-    // }
-    // pop();
   }
 
   // background(170);
