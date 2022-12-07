@@ -114,7 +114,11 @@ function setup() {
   // setAttributes('alpha', true);
   // setAttributes('antialias', true);
 
-  scaleDynamically();
+  // scaleDynamically();
+
+  rescaling_width = 4000;
+  rescaling_height = 4000;
+  DOMINANTSIDE = 4000;
 
   // canvas = createCanvas(rescaling_width, rescaling_height, WEBGL);
   canvas = createCanvas(rescaling_width, rescaling_height);
@@ -258,7 +262,7 @@ function draw() {
     // cam1.setPosition(0, 0, 200);
     // cam1.lookAt(-100, 0, 0);
 
-    // background(170);
+    background(170);
 
     pupselGrid.show();
 

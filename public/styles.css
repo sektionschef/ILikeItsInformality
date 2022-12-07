@@ -52,7 +52,10 @@ body {
 
 #Frames {
 	margin: 2.5% 0;
-	width: 100%;
+	/* old */
+	/* width: 100%; */
+	/* new */
+	width: 800px;
 }
 
 .Frame {
@@ -156,4 +159,11 @@ body {
 	/* border color of painting */
 	border-color: #BBBAB4 #C7C7BF #E5E4DF #C7C7BF;
 	box-shadow: 0 -1px 1px rgba(0, 0, 0, .1), 0 1px 1px 1px rgba(255, 255, 255, .7);
+}
+
+/* new */
+#badAssCanvas {
+	object-fit: contain;
+	height: 100% !important;
+	width: 100% !important;
 }

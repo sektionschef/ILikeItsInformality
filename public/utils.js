@@ -140,8 +140,8 @@ function scaleDynamically() {
 // each time window.innerWidth changes
 function windowResized() {
     // console.log("Window is resized.");
-    window.location.reload();
-    scaleDynamically();
+    // window.location.reload();
+    // scaleDynamically();
 }
 
 function keyTyped() {
