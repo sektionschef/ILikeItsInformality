@@ -1,8 +1,13 @@
 class Triangle {
 
     constructor() {
-        // this.A = createVector(getRandomFromInterval(DOMINANTSIDE * 0.4, DOMINANTSIDE * 0.6), getRandomFromInterval(DOMINANTSIDE * 0.4, DOMINANTSIDE * 0.6));
-        this.A = createVector(2400, 1300);
+        this.margin = DOMINANTSIDE * 0.1;
+
+        // this.A = createVector(2400, 1300);
+        this.A = createVector(
+            getRandomFromInterval(this.margin, width - this.margin),
+            getRandomFromInterval(this.margin, height - this.margin)
+        );
 
         this.lengthB = 500;
         this.B = p5.Vector.fromAngle(radians(340), this.lengthB).add(this.A);
@@ -33,8 +38,11 @@ class TriangleSystem {
 
     constructor() {
         this.triangles = [];
+        this.triangleCount = 55;
 
-        this.triangles.push(new Triangle());
+        for (var i = 0; i < this.triangleCount; i++) {
+            this.triangles.push(new Triangle());
+        }
     }
 
     debug() {
@@ -44,13 +52,13 @@ class TriangleSystem {
     }
 
     insidePolygon(x, y) {
+        // ATTENTION FOR OVERLAPPING ELEMENTS - WHICH ONE CAN BE SEEN?
         for (var i = 0; i < this.triangles.length; i++) {
-
+            // if one is found, enough - end the loop
             if (insidePolygon([x, y], this.triangles[i].coords)) {
                 return true;
-            } else {
-                return false;
             }
         }
+        return false;
     }
 }

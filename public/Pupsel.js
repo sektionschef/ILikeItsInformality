@@ -4,7 +4,7 @@ class PupselGrid {
         this.margin = 0;
         this.brushSize = DOMINANTSIDE * 0.01;
         this.brushNumber = 15;
-        this.pupselNumber = DOMINANTSIDE / 10;  // 20
+        this.pupselNumber = DOMINANTSIDE / RESOLUTION;  // 20
         this.pupselSize = (DOMINANTSIDE - 2 * this.margin) / this.pupselNumber;
         this.pupselColors = PALETTE.pixelColors;
         // console.log("blocksize: " + this.blockSize);
@@ -53,11 +53,8 @@ class PupselGrid {
             x = (i % this.pupselNumber) * this.pupselSize;
             y = Math.floor(i / this.pupselNumber) * this.pupselSize;
 
-            // push();
-            // stroke('black');
-            // strokeWeight(0.5);
-            // point(this.pupsels[i].pos.x, this.pupsels[i].pos.y);
-            // pop();
+            // default color
+            this.color = color('#575757');
 
             // density
             // if (i % 13 == 0) {
@@ -68,26 +65,30 @@ class PupselGrid {
 
             // if (x >= DOMINANTSIDE * 0.2 && x < DOMINANTSIDE * 0.8 && y >= DOMINANTSIDE * 0.3 && y < DOMINANTSIDE * 0.7) {
             //     this.color = color('#d43838');
-            // } else {
-            //     this.color = color('#575757');
             // }
 
             if (triangles.insidePolygon(x, y)) {
                 this.color = color('#d43838');
-            } else {
-                this.color = color('#575757');
             }
 
-            for (var v = 0; v < this.pupsels[i].brushstrokes.length; v++) {
-                push();
+            // points
+            push();
+            stroke(this.color);
+            strokeWeight(10);
+            point(this.pupsels[i].pos.x, this.pupsels[i].pos.y);
+            pop();
 
-                stroke(this.color);
-                strokeWeight(0.5);
+            // brushstrokes
+            // for (var v = 0; v < this.pupsels[i].brushstrokes.length; v++) {
 
-                line(this.pupsels[i].brushstrokes[v].pos.x, this.pupsels[i].brushstrokes[v].pos.y, this.pupsels[i].brushstrokes[v].posB.x, this.pupsels[i].brushstrokes[v].posB.y);
+            //     push();
+            //     stroke(this.color);
+            //     strokeWeight(0.5);
 
-                pop();
-            }
+            //     line(this.pupsels[i].brushstrokes[v].pos.x, this.pupsels[i].brushstrokes[v].pos.y, this.pupsels[i].brushstrokes[v].posB.x, this.pupsels[i].brushstrokes[v].posB.y);
+            //     pop();
+
+            // }
         }
 
     }
