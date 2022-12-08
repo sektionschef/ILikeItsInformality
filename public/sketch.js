@@ -69,6 +69,10 @@ const PALETTESYSTEM = {
   //   // "background": "#ffffff",
   //   "pixelColors": ["#ffffff", "#cfcfcf", "#d6d6d6", "#c4c4c4", "#b3b3b3"],
   // },
+  // "Color": {
+  //   // "background": "#aaaaaa",
+  //   "pixelColors": ["#ffe58e", "#dabd3c", "#896e8f", "#9b69a0", "#3f1241"],
+  // },
 }
 
 choosePalette();

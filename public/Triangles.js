@@ -33,7 +33,13 @@ class Triangle {
         this.C = p5.Vector.fromAngle(this.gamma, this.lengthC).add(this.A);
 
         this.coords = [[this.A.x, this.A.y], [this.B.x, this.B.y], [this.C.x, this.C.y]];
-
+        this.lineRange = 1;
+        this.lines = [
+            [this.A.x - this.lineRange, this.A.y - this.lineRange],
+            [this.A.x + this.lineRange, this.A.y + this.lineRange],
+            [this.B.x - this.lineRange, this.B.y - this.lineRange],
+            [this.B.x + this.lineRange, this.B.y + this.lineRange]
+        ];
     }
 
     debug() {
@@ -84,12 +90,22 @@ class TriangleSystem {
             if (insidePolygon([x, y], this.triangles[i].coords)) {
                 // return true;
                 // return this.triangles[i].color;
-                // if (this.triangles[i].A.x < this.triangles[i].B.x) {
                 colorDyn = brightenSuperNew(this.triangles[i].color, map(x, this.triangles[i].A.x, this.triangles[i].B.x, -50, 50));
-                // } else {
-                // colorDyn = brightenSuperNew(this.triangles[i].color, map(x, this.triangles[i].B.x, this.triangles[i].A.x, -50, 50));
-                // }
                 return colorDyn;
+            }
+        }
+        // return false;
+    }
+
+    insideLine(x, y) {
+        // ATTENTION FOR OVERLAPPING ELEMENTS - WHICH ONE CAN BE SEEN?
+        // var colorDyn;
+        for (var i = 0; i < this.triangles.length; i++) {
+            // if one is found, enough - end the loop
+            if (insidePolygon([x, y], this.triangles[i].lines)) {
+                // colorDyn = brightenSuperNew(this.triangles[i].color, map(x, this.triangles[i].A.x, this.triangles[i].B.x, -50, 50));
+                // return colorDyn;
+                return color("white");
             }
         }
         // return false;

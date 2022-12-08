@@ -72,9 +72,15 @@ class PupselGrid {
                 this.color = oida;
             }
 
-            // density
-            // if (i % 13 == 0) {
-            //     this.color = color('#d43838');
+            var oida2 = triangles.insideLine(x, y);
+            // console.log(oida);
+            if (oida2) {
+                this.color = oida2;
+            }
+
+            // stripes
+            // if (i % 3 == 0) {
+            //     this.color = color('#3d3d3d');
             // }
 
             // distort color
