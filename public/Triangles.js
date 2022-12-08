@@ -5,7 +5,12 @@ class Triangle {
         this.margin = DOMINANTSIDE * 0.1 - this.marginCorrect;
 
         this.color = getRandomFromList(PALETTE.pixelColors);
-        this.center = createVector(width / 2, height / 2);
+        this.centerFuzzynessX = getRandomFromInterval(DOMINANTSIDE * 0.1);
+        this.centerFuzzynessY = getRandomFromInterval(DOMINANTSIDE * 0.1);
+        this.center = createVector(
+            width / 2 + getRandomFromInterval(-DOMINANTSIDE * 0.1, DOMINANTSIDE * 0.1),
+            height / 2 + getRandomFromInterval(-DOMINANTSIDE * 0.1, DOMINANTSIDE * 0.1)
+        );
 
         // this.A = createVector(2400, 1300);
         this.A = createVector(
