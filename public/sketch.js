@@ -270,7 +270,7 @@ function draw() {
 
     pupselGrid.show();
 
-    triangles.show();
+    triangles.debug();
 
     // pixies.show();
     // image(pixies.buffer, 0, 0);

@@ -9,9 +9,12 @@ class Triangle {
 
         this.lengthC = 700;
         this.C = p5.Vector.fromAngle(radians(30), this.lengthC).add(this.A);
+
+        this.coords = [[this.A.x, this.A.y], [this.B.x, this.B.y], [this.C.x, this.C.y]];
     }
 
-    show() {
+    debug() {
+        // debug
         push();
         stroke("#4c8137");
         strokeWeight(50);
@@ -34,9 +37,20 @@ class TriangleSystem {
         this.triangles.push(new Triangle());
     }
 
-    show() {
+    debug() {
         for (var i = 0; i < this.triangles.length; i++) {
-            this.triangles[i].show();
+            this.triangles[i].debug();
+        }
+    }
+
+    insidePolygon(x, y) {
+        for (var i = 0; i < this.triangles.length; i++) {
+
+            if (insidePolygon([x, y], this.triangles[i].coords)) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 }
