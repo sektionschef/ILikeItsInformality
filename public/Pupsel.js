@@ -4,7 +4,7 @@ class PupselGrid {
         this.margin = 0;
         this.brushSize = DOMINANTSIDE * 0.01;
         this.brushNumber = 15;
-        this.pupselNumber = DOMINANTSIDE / 100;  // 20
+        this.pupselNumber = DOMINANTSIDE / 25;  // 20
         this.pupselSize = (DOMINANTSIDE - 2 * this.margin) / this.pupselNumber;
         this.pupselColors = PALETTE.pixelColors;
         // console.log("blocksize: " + this.blockSize);
@@ -12,14 +12,12 @@ class PupselGrid {
         this.pupsels = [];
         var brushstrokes;
 
-        for (var pupselX = this.margin; pupselX < (width - this.margin); pupselX += this.pupselSize) {
-
-            for (var pupselY = this.margin; pupselY < (height - this.margin); pupselY += this.pupselSize) {
+        for (var pupselY = this.margin; pupselY < (height - this.margin); pupselY += this.pupselSize) {
+            for (var pupselX = this.margin; pupselX < (width - this.margin); pupselX += this.pupselSize) {
 
                 // if (blockX < 100 && blockX > (width - 100) && blockY < 100 && blockY > (height - 100)) {
 
                 this.center = createVector(pupselX + this.pupselSize / 2, pupselY + this.pupselSize / 2);
-
 
                 brushstrokes = [];
 
@@ -49,12 +47,11 @@ class PupselGrid {
 
         var x;
         var y;
-        console.log(this.pupselNumber * 0.2);
 
         for (var i = 0; i < this.pupsels.length; i++) {
 
-            x = i % width;
-            y = Math.floor(i / this.pupselNumber);
+            x = (i % this.pupselNumber) * this.pupselSize;
+            y = Math.floor(i / this.pupselNumber) * this.pupselSize;
 
             // push();
             // stroke('black');
@@ -69,10 +66,7 @@ class PupselGrid {
             //     this.color = color('#575757');
             // }
 
-            console.log(x);
-            if (x >= this.pupselSize * 1 && x < this.pupselSize * 6) {
-                // if (x >= this.pupselSize * 1 && y >= this.pupselSize * 1) {
-                // if (x >= this.pupselNumber * 0.2 && x < this.pupselNumber * 0.4 && y >= this.pupselNumber * 0.3 && y < this.pupselNumber * 0.6) {
+            if (x >= DOMINANTSIDE * 0.2 && x < DOMINANTSIDE * 0.8 && y >= DOMINANTSIDE * 0.3 && y < DOMINANTSIDE * 0.7) {
                 this.color = color('#d43838');
             } else {
                 this.color = color('#575757');
