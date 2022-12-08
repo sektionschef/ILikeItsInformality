@@ -77,7 +77,7 @@ class PupselGrid {
             }
 
             // distort color
-            this.color = distortColorSuperNew(this.color, 55);
+            this.color = distortColorSuperNew(this.color, 35);
 
             // points
             // push();
