@@ -232,6 +232,8 @@ function setup() {
 
   pupselGrid = new PupselGrid();
 
+  triangles = new TriangleSystem();
+
 }
 
 
@@ -250,6 +252,8 @@ function draw() {
   // }
 
 
+
+
   // ambientLight(255, 255, 255);
   // directionalLight(200, 200, 200, 1, -1, 0);
   // pointLight(155, 155, 155, 20 * conv, 0 * conv, -30 * conv)
@@ -265,6 +269,8 @@ function draw() {
     background(170);
 
     pupselGrid.show();
+
+    triangles.show();
 
     // pixies.show();
     // image(pixies.buffer, 0, 0);

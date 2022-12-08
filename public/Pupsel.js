@@ -4,7 +4,7 @@ class PupselGrid {
         this.margin = 0;
         this.brushSize = DOMINANTSIDE * 0.01;
         this.brushNumber = 15;
-        this.pupselNumber = DOMINANTSIDE / 25;  // 20
+        this.pupselNumber = DOMINANTSIDE / 100;  // 20
         this.pupselSize = (DOMINANTSIDE - 2 * this.margin) / this.pupselNumber;
         this.pupselColors = PALETTE.pixelColors;
         // console.log("blocksize: " + this.blockSize);
