@@ -78,11 +78,18 @@ class TriangleSystem {
 
     insidePolygon(x, y) {
         // ATTENTION FOR OVERLAPPING ELEMENTS - WHICH ONE CAN BE SEEN?
+        var colorDyn;
         for (var i = 0; i < this.triangles.length; i++) {
             // if one is found, enough - end the loop
             if (insidePolygon([x, y], this.triangles[i].coords)) {
                 // return true;
-                return this.triangles[i].color;
+                // return this.triangles[i].color;
+                // if (this.triangles[i].A.x < this.triangles[i].B.x) {
+                colorDyn = brightenSuperNew(this.triangles[i].color, map(x, this.triangles[i].A.x, this.triangles[i].B.x, -50, 50));
+                // } else {
+                // colorDyn = brightenSuperNew(this.triangles[i].color, map(x, this.triangles[i].B.x, this.triangles[i].A.x, -50, 50));
+                // }
+                return colorDyn;
             }
         }
         // return false;

@@ -70,6 +70,15 @@ function distortColorSuperNew(colorObject, gain) {
     );
 }
 
+function brightenSuperNew(colorObject, gain) {
+    return color(
+        red(colorObject) + gain,
+        green(colorObject) + gain,
+        blue(colorObject) + gain,
+        alpha(colorObject)
+    );
+}
+
 
 function lessenColor(colorObject, diff) {
     let diff_constant = getRandomFromInterval(0, -diff)

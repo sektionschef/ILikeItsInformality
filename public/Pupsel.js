@@ -2,7 +2,7 @@ class PupselGrid {
 
     constructor(data) {
         this.margin = 0;
-        this.brushSize = DOMINANTSIDE * 0.01;
+        this.brushSize = DOMINANTSIDE * 0.005;  // DOMINANTSIDE * 0.01
         this.brushNumber = 15;
         this.pupselNumber = DOMINANTSIDE / RESOLUTION;  // 20
         this.pupselSize = (DOMINANTSIDE - 2 * this.margin) / this.pupselNumber;
@@ -20,6 +20,8 @@ class PupselGrid {
                 this.center = createVector(pupselX + this.pupselSize / 2, pupselY + this.pupselSize / 2);
 
                 brushstrokes = [];
+
+                // this.brushSize = getRandomFromInterval(DOMINANTSIDE * 0.001, DOMINANTSIDE * 0.01);
 
                 for (var i = 0; i < this.brushNumber; i++) {
                     brushstrokes.push({
@@ -56,12 +58,6 @@ class PupselGrid {
             // default color
             this.color = color('#575757');
 
-            // density
-            // if (i % 13 == 0) {
-            //     this.color = color('#d43838');
-            // } else {
-            //     this.color = color('#575757');
-            // }
 
             // if (x >= DOMINANTSIDE * 0.2 && x < DOMINANTSIDE * 0.8 && y >= DOMINANTSIDE * 0.3 && y < DOMINANTSIDE * 0.7) {
             //     this.color = color('#d43838');
@@ -75,6 +71,11 @@ class PupselGrid {
             if (oida) {
                 this.color = oida;
             }
+
+            // density
+            // if (i % 13 == 0) {
+            //     this.color = color('#d43838');
+            // }
 
             // distort color
             this.color = distortColorSuperNew(this.color, 35);
