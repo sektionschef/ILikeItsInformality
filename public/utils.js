@@ -60,6 +60,17 @@ function distortColorNew(colorObject, diff, strict = true) {
 }
 
 
+function distortColorSuperNew(colorObject, gain) {
+    var distort = + randomGaussian(0, gain);
+    return color(
+        red(colorObject) + distort,
+        green(colorObject) + distort,
+        blue(colorObject) + distort,
+        alpha(colorObject)
+    );
+}
+
+
 function lessenColor(colorObject, diff) {
     let diff_constant = getRandomFromInterval(0, -diff)
     let red = colorObject.levels[0];

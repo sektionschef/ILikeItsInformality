@@ -76,6 +76,9 @@ class PupselGrid {
                 this.color = oida;
             }
 
+            // distort color
+            this.color = distortColorSuperNew(this.color, 55);
+
             // points
             // push();
             // stroke(this.color);
