@@ -1,18 +1,21 @@
 class Triangle {
 
     constructor() {
-        this.margin = DOMINANTSIDE * 0.1;
+        this.marginCorrect = DOMINANTSIDE * 0.05;  // center for the margin
+        this.margin = DOMINANTSIDE * 0.1 - this.marginCorrect;
 
         // this.A = createVector(2400, 1300);
         this.A = createVector(
             getRandomFromInterval(this.margin, width - this.margin),
             getRandomFromInterval(this.margin, height - this.margin)
         );
+        this.theta = getRandomFromInterval(300, 355);
+        this.gamma = getRandomFromInterval(10, 60);
 
-        this.lengthB = 500;
-        this.B = p5.Vector.fromAngle(radians(340), this.lengthB).add(this.A);
+        this.lengthB = DOMINANTSIDE * 0.125;
+        this.B = p5.Vector.fromAngle(radians(this.theta), this.lengthB).add(this.A);
 
-        this.lengthC = 700;
+        this.lengthC = DOMINANTSIDE * 0.175;
         this.C = p5.Vector.fromAngle(radians(30), this.lengthC).add(this.A);
 
         this.coords = [[this.A.x, this.A.y], [this.B.x, this.B.y], [this.C.x, this.C.y]];
@@ -30,6 +33,13 @@ class Triangle {
 
         stroke("#14195e");
         point(this.C.x, this.C.y);
+        pop();
+
+        push();
+        noFill();
+        stroke("black");
+        strokeWeight(10);
+        rect(this.margin, this.margin, width - this.margin * 2, height - this.margin * 2)
         pop();
     }
 }

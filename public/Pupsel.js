@@ -74,7 +74,7 @@ class PupselGrid {
             // points
             push();
             stroke(this.color);
-            strokeWeight(10);
+            strokeWeight(15);
             point(this.pupsels[i].pos.x, this.pupsels[i].pos.y);
             pop();
 
