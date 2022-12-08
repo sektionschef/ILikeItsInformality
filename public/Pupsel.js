@@ -67,28 +67,33 @@ class PupselGrid {
             //     this.color = color('#d43838');
             // }
 
-            if (triangles.insidePolygon(x, y)) {
-                this.color = color('#d43838');
+            // if (triangles.insidePolygon(x, y)) {
+            //     this.color = color('#d43838');
+            // }
+            var oida = triangles.insidePolygon(x, y);
+            // console.log(oida);
+            if (oida) {
+                this.color = oida;
             }
 
             // points
-            push();
-            stroke(this.color);
-            strokeWeight(15);
-            point(this.pupsels[i].pos.x, this.pupsels[i].pos.y);
-            pop();
+            // push();
+            // stroke(this.color);
+            // strokeWeight(15);
+            // point(this.pupsels[i].pos.x, this.pupsels[i].pos.y);
+            // pop();
 
             // brushstrokes
-            // for (var v = 0; v < this.pupsels[i].brushstrokes.length; v++) {
+            for (var v = 0; v < this.pupsels[i].brushstrokes.length; v++) {
 
-            //     push();
-            //     stroke(this.color);
-            //     strokeWeight(0.5);
+                push();
+                stroke(this.color);
+                strokeWeight(0.5);
 
-            //     line(this.pupsels[i].brushstrokes[v].pos.x, this.pupsels[i].brushstrokes[v].pos.y, this.pupsels[i].brushstrokes[v].posB.x, this.pupsels[i].brushstrokes[v].posB.y);
-            //     pop();
+                line(this.pupsels[i].brushstrokes[v].pos.x, this.pupsels[i].brushstrokes[v].pos.y, this.pupsels[i].brushstrokes[v].posB.x, this.pupsels[i].brushstrokes[v].posB.y);
+                pop();
 
-            // }
+            }
         }
 
     }

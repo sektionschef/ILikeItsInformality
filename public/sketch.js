@@ -11,7 +11,7 @@ let canvas;
 let rescaling_width;
 let rescaling_height;
 
-let RESOLUTION = 20; // how many dots per dominantside length, 10, 20, 30
+let RESOLUTION = 10; // how many dots per dominantside length, 10, 20, 30
 
 let foglyPoints = [];
 let pixies;
@@ -61,14 +61,14 @@ let CURRENTPIXELDENS = 1;
 // };
 
 const PALETTESYSTEM = {
-  // "Boom": {
-  //   "background": "#aaaaaa",
-  //   "pixelColors": ["#303030", "#606060", "#909090", "#bbbbbb", "#eeeeee"],
-  // },
-  "Fillitz": {
-    // "background": "#ffffff",
-    "pixelColors": ["#ffffff", "#cfcfcf", "#d6d6d6", "#c4c4c4", "#b3b3b3"],
+  "Boom": {
+    "background": "#aaaaaa",
+    "pixelColors": ["#303030", "#606060", "#909090", "#bbbbbb", "#eeeeee"],
   },
+  // "Fillitz": {
+  //   // "background": "#ffffff",
+  //   "pixelColors": ["#ffffff", "#cfcfcf", "#d6d6d6", "#c4c4c4", "#b3b3b3"],
+  // },
 }
 
 choosePalette();
@@ -272,7 +272,7 @@ function draw() {
 
     pupselGrid.show();
 
-    triangles.debug();
+    // triangles.debug();
 
     // pixies.show();
     // image(pixies.buffer, 0, 0);
