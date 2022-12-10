@@ -1,6 +1,11 @@
 class Triangle {
 
     constructor() {
+        if (fxrand() < 0.3) {
+            this.pattern = true;
+            // console.log(this.pattern);
+        }
+
         this.marginCorrect = DOMINANTSIDE * 0.05;  // center for the margin
         this.margin = DOMINANTSIDE * 0.1 - this.marginCorrect;
         this.lengthB = DOMINANTSIDE * getRandomFromInterval(0.1, 0.3);  // 0.1 -0.2
@@ -91,7 +96,7 @@ class TriangleSystem {
         }
     }
 
-    insidePolygon(x, y) {
+    insidePolygon(x, y, v) {  // v is the index
         // ATTENTION FOR OVERLAPPING ELEMENTS - WHICH ONE CAN BE SEEN?
         var colorDyn;
 
@@ -108,6 +113,16 @@ class TriangleSystem {
                     -50,
                     50
                 ));
+
+
+                if (this.triangles[i].pattern) {
+                    // console.log("ioad")
+                    if (v % 3 == 0) {
+                        colorDyn = color('#424242');
+                    }
+                }
+
+
                 return colorDyn;
             }
         }

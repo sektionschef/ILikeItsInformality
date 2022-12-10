@@ -66,7 +66,7 @@ class PupselGrid {
             // if (triangles.insidePolygon(x, y)) {
             //     this.color = color('#d43838');
             // }
-            var oida = triangles.insidePolygon(x, y);
+            var oida = triangles.insidePolygon(x, y, i);
             // console.log(oida);
             if (oida) {
                 this.color = oida;
