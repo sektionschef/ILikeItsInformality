@@ -3,6 +3,8 @@ class Triangle {
     constructor() {
         this.marginCorrect = DOMINANTSIDE * 0.05;  // center for the margin
         this.margin = DOMINANTSIDE * 0.1 - this.marginCorrect;
+        this.lengthB = DOMINANTSIDE * getRandomFromInterval(0.1, 0.3);  // 0.1 -0.2
+        this.lengthC = DOMINANTSIDE * getRandomFromInterval(0.1, 0.3); // 0.1 -0.2
 
         this.color = getRandomFromList(PALETTE.pixelColors);
         this.centerFuzzynessX = getRandomFromInterval(DOMINANTSIDE * 0.1);
@@ -12,7 +14,7 @@ class Triangle {
             height / 2 + getRandomFromInterval(-DOMINANTSIDE * 0.1, DOMINANTSIDE * 0.1)
         );
 
-        // this.A = createVector(2400, 1300);
+        // this.A = createVector(900, 900);
         this.A = createVector(
             getRandomFromInterval(this.margin, width - this.margin),
             getRandomFromInterval(this.margin, height - this.margin)
@@ -25,12 +27,18 @@ class Triangle {
         this.theta = this.angleCenter - PI / 18;
         // this.gamma = radians(getRandomFromInterval(10, 60));
         this.gamma = this.angleCenter + PI / 18;
-        this.lengthB = DOMINANTSIDE * getRandomFromInterval(0.1, 0.2);
-        this.lengthC = DOMINANTSIDE * getRandomFromInterval(0.1, 0.2);
 
         this.B = p5.Vector.fromAngle(this.theta, this.lengthB).add(this.A);
-
         this.C = p5.Vector.fromAngle(this.gamma, this.lengthC).add(this.A);
+
+        this.distanceB = p5.Vector.dist(this.A, this.B);
+        this.distanceC = p5.Vector.dist(this.A, this.C);
+
+        if (this.distanceB > this.distanceC) {
+            this.distance = this.distanceB;
+        } else {
+            this.distance = this.distanceC;
+        }
 
         this.coords = [[this.A.x, this.A.y], [this.B.x, this.B.y], [this.C.x, this.C.y]];
         this.lineRange = 1;
@@ -69,7 +77,8 @@ class TriangleSystem {
 
     constructor() {
         this.triangles = [];
-        this.triangleCount = 3555;
+        // this.triangleCount = 3555;
+        this.triangleCount = 1200;
 
         for (var i = 0; i < this.triangleCount; i++) {
             this.triangles.push(new Triangle());
@@ -85,12 +94,20 @@ class TriangleSystem {
     insidePolygon(x, y) {
         // ATTENTION FOR OVERLAPPING ELEMENTS - WHICH ONE CAN BE SEEN?
         var colorDyn;
+
         for (var i = 0; i < this.triangles.length; i++) {
             // if one is found, enough - end the loop
             if (insidePolygon([x, y], this.triangles[i].coords)) {
                 // return true;
                 // return this.triangles[i].color;
-                colorDyn = brightenSuperNew(this.triangles[i].color, map(x, this.triangles[i].A.x, this.triangles[i].B.x, -50, 50));
+
+                colorDyn = brightenSuperNew(this.triangles[i].color, map(
+                    p5.Vector.dist(createVector(x, y), this.triangles[i].A),
+                    0,
+                    this.triangles[i].distance,
+                    -50,
+                    50
+                ));
                 return colorDyn;
             }
         }

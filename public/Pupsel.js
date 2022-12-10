@@ -72,11 +72,12 @@ class PupselGrid {
                 this.color = oida;
             }
 
-            var oida2 = triangles.insideLine(x, y);
-            // console.log(oida);
-            if (oida2) {
-                this.color = oida2;
-            }
+            // LINE
+            // var oida2 = triangles.insideLine(x, y);
+            // // console.log(oida);
+            // if (oida2) {
+            //     this.color = oida2;
+            // }
 
             // stripes
             // if (i % 3 == 0) {
@@ -86,14 +87,14 @@ class PupselGrid {
             // distort color
             this.color = distortColorSuperNew(this.color, 20);
 
-            // points
+            // POINTS
             // push();
             // stroke(this.color);
             // strokeWeight(15);
             // point(this.pupsels[i].pos.x, this.pupsels[i].pos.y);
             // pop();
 
-            // brushstrokes
+            // BRUSHSTROKES
             for (var v = 0; v < this.pupsels[i].brushstrokes.length; v++) {
 
                 push();
