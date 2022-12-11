@@ -56,7 +56,7 @@ class PupselGrid {
             y = Math.floor(i / this.pupselNumber) * this.pupselSize;
 
             // default color
-            this.color = color('#575757');
+            this.pupsels[i].color = color('#575757');
 
 
             // if (x >= DOMINANTSIDE * 0.2 && x < DOMINANTSIDE * 0.8 && y >= DOMINANTSIDE * 0.3 && y < DOMINANTSIDE * 0.7) {
@@ -69,7 +69,7 @@ class PupselGrid {
             var oida = triangles.insidePolygon(x, y, i);
             // console.log(oida);
             if (oida) {
-                this.color = oida;
+                this.pupsels[i].color = oida;
             }
 
             // LINE
@@ -85,27 +85,41 @@ class PupselGrid {
             // }
 
             // distort color
-            this.color = distortColorSuperNew(this.color, 20);
+            this.pupsels[i].color = distortColorSuperNew(this.pupsels[i].color, 20);
 
-            // POINTS
-            // push();
-            // stroke(this.color);
-            // strokeWeight(15);
-            // point(this.pupsels[i].pos.x, this.pupsels[i].pos.y);
-            // pop();
+            PupselBrush.show(this.pupsels[i]);
 
-            // BRUSHSTROKES
-            for (var v = 0; v < this.pupsels[i].brushstrokes.length; v++) {
-
-                push();
-                stroke(this.color);
-                strokeWeight(0.5);
-
-                line(this.pupsels[i].brushstrokes[v].pos.x, this.pupsels[i].brushstrokes[v].pos.y, this.pupsels[i].brushstrokes[v].posB.x, this.pupsels[i].brushstrokes[v].posB.y);
-                pop();
-
-            }
         }
+
+    }
+}
+
+
+class PupselBrush {
+
+    constructor() {
+    }
+
+    static show(pupsel) {
+
+        // POINTS
+        push();
+        stroke(pupsel.color);
+        strokeWeight(15);
+        point(pupsel.pos.x, pupsel.pos.y);
+        pop();
+
+        // BRUSHSTROKES
+        // for (var v = 0; v < this.pupsels[i].brushstrokes.length; v++) {
+
+        //     push();
+        //     stroke(this.color);
+        //     strokeWeight(0.5);
+
+        //     line(this.pupsels[i].brushstrokes[v].pos.x, this.pupsels[i].brushstrokes[v].pos.y, this.pupsels[i].brushstrokes[v].posB.x, this.pupsels[i].brushstrokes[v].posB.y);
+        //     pop();
+
+        // }
 
     }
 }
