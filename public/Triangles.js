@@ -51,17 +51,27 @@ class Triangle {
         this.coords = [[this.A.x, this.A.y], [this.B.x, this.B.y], [this.C.x, this.C.y]];
 
         this.ABAngle = p5.Vector.sub(this.B, this.A).heading();
+        this.ACAngle = p5.Vector.sub(this.C, this.A).heading();
 
         this.ABSpot1 = p5.Vector.add(this.A, p5.Vector.fromAngle((this.ABAngle + PI / 2), this.spotLengthy));
         this.ABSpot2 = p5.Vector.sub(this.A, p5.Vector.fromAngle((this.ABAngle + PI / 2), this.spotLengthy));
         this.ABSpot3 = p5.Vector.add(this.B, p5.Vector.fromAngle((this.ABAngle + PI / 2), this.spotLengthy));
         this.ABSpot4 = p5.Vector.sub(this.B, p5.Vector.fromAngle((this.ABAngle + PI / 2), this.spotLengthy));
 
+        this.ACSpot1 = p5.Vector.add(this.A, p5.Vector.fromAngle((this.ACAngle + PI / 2), this.spotLengthy));
+        this.ACSpot2 = p5.Vector.sub(this.A, p5.Vector.fromAngle((this.ACAngle + PI / 2), this.spotLengthy));
+        this.ACSpot3 = p5.Vector.add(this.C, p5.Vector.fromAngle((this.ACAngle + PI / 2), this.spotLengthy));
+        this.ACSpot4 = p5.Vector.sub(this.C, p5.Vector.fromAngle((this.ACAngle + PI / 2), this.spotLengthy));
+
         this.lines = [
             [this.ABSpot1.x, this.ABSpot1.y],
             [this.ABSpot2.x, this.ABSpot2.y],
             [this.ABSpot3.x, this.ABSpot3.y],
             [this.ABSpot4.x, this.ABSpot4.y],
+            [this.ACSpot1.x, this.ACSpot1.y],
+            [this.ACSpot2.x, this.ACSpot2.y],
+            [this.ACSpot3.x, this.ACSpot3.y],
+            [this.ACSpot4.x, this.ACSpot4.y],
         ];
     }
 
