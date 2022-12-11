@@ -72,22 +72,16 @@ class PupselGrid {
                 this.pupsels[i].color = oida;
             }
 
-            // LINE
-            // var oida2 = triangles.insideLine(x, y);
-            // // console.log(oida);
-            // if (oida2) {
-            //     this.color = oida2;
-            // }
-
             // stripes
             // if (i % 3 == 0) {
             //     this.color = color('#3d3d3d');
             // }
 
             // distort color
-            this.pupsels[i].color = distortColorSuperNew(this.pupsels[i].color, 20);
+            this.pupsels[i].color = distortColorSuperNew(this.pupsels[i].color, 10);
 
-            PupselBrush.show(this.pupsels[i]);
+            // PupselBrush.showPoints(this.pupsels[i]);
+            PupselBrush.showBrushStrokes(this.pupsels[i]);
 
         }
 
@@ -100,26 +94,27 @@ class PupselBrush {
     constructor() {
     }
 
-    static show(pupsel) {
+    static showPoints(pupsel) {
 
-        // POINTS
         push();
         stroke(pupsel.color);
         strokeWeight(15);
         point(pupsel.pos.x, pupsel.pos.y);
         pop();
-
-        // BRUSHSTROKES
-        // for (var v = 0; v < this.pupsels[i].brushstrokes.length; v++) {
-
-        //     push();
-        //     stroke(this.color);
-        //     strokeWeight(0.5);
-
-        //     line(this.pupsels[i].brushstrokes[v].pos.x, this.pupsels[i].brushstrokes[v].pos.y, this.pupsels[i].brushstrokes[v].posB.x, this.pupsels[i].brushstrokes[v].posB.y);
-        //     pop();
-
-        // }
-
     }
+
+    static showBrushStrokes(pupsel) {
+
+        for (var v = 0; v < pupsel.brushstrokes.length; v++) {
+
+            push();
+            stroke(pupsel.color);
+            strokeWeight(0.5);
+
+            line(pupsel.brushstrokes[v].pos.x, pupsel.brushstrokes[v].pos.y, pupsel.brushstrokes[v].posB.x, pupsel.brushstrokes[v].posB.y);
+            pop();
+
+        }
+    }
+
 }

@@ -369,7 +369,12 @@ function getIntersectionPoint(A1, A2, B1, B2) {
     var x = Math.round((Bd - Ad) / (Ak - Bk));
     var y = Math.round(Ak * x + Ad);
 
-    return createVector(x, y);
+    // console.log(x);
+
+    if (isNaN(x) && isNaN(x)) {
+    } else {
+        return createVector(x, y);
+    }
 }
 
 function insidePolygon(point, vs) {

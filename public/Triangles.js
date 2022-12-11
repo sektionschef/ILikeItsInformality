@@ -1,10 +1,13 @@
 class Triangle {
 
-    constructor() {
+    constructor(rank) {
+        this.rank = rank;
+
         if (fxrand() < 0.3) {
             this.pattern = true;
             // console.log(this.pattern);
         }
+        this.spotLengthy = DOMINANTSIDE * 0.003;  // draw line range
 
         this.marginCorrect = DOMINANTSIDE * 0.05;  // center for the margin
         this.margin = DOMINANTSIDE * 0.1 - this.marginCorrect;
@@ -46,12 +49,19 @@ class Triangle {
         }
 
         this.coords = [[this.A.x, this.A.y], [this.B.x, this.B.y], [this.C.x, this.C.y]];
-        this.lineRange = 1;
+
+        this.ABAngle = p5.Vector.sub(this.B, this.A).heading();
+
+        this.ABSpot1 = p5.Vector.add(this.A, p5.Vector.fromAngle((this.ABAngle + PI / 2), this.spotLengthy));
+        this.ABSpot2 = p5.Vector.sub(this.A, p5.Vector.fromAngle((this.ABAngle + PI / 2), this.spotLengthy));
+        this.ABSpot3 = p5.Vector.add(this.B, p5.Vector.fromAngle((this.ABAngle + PI / 2), this.spotLengthy));
+        this.ABSpot4 = p5.Vector.sub(this.B, p5.Vector.fromAngle((this.ABAngle + PI / 2), this.spotLengthy));
+
         this.lines = [
-            [this.A.x - this.lineRange, this.A.y - this.lineRange],
-            [this.A.x + this.lineRange, this.A.y + this.lineRange],
-            [this.B.x - this.lineRange, this.B.y - this.lineRange],
-            [this.B.x + this.lineRange, this.B.y + this.lineRange]
+            [this.ABSpot1.x, this.ABSpot1.y],
+            [this.ABSpot2.x, this.ABSpot2.y],
+            [this.ABSpot3.x, this.ABSpot3.y],
+            [this.ABSpot4.x, this.ABSpot4.y],
         ];
     }
 
@@ -76,17 +86,25 @@ class Triangle {
         rect(this.margin, this.margin, width - this.margin * 2, height - this.margin * 2)
         pop();
     }
+
+    showContours() {
+        push();
+        stroke(color("black"));
+        strokeWeight(3);
+        line(this.A.x, this.A.y, this.B.x, this.B.y);
+        pop();
+    }
 }
 
 class TriangleSystem {
 
     constructor() {
         this.triangles = [];
-        // this.triangleCount = 3555;
         this.triangleCount = 1200;
+        // this.triangleCount = 12;
 
         for (var i = 0; i < this.triangleCount; i++) {
-            this.triangles.push(new Triangle());
+            this.triangles.push(new Triangle(i));
         }
     }
 
@@ -115,6 +133,7 @@ class TriangleSystem {
                 ));
 
 
+                // PATTERN
                 if (this.triangles[i].pattern) {
                     // console.log("ioad")
                     if (v % 3 == 0) {
@@ -122,6 +141,13 @@ class TriangleSystem {
                     }
                 }
 
+                // Contour
+                if (insidePolygon([x, y], this.triangles[i].lines)) {
+                    // colorDyn = brightenSuperNew(this.triangles[i].color, map(x, this.triangles[i].A.x, this.triangles[i].B.x, -50, 50));
+                    // return colorDyn;
+                    return color("black");
+
+                }
 
                 return colorDyn;
             }
@@ -129,18 +155,10 @@ class TriangleSystem {
         // return false;
     }
 
-    insideLine(x, y) {
-        // ATTENTION FOR OVERLAPPING ELEMENTS - WHICH ONE CAN BE SEEN?
-        // var colorDyn;
+    showAllContours() {
         for (var i = 0; i < this.triangles.length; i++) {
-            // if one is found, enough - end the loop
-            if (insidePolygon([x, y], this.triangles[i].lines)) {
-                // colorDyn = brightenSuperNew(this.triangles[i].color, map(x, this.triangles[i].A.x, this.triangles[i].B.x, -50, 50));
-                // return colorDyn;
-                return color("white");
-            }
-        }
-        // return false;
-    }
 
+            this.triangles[i].showContours();
+        }
+    }
 }
