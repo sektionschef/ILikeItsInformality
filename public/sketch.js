@@ -277,7 +277,6 @@ function draw() {
     pupselGrid.show();
 
     // triangles.debug();
-    // triangles.showAllContours();
 
     // pixies.show();
     // image(pixies.buffer, 0, 0);

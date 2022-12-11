@@ -7,7 +7,7 @@ class Triangle {
             this.pattern = true;
             // console.log(this.pattern);
         }
-        this.spotLengthy = DOMINANTSIDE * 0.003;  // draw line range
+        this.spotLengthy = DOMINANTSIDE * 0.002;  // draw line range, strokeWeight of line
 
         this.marginCorrect = DOMINANTSIDE * 0.05;  // center for the margin
         this.margin = DOMINANTSIDE * 0.1 - this.marginCorrect;
@@ -96,22 +96,14 @@ class Triangle {
         rect(this.margin, this.margin, width - this.margin * 2, height - this.margin * 2)
         pop();
     }
-
-    showContours() {
-        push();
-        stroke(color("black"));
-        strokeWeight(3);
-        line(this.A.x, this.A.y, this.B.x, this.B.y);
-        pop();
-    }
 }
 
 class TriangleSystem {
 
     constructor() {
         this.triangles = [];
-        this.triangleCount = 1200;
-        // this.triangleCount = 12;
+        // this.triangleCount = 1200;
+        this.triangleCount = 3555;
 
         for (var i = 0; i < this.triangleCount; i++) {
             this.triangles.push(new Triangle(i));
@@ -165,10 +157,4 @@ class TriangleSystem {
         // return false;
     }
 
-    showAllContours() {
-        for (var i = 0; i < this.triangles.length; i++) {
-
-            this.triangles[i].showContours();
-        }
-    }
 }

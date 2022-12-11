@@ -2,7 +2,7 @@ class PupselGrid {
 
     constructor(data) {
         this.margin = 0;
-        this.brushSize = DOMINANTSIDE * 0.005;  // DOMINANTSIDE * 0.01
+        this.brushSize = DOMINANTSIDE * 0.003;  // 0.01, 0.005, 
         this.brushNumber = 15;
         this.pupselNumber = DOMINANTSIDE / RESOLUTION;  // 20
         this.pupselSize = (DOMINANTSIDE - 2 * this.margin) / this.pupselNumber;
@@ -78,7 +78,7 @@ class PupselGrid {
             // }
 
             // distort color
-            this.pupsels[i].color = distortColorSuperNew(this.pupsels[i].color, 10);
+            this.pupsels[i].color = distortColorSuperNew(this.pupsels[i].color, 15);
 
             // PupselBrush.showPoints(this.pupsels[i]);
             PupselBrush.showBrushStrokes(this.pupsels[i]);
