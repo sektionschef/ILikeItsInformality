@@ -7,7 +7,7 @@ class Triangle {
             this.pattern = true;
             // console.log(this.pattern);
         }
-        this.spotLengthy = DOMINANTSIDE * 0.002;  // draw line range, strokeWeight of line
+        this.spotLengthy = DOMINANTSIDE * 0.001;  // draw line range, strokeWeight of line
 
         this.marginCorrect = DOMINANTSIDE * 0.05;  // center for the margin
         this.margin = DOMINANTSIDE * 0.1 - this.marginCorrect;
@@ -145,9 +145,7 @@ class TriangleSystem {
 
                 // Contour
                 if (insidePolygon([x, y], this.triangles[i].lines)) {
-                    // colorDyn = brightenSuperNew(this.triangles[i].color, map(x, this.triangles[i].A.x, this.triangles[i].B.x, -50, 50));
-                    // return colorDyn;
-                    return color("black");
+                    colorDyn = color('#1b1b1b');
 
                 }
 

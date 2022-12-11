@@ -2,8 +2,6 @@ class PupselGrid {
 
     constructor(data) {
         this.margin = 0;
-        this.brushSize = DOMINANTSIDE * 0.003;  // 0.01, 0.005, 
-        this.brushNumber = 15;
         this.pupselNumber = DOMINANTSIDE / RESOLUTION;  // 20
         this.pupselSize = (DOMINANTSIDE - 2 * this.margin) / this.pupselNumber;
         this.pupselColors = PALETTE.pixelColors;
@@ -19,24 +17,14 @@ class PupselGrid {
 
                 this.center = createVector(pupselX + this.pupselSize / 2, pupselY + this.pupselSize / 2);
 
-                brushstrokes = [];
-
-                // this.brushSize = getRandomFromInterval(DOMINANTSIDE * 0.001, DOMINANTSIDE * 0.01);
-
-                for (var i = 0; i < this.brushNumber; i++) {
-                    brushstrokes.push({
-                        // shape: "Line",
-                        pos: createVector(pupselX, pupselY),
-                        posB: createVector(pupselX + getRandomFromInterval(-this.brushSize, this.brushSize), pupselY + getRandomFromInterval(-this.brushSize, this.brushSize)),
-                    })
-                }
+                // brushstrokes = [];
 
                 this.pupsels.push({
                     "pos": createVector(pupselX, pupselY),
                     "center": this.center,
                     "pupselsize": this.pupselSize,
                     "color": this.color,
-                    "brushstrokes": brushstrokes,
+                    // "brushstrokes": brushstrokes,
                 });
 
             }
@@ -56,20 +44,12 @@ class PupselGrid {
             y = Math.floor(i / this.pupselNumber) * this.pupselSize;
 
             // default color
-            this.pupsels[i].color = color('#575757');
+            this.pupsels[i].color = color('#ffffff');
 
-
-            // if (x >= DOMINANTSIDE * 0.2 && x < DOMINANTSIDE * 0.8 && y >= DOMINANTSIDE * 0.3 && y < DOMINANTSIDE * 0.7) {
-            //     this.color = color('#d43838');
-            // }
-
-            // if (triangles.insidePolygon(x, y)) {
-            //     this.color = color('#d43838');
-            // }
-            var oida = triangles.insidePolygon(x, y, i);
+            var newColor = triangles.insidePolygon(x, y, i);
             // console.log(oida);
-            if (oida) {
-                this.pupsels[i].color = oida;
+            if (newColor) {
+                this.pupsels[i].color = newColor;
             }
 
             // stripes
@@ -81,7 +61,7 @@ class PupselGrid {
             this.pupsels[i].color = distortColorSuperNew(this.pupsels[i].color, 15);
 
             // PupselBrush.showPoints(this.pupsels[i]);
-            PupselBrush.showBrushStrokes(this.pupsels[i]);
+            PupselBrush.showBrushStrokes(this.pupsels[i], x, y);
 
         }
 
@@ -103,18 +83,30 @@ class PupselBrush {
         pop();
     }
 
-    static showBrushStrokes(pupsel) {
+    static showBrushStrokes(pupsel, x, y) {
 
-        for (var v = 0; v < pupsel.brushstrokes.length; v++) {
+        this.brushNumber = 15;
+        // this.brushSize = DOMINANTSIDE * 0.003;  // 0.01, 0.005, 0.003
+
+        this.brushSize = map(x, 0, width / 2, DOMINANTSIDE * 0.003, DOMINANTSIDE * 0.01);
+
+        for (var i = 0; i < this.brushNumber; i++) {
 
             push();
             stroke(pupsel.color);
-            strokeWeight(0.5);
+            // strokeWeight(0.5);
+            strokeWeight(1);
 
-            line(pupsel.brushstrokes[v].pos.x, pupsel.brushstrokes[v].pos.y, pupsel.brushstrokes[v].posB.x, pupsel.brushstrokes[v].posB.y);
+            line(
+                pupsel.pos.x,
+                pupsel.pos.y,
+                pupsel.pos.x + getRandomFromInterval(-this.brushSize, this.brushSize),
+                pupsel.pos.y + getRandomFromInterval(-this.brushSize, this.brushSize)
+            );
+
             pop();
 
         }
-    }
 
+    }
 }
