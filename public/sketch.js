@@ -11,7 +11,7 @@ let canvas;
 let rescaling_width;
 let rescaling_height;
 
-let RESOLUTION = 10; // how many dots per dominantside length, 10, 20, 30
+let RESOLUTION = 5; // how many dots per dominantside length, 10, 20, 30
 
 let foglyPoints = [];
 let pixies;

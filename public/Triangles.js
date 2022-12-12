@@ -102,8 +102,8 @@ class TriangleSystem {
 
     constructor() {
         this.triangles = [];
-        // this.triangleCount = 1200;
-        this.triangleCount = 3555;
+        this.triangleCount = 1200;
+        // this.triangleCount = 3555;
 
         for (var i = 0; i < this.triangleCount; i++) {
             this.triangles.push(new Triangle(i));
@@ -146,13 +146,15 @@ class TriangleSystem {
                 // Contour
                 if (insidePolygon([x, y], this.triangles[i].lines)) {
                     colorDyn = color('#1b1b1b');
-
                 }
 
-                return colorDyn;
+                // return colorDyn;
+                return {
+                    color: colorDyn,
+                    rank: i
+                }
             }
         }
-        // return false;
     }
 
 }

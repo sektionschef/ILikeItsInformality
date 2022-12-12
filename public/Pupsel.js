@@ -49,7 +49,8 @@ class PupselGrid {
             var newColor = triangles.insidePolygon(x, y, i);
             // console.log(oida);
             if (newColor) {
-                this.pupsels[i].color = newColor;
+                this.pupsels[i].color = newColor.color;
+                this.pupsels[i].rank = newColor.rank;
             }
 
             // stripes
@@ -61,7 +62,7 @@ class PupselGrid {
             this.pupsels[i].color = distortColorSuperNew(this.pupsels[i].color, 15);
 
             // PupselBrush.showPoints(this.pupsels[i]);
-            PupselBrush.showBrushStrokes(this.pupsels[i], x, y);
+            PupselBrush.showBrushStrokes(this.pupsels[i]);
 
         }
 
@@ -83,19 +84,22 @@ class PupselBrush {
         pop();
     }
 
-    static showBrushStrokes(pupsel, x, y) {
+    static showBrushStrokes(pupsel) {
 
         this.brushNumber = 15;
-        // this.brushSize = DOMINANTSIDE * 0.003;  // 0.01, 0.005, 0.003
+        this.brushSize = DOMINANTSIDE * 0.004;  // 0.01, 0.005, 0.003
 
-        this.brushSize = map(x, 0, width / 2, DOMINANTSIDE * 0.003, DOMINANTSIDE * 0.01);
+        // this.brushSize = map(pupsel.rank, 1200, 0, DOMINANTSIDE * 0.0003, DOMINANTSIDE * 0.01);
 
         for (var i = 0; i < this.brushNumber; i++) {
 
             push();
-            stroke(pupsel.color);
+            // stroke(pupsel.color);
+            stroke(distortColorSuperNew(pupsel.color, 30));
             // strokeWeight(0.5);
             strokeWeight(1);
+
+
 
             line(
                 pupsel.pos.x,
