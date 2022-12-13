@@ -64,6 +64,8 @@ class PupselGrid {
             // PupselBrush.showPoints(this.pupsels[i]);
             PupselBrush.showBrushStrokes(this.pupsels[i]);
 
+            // var sprite = PupselBrush.createPupselSprite()
+
         }
 
     }
@@ -77,26 +79,53 @@ class PupselBrush {
 
     static showPoints(pupsel) {
 
-        buffer.push();
-        buffer.stroke(pupsel.color);
-        buffer.strokeWeight(10);
-        buffer.point(pupsel.pos.x, pupsel.pos.y);
-        buffer.pop();
+        push();
+        stroke(pupsel.color);
+        strokeWeight(10);
+        point(pupsel.pos.x, pupsel.pos.y);
+        pop();
     }
 
     static showBrushStrokes(pupsel) {
 
         this.brushNumber = 15;
-        this.brushSize = DOMINANTSIDE * 0.004;  // 0.01, 0.005, 0.003
+        this.brushSize = DOMINANTSIDE * 0.001;  // 0.01, 0.005, 0.003
 
         // this.brushSize = map(pupsel.rank, 1200, 0, DOMINANTSIDE * 0.0003, DOMINANTSIDE * 0.01);
 
         for (var i = 0; i < this.brushNumber; i++) {
 
+            push();
+            // stroke(pupsel.color);
+            stroke(distortColorSuperNew(pupsel.color, 30));
+            // strokeWeight(0.5);
+            strokeWeight(1);
+
+            line(
+                pupsel.pos.x,
+                pupsel.pos.y,
+                pupsel.pos.x + getRandomFromInterval(-this.brushSize, this.brushSize),
+                pupsel.pos.y + getRandomFromInterval(-this.brushSize, this.brushSize)
+            );
+
+            pop();
+
+        }
+
+    }
+
+    static createPupselSprite() {
+        this.brushNumber = 15;
+        this.brushSize = DOMINANTSIDE * 0.004;  // 0.01, 0.005, 0.003
+
+        var buffer = createGraphics(this.brushSize, this.brushSize);
+
+        for (var i = 0; i < this.brushNumber; i++) {
+
             buffer.push();
-            // buffer.stroke(pupsel.color);
+            // stroke(pupsel.color);
             buffer.stroke(distortColorSuperNew(pupsel.color, 30));
-            // buffer.strokeWeight(0.5);
+            // strokeWeight(0.5);
             buffer.strokeWeight(1);
 
             buffer.line(
@@ -108,7 +137,8 @@ class PupselBrush {
 
             buffer.pop();
 
-        }
+            return buffer;
 
+        }
     }
 }

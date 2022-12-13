@@ -11,7 +11,7 @@ let canvas;
 let rescaling_width;
 let rescaling_height;
 
-let RESOLUTION = 300; // how many dots per dominantside length, 5, 10, 20, 30 - 800 top
+let RESOLUTION = 800; // how many dots per dominantside length, 5, 10, 20, 30 - 800 top
 
 let foglyPoints = [];
 let pixies;
@@ -236,14 +236,9 @@ function setup() {
 
   // hatchesBug = new Hatches("y", createVector(717, 50), createVector(898, 898), color(30), 0, 0, DISTANCE_BETWEEN_LINES);
 
-  buffer = createGraphics(width, height);
   pupselGrid = new PupselGrid();
 
-
   triangles = new TriangleSystem();
-
-  pupselGrid.show();
-  pupselGrid.show();
 }
 
 
@@ -279,15 +274,13 @@ function draw() {
     // background(170);
     background(255);
 
-    // pupselGrid.show();
-    image(buffer, 0, 0);
+    triangles.show();
+    pupselGrid.show();
 
     // triangles.debug();
 
     // pixies.show();
     // image(pixies.buffer, 0, 0);
-
-
 
   }
 

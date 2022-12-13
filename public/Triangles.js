@@ -15,6 +15,7 @@ class Triangle {
         this.lengthC = DOMINANTSIDE * getRandomFromInterval(0.1, 0.3); // 0.1 -0.2
 
         this.color = getRandomFromList(PALETTE.pixelColors);
+        this.colorStroke = getRandomFromList(PALETTE.pixelColors);
         this.centerFuzzynessX = getRandomFromInterval(DOMINANTSIDE * 0.1);
         this.centerFuzzynessY = getRandomFromInterval(DOMINANTSIDE * 0.1);
         this.center = createVector(
@@ -76,7 +77,7 @@ class Triangle {
     }
 
     debug() {
-        // debug
+
         push();
         stroke("#4c8137");
         strokeWeight(50);
@@ -96,6 +97,20 @@ class Triangle {
         rect(this.margin, this.margin, width - this.margin * 2, height - this.margin * 2)
         pop();
     }
+
+    show() {
+
+        push();
+        stroke("#323232");
+        strokeWeight(3);
+        fill(this.color);
+        beginShape();
+        vertex(this.A.x, this.A.y);
+        vertex(this.B.x, this.B.y);
+        vertex(this.C.x, this.C.y);
+        endShape(CLOSE);
+        pop();
+    }
 }
 
 class TriangleSystem {
@@ -113,6 +128,12 @@ class TriangleSystem {
     debug() {
         for (var i = 0; i < this.triangles.length; i++) {
             this.triangles[i].debug();
+        }
+    }
+
+    show() {
+        for (var i = 0; i < this.triangles.length; i++) {
+            this.triangles[i].show();
         }
     }
 
