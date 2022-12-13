@@ -90,11 +90,14 @@ class PupselGrid {
                 this.sprites[colorString] = spritesColor;
             }
 
+            push();
             // console.log(colorString);
             // console.log(this.sprites[colorString]);
             // console.log(this.sprites);
+
             sprite = getRandomFromList(this.sprites[colorString])
             image(sprite, x - sprite.width / 2, y - sprite.height / 2);  // draws in center;
+            pop();
         }
 
     }
@@ -147,7 +150,7 @@ class PupselBrush {
         this.brushNumber = 15;
         this.brushSize = DOMINANTSIDE * 0.001;  // 0.01, 0.005, 0.003, 0.001
 
-        var buffer = createGraphics(this.brushSize, this.brushSize);
+        var buffer = createGraphics(this.brushSize * 2, this.brushSize * 2);
 
         for (var i = 0; i < this.brushNumber; i++) {
 
