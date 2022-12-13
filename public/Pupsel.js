@@ -2,7 +2,7 @@ class PupselGrid {
 
     constructor(data) {
         this.margin = 0;
-        this.pupselNumber = DOMINANTSIDE / RESOLUTION;  // 20
+        this.pupselNumber = RESOLUTION // DOMINANTSIDE / RESOLUTION;  // 20 - 
         this.pupselSize = (DOMINANTSIDE - 2 * this.margin) / this.pupselNumber;
         this.pupselColors = PALETTE.pixelColors;
         // console.log("blocksize: " + this.blockSize);
@@ -77,11 +77,11 @@ class PupselBrush {
 
     static showPoints(pupsel) {
 
-        push();
-        stroke(pupsel.color);
-        strokeWeight(15);
-        point(pupsel.pos.x, pupsel.pos.y);
-        pop();
+        buffer.push();
+        buffer.stroke(pupsel.color);
+        buffer.strokeWeight(10);
+        buffer.point(pupsel.pos.x, pupsel.pos.y);
+        buffer.pop();
     }
 
     static showBrushStrokes(pupsel) {
@@ -93,22 +93,20 @@ class PupselBrush {
 
         for (var i = 0; i < this.brushNumber; i++) {
 
-            push();
-            // stroke(pupsel.color);
-            stroke(distortColorSuperNew(pupsel.color, 30));
-            // strokeWeight(0.5);
-            strokeWeight(1);
+            buffer.push();
+            // buffer.stroke(pupsel.color);
+            buffer.stroke(distortColorSuperNew(pupsel.color, 30));
+            // buffer.strokeWeight(0.5);
+            buffer.strokeWeight(1);
 
-
-
-            line(
+            buffer.line(
                 pupsel.pos.x,
                 pupsel.pos.y,
                 pupsel.pos.x + getRandomFromInterval(-this.brushSize, this.brushSize),
                 pupsel.pos.y + getRandomFromInterval(-this.brushSize, this.brushSize)
             );
 
-            pop();
+            buffer.pop();
 
         }
 
