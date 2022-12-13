@@ -165,9 +165,9 @@ class TriangleSystem {
                 }
 
                 // Contour
-                if (insidePolygon([x, y], this.triangles[i].lines)) {
-                    colorDyn = color('#1b1b1b');
-                }
+                // if (insidePolygon([x, y], this.triangles[i].lines)) {
+                //     colorDyn = color('#1b1b1b');
+                // }
 
                 // return colorDyn;
                 return {
