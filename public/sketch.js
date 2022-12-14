@@ -11,7 +11,8 @@ let canvas;
 let rescaling_width;
 let rescaling_height;
 
-let RESOLUTION = 800; // how many dots per dominantside length, 5, 10, 20, 30 - 800 top
+let RESOLUTION = 20; // how many dots per dominantside length, 200 - 700 800 top
+let BRUSHSIZE = 0.005;  // // 0.01, 0.005, 0.003, 0.001
 
 let foglyPoints = [];
 let pixies;
@@ -61,10 +62,10 @@ let CURRENTPIXELDENS = 1;
 // };
 
 const PALETTESYSTEM = {
-  "Boom": {
-    "background": "#aaaaaa",
-    "pixelColors": ["#303030", "#606060", "#909090", "#bbbbbb", "#eeeeee"],
-  },
+  // "Boom": {
+  //   "background": "#aaaaaa",
+  //   "pixelColors": ["#303030", "#606060", "#909090", "#bbbbbb", "#eeeeee"],
+  // },
   // "Fillitz": {
   //   // "background": "#ffffff",
   //   "pixelColors": ["#ffffff", "#cfcfcf", "#d6d6d6", "#c4c4c4", "#b3b3b3"],
@@ -73,6 +74,10 @@ const PALETTESYSTEM = {
   //   // "background": "#aaaaaa",
   //   "pixelColors": ["#ffe58e", "#dabd3c", "#896e8f", "#9b69a0", "#3f1241"],
   // },
+  "ok": {
+    "background": "#aaaaaa",
+    "pixelColors": ["#303030", "#909090", "#eeeeee"],
+  },
 }
 
 choosePalette();
@@ -272,9 +277,9 @@ function draw() {
     // cam1.lookAt(-100, 0, 0);
 
     // background(170);
-    background(255);
+    background(155);
 
-    triangles.show();
+    // triangles.show();
     pupselGrid.show();
 
     // triangles.debug();

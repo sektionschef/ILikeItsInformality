@@ -7,15 +7,15 @@ class Triangle {
             this.pattern = true;
             // console.log(this.pattern);
         }
-        this.spotLengthy = DOMINANTSIDE * 0.001;  // draw line range, strokeWeight of line
+        this.spotLengthy = DOMINANTSIDE * 0.003;  // 0.001 // draw line range, strokeWeight of line
 
         this.marginCorrect = DOMINANTSIDE * 0.05;  // center for the margin
         this.margin = DOMINANTSIDE * 0.1 - this.marginCorrect;
-        this.lengthB = DOMINANTSIDE * getRandomFromInterval(0.1, 0.3);  // 0.1 -0.2
-        this.lengthC = DOMINANTSIDE * getRandomFromInterval(0.1, 0.3); // 0.1 -0.2
+        this.lengthB = DOMINANTSIDE * getRandomFromInterval(0.1, 0.3);  // 0.1 -0.3
+        this.lengthC = DOMINANTSIDE * getRandomFromInterval(0.1, 0.3); // 0.1 -0.3
 
         this.color = getRandomFromList(PALETTE.pixelColors);
-        this.colorStroke = getRandomFromList(PALETTE.pixelColors);
+        this.colorStroke = color("#323232"); // getRandomFromList(PALETTE.pixelColors);
         this.centerFuzzynessX = getRandomFromInterval(DOMINANTSIDE * 0.1);
         this.centerFuzzynessY = getRandomFromInterval(DOMINANTSIDE * 0.1);
         this.center = createVector(
@@ -117,8 +117,8 @@ class TriangleSystem {
 
     constructor() {
         this.triangles = [];
-        this.triangleCount = 1200;
-        // this.triangleCount = 3555;
+        this.triangleCount = 3555;
+        // this.triangleCount = 1200;  // 1200
 
         for (var i = 0; i < this.triangleCount; i++) {
             this.triangles.push(new Triangle(i));
@@ -166,7 +166,7 @@ class TriangleSystem {
 
                 // Contour
                 // if (insidePolygon([x, y], this.triangles[i].lines)) {
-                //     colorDyn = color('#1b1b1b');
+                //     colorDyn = color('#424242');
                 // }
 
                 // return colorDyn;

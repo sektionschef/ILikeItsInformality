@@ -148,16 +148,19 @@ class PupselBrush {
 
     static createPupselSprite(colorObject) {
         this.brushNumber = 15;
-        this.brushSize = DOMINANTSIDE * 0.001;  // 0.01, 0.005, 0.003, 0.001
+        this.brushSize = DOMINANTSIDE * BRUSHSIZE;
 
-        var buffer = createGraphics(this.brushSize * 2, this.brushSize * 2);
+        // var buffer = createGraphics(this.brushSize * 2, this.brushSize * 2);
+        var buffer = createGraphics(this.brushSize, this.brushSize);
 
         for (var i = 0; i < this.brushNumber; i++) {
 
             buffer.push();
-            // stroke(pupsel.color);
-            buffer.stroke(distortColorSuperNew(colorObject, 30));
-            // strokeWeight(0.5);
+            // stroke(colorObject);
+            // buffer.stroke(distortColorSuperNew(colorObject, 30));
+            buffer.stroke(distortColorSuperNew(
+                color(red(colorObject), green(colorObject), blue(colorObject), 100)
+                , 30));
             buffer.strokeWeight(1);
 
             buffer.line(
