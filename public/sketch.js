@@ -279,7 +279,7 @@ function draw() {
     // background(170);
     background(55);
 
-    // triangles.show();
+    triangles.show();
     pupselGrid.show();
 
     // triangles.debug();
