@@ -48,7 +48,7 @@ class PupselGrid {
         }
     }
 
-    showBrushTiles(pupsel, x, y) {
+    createBrushTiles(pupsel, x, y) {
         var colorString;
         var sprite;
 
@@ -70,7 +70,7 @@ class PupselGrid {
         // console.log(i + ": " + x + "," + y);
     }
 
-    show() {
+    create() {
 
         var x;
         var y;
@@ -102,7 +102,7 @@ class PupselGrid {
 
             // PupselBrush.showPoints(this.pupsels[i]);
             // PupselBrush.showBrushStrokes(this.pupsels[i]);
-            this.showBrushTiles(this.pupsels[i], x, y);
+            this.createBrushTiles(this.pupsels[i], x, y);
 
         }
 

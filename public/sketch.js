@@ -244,7 +244,7 @@ function setup() {
   pupselGrid = new PupselGrid();
 
   triangles = new TriangleSystem();
-  pupselGrid.show();  // needs triangle - RENAME SHOW
+  pupselGrid.create();  // needs triangle - RENAME SHOW
 }
 
 
