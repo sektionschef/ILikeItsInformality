@@ -115,15 +115,15 @@ class Triangle {
         fill(this.color);
         beginShape();
         // vertex(this.A.x, this.A.y);
-        vertex(this.B.x, this.B.y);
-        vertex(this.C.x, this.C.y);
         vertex(this.Adyn.x, this.Adyn.y);
+        vertex(this.B.x, this.B.y);
         // vertex(this.Bdyn.x, this.Bdyn.y);
+        vertex(this.C.x, this.C.y);
         // vertex(this.Cdyn.x, this.Cdyn.y);
         endShape(CLOSE);
         pop();
 
-        this.angle += 0.005;
+        this.angle += 0.001;
     }
 }
 
@@ -132,8 +132,8 @@ class TriangleSystem {
     constructor() {
         this.triangles = [];
         // this.triangleCount = 3;
-        this.triangleCount = 10;
-        // this.triangleCount = 1200;  // 1200
+        // this.triangleCount = 10;
+        this.triangleCount = 1200;  // 1200
         // this.triangleCount = 3555;
 
         for (var i = 0; i < this.triangleCount; i++) {

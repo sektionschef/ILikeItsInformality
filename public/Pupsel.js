@@ -7,6 +7,8 @@ class PupselGrid {
         this.pupselColors = PALETTE.pixelColors;
         // console.log("blocksize: " + this.blockSize);
 
+        this.pupselBuffer = createGraphics(width, height);
+
         this.pupsels = [];
         var brushstrokes;
 
@@ -46,12 +48,32 @@ class PupselGrid {
         }
     }
 
+    showBrushTiles(pupsel, x, y) {
+        var colorString;
+        var sprite;
+
+        colorString = pupsel.color.toString('#rrggbb');
+
+        // create it if it isn't there yet
+        if (this.sprites[colorString] === undefined) {
+            var spritesColor = []
+            for (var sp = 0; sp < 5; sp++) {
+                spritesColor.push(PupselBrush.createPupselSprite(colorString, this.pupselSize));
+            }
+            this.sprites[colorString] = spritesColor;
+        }
+
+        push();
+        sprite = getRandomFromList(this.sprites[colorString])
+        this.pupselBuffer.image(sprite, x - sprite.width / 2, y - sprite.height / 2);  // draws in center;
+        pop();
+        // console.log(i + ": " + x + "," + y);
+    }
+
     show() {
 
         var x;
         var y;
-        var sprite;
-        var colorString;
 
         for (var i = 0; i < this.pupsels.length; i++) {
 
@@ -80,30 +102,13 @@ class PupselGrid {
 
             // PupselBrush.showPoints(this.pupsels[i]);
             // PupselBrush.showBrushStrokes(this.pupsels[i]);
+            this.showBrushTiles(this.pupsels[i], x, y);
 
-            // CREATE METHOD FOR THIS
-            colorString = this.pupsels[i].color.toString('#rrggbb');
-
-            if (this.sprites[colorString] === undefined) {
-                var spritesColor = []
-                for (var sp = 0; sp < 5; sp++) {
-                    spritesColor.push(PupselBrush.createPupselSprite(colorString, this.pupselSize));
-                }
-                this.sprites[colorString] = spritesColor;
-            }
-
-            push();
-            // console.log(colorString);
-            // console.log(this.sprites[colorString]);
-            // console.log(this.sprites);
-
-            sprite = getRandomFromList(this.sprites[colorString])
-            image(sprite, x - sprite.width / 2, y - sprite.height / 2);  // draws in center;
-            pop();
-            // console.log(i + ": " + x + "," + y);
         }
 
     }
+
+
 }
 
 
@@ -147,6 +152,7 @@ class PupselBrush {
         }
 
     }
+
 
     static createPupselSprite(colorObject, pupselSize) {
         let brushNumber = 15;
