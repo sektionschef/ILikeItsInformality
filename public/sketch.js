@@ -12,7 +12,8 @@ let rescaling_width;
 let rescaling_height;
 
 let RESOLUTION = 500; // how many dots per dominantside length, 200 - 700, 800 top
-let BRUSHSIZE = 0.005;  // // 0.01, 0.005, 0.003, 0.001
+let BRUSHSIZE = 0.005;  // 0.01, 0.005, 0.003, 0.001
+let TRIANGLECOUNT = 1200; //1200, 3555 top
 
 let foglyPoints = [];
 let pixies;
@@ -291,8 +292,10 @@ function draw() {
   }
 
   background(170);
-  // triangles.show();
+  triangles.show();
   image(pupselGrid.pupselBuffer, 0, 0);
+
+  // triangles.debug();
 
   // blockA.show();
   // blockB.show();

@@ -2,37 +2,45 @@ class Triangle {
 
     constructor(rank) {
         this.rank = rank;
-
         this.angle = 0;
+        this.angleSpeed = getRandomFromInterval(-0.001, 0.001);// 0.001;
 
         if (fxrand() < 0.3) {
             this.pattern = true;
-            // console.log(this.pattern);
         }
-        this.spotLengthy = DOMINANTSIDE * 0.003;  // 0.001 // draw line range, strokeWeight of line
 
-        this.marginCorrect = DOMINANTSIDE * 0.05;  // center for the margin
+        this.marginCorrect = DOMINANTSIDE * 0.05;  // correct for the body size, for the margin
         this.margin = DOMINANTSIDE * 0.1 - this.marginCorrect;
         this.lengthB = DOMINANTSIDE * getRandomFromInterval(0.1, 0.3);  // 0.1 -0.3
         this.lengthC = DOMINANTSIDE * getRandomFromInterval(0.1, 0.3); // 0.1 -0.3
 
         this.color = getRandomFromList(PALETTE.pixelColors);
         this.colorStroke = color("#323232"); // getRandomFromList(PALETTE.pixelColors);
-        this.centerFuzzynessX = getRandomFromInterval(DOMINANTSIDE * 0.1);
-        this.centerFuzzynessY = getRandomFromInterval(DOMINANTSIDE * 0.1);
+
         this.center = createVector(
             width / 2 + getRandomFromInterval(-DOMINANTSIDE * 0.1, DOMINANTSIDE * 0.1),
             height / 2 + getRandomFromInterval(-DOMINANTSIDE * 0.1, DOMINANTSIDE * 0.1)
         );
 
-        // this.A = createVector(900, 900);
         this.A = createVector(
             getRandomFromInterval(this.margin, width - this.margin),
             getRandomFromInterval(this.margin, height - this.margin)
         );
 
-        this.angleCenter = p5.Vector.sub(this.A, this.center).heading();
-        // console.log(this.angleCenter);
+        this.update();
+    }
+
+    update() {
+
+        //   convert polar coordinates to cartesian coordinates
+        //   var x = r * sin(angle);
+        //   var y = r * cos(angle);
+        // https://editor.p5js.org/ftobon@heartofla.org/sketches/SkBy9XP97
+        let radius = p5.Vector.dist(this.center, this.A)
+        this.Adyn = p5.Vector.add(createVector(radius * sin(this.angle), radius * cos(this.angle)), this.center);
+
+        // this.angleCenter = p5.Vector.sub(this.A, this.center).heading();  // static
+        this.angleCenter = p5.Vector.sub(this.Adyn, this.center).heading();
 
         // this.theta = radians(getRandomFromInterval(300, 355));
         this.theta = this.angleCenter - PI / 18;
@@ -53,6 +61,13 @@ class Triangle {
 
         this.coords = [[this.A.x, this.A.y], [this.B.x, this.B.y], [this.C.x, this.C.y]];
 
+        // this.createLines();
+    }
+
+    createLines() {
+        this.spotLengthy = DOMINANTSIDE * 0.003;  // 0.001 // draw line range, strokeWeight of line
+
+        // create the lines
         this.ABAngle = p5.Vector.sub(this.B, this.A).heading();
         this.ACAngle = p5.Vector.sub(this.C, this.A).heading();
 
@@ -98,16 +113,17 @@ class Triangle {
         strokeWeight(10);
         rect(this.margin, this.margin, width - this.margin * 2, height - this.margin * 2)
         pop();
+
+        push();
+        stroke("#ff1bff");
+        strokeWeight(50);
+        point(this.center.x, this.center.y);
+        pop();
     }
 
     show() {
 
-        this.Adyn = createVector(p5.Vector.dist(this.center, this.A) * sin(this.angle), p5.Vector.dist(this.center, this.A) * cos(this.angle));
-        this.Bdyn = createVector(p5.Vector.dist(this.center, this.B) * sin(this.angle), p5.Vector.dist(this.center, this.B) * cos(this.angle));
-        this.Cdyn = createVector(p5.Vector.dist(this.center, this.C) * sin(this.angle), p5.Vector.dist(this.center, this.C) * cos(this.angle));
-
-        // console.log(this.angle);
-        // console.log(p5.Vector.dist(this.center, this.A) * sin(this.angle));
+        this.update();
 
         push();
         stroke("#323232");
@@ -117,13 +133,11 @@ class Triangle {
         // vertex(this.A.x, this.A.y);
         vertex(this.Adyn.x, this.Adyn.y);
         vertex(this.B.x, this.B.y);
-        // vertex(this.Bdyn.x, this.Bdyn.y);
         vertex(this.C.x, this.C.y);
-        // vertex(this.Cdyn.x, this.Cdyn.y);
         endShape(CLOSE);
         pop();
 
-        this.angle += 0.001;
+        this.angle += this.angleSpeed;
     }
 }
 
@@ -132,8 +146,8 @@ class TriangleSystem {
     constructor() {
         this.triangles = [];
         // this.triangleCount = 3;
-        // this.triangleCount = 10;
-        this.triangleCount = 1200;  // 1200
+        this.triangleCount = TRIANGLECOUNT;
+        // this.triangleCount = 1200;  // 1200
         // this.triangleCount = 3555;
 
         for (var i = 0; i < this.triangleCount; i++) {

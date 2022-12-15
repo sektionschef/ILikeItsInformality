@@ -71,7 +71,6 @@ class PupselGrid {
     }
 
     create() {
-
         var x;
         var y;
 
@@ -103,12 +102,8 @@ class PupselGrid {
             // PupselBrush.showPoints(this.pupsels[i]);
             // PupselBrush.showBrushStrokes(this.pupsels[i]);
             this.createBrushTiles(this.pupsels[i], x, y);
-
         }
-
     }
-
-
 }
 
 
