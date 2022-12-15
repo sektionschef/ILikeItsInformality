@@ -3,6 +3,8 @@ class Triangle {
     constructor(rank) {
         this.rank = rank;
 
+        this.angle = 0;
+
         if (fxrand() < 0.3) {
             this.pattern = true;
             // console.log(this.pattern);
@@ -100,16 +102,28 @@ class Triangle {
 
     show() {
 
+        this.Adyn = createVector(p5.Vector.dist(this.center, this.A) * sin(this.angle), p5.Vector.dist(this.center, this.A) * cos(this.angle));
+        this.Bdyn = createVector(p5.Vector.dist(this.center, this.B) * sin(this.angle), p5.Vector.dist(this.center, this.B) * cos(this.angle));
+        this.Cdyn = createVector(p5.Vector.dist(this.center, this.C) * sin(this.angle), p5.Vector.dist(this.center, this.C) * cos(this.angle));
+
+        // console.log(this.angle);
+        // console.log(p5.Vector.dist(this.center, this.A) * sin(this.angle));
+
         push();
         stroke("#323232");
         strokeWeight(3);
         fill(this.color);
         beginShape();
-        vertex(this.A.x, this.A.y);
+        // vertex(this.A.x, this.A.y);
         vertex(this.B.x, this.B.y);
         vertex(this.C.x, this.C.y);
+        vertex(this.Adyn.x, this.Adyn.y);
+        // vertex(this.Bdyn.x, this.Bdyn.y);
+        // vertex(this.Cdyn.x, this.Cdyn.y);
         endShape(CLOSE);
         pop();
+
+        this.angle += 0.005;
     }
 }
 
@@ -117,8 +131,10 @@ class TriangleSystem {
 
     constructor() {
         this.triangles = [];
-        this.triangleCount = 3555;
+        // this.triangleCount = 3;
+        this.triangleCount = 10;
         // this.triangleCount = 1200;  // 1200
+        // this.triangleCount = 3555;
 
         for (var i = 0; i < this.triangleCount; i++) {
             this.triangles.push(new Triangle(i));

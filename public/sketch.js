@@ -277,10 +277,10 @@ function draw() {
     // cam1.lookAt(-100, 0, 0);
 
     // background(170);
-    background(55);
+    // background(55);
 
-    triangles.show();
-    pupselGrid.show();
+    // triangles.show();
+    // pupselGrid.show();
 
     // triangles.debug();
 
@@ -289,7 +289,9 @@ function draw() {
 
   }
 
-  // background(170);
+  background(170);
+  triangles.show();
+  pupselGrid.show();
 
   // blockA.show();
   // blockB.show();
@@ -322,7 +324,7 @@ function draw() {
 
   if (frameCount == 20) {
     // if (gridly_background.done == true) {
-    ALLDONE = true;
+    // ALLDONE = true;
     // }
   }
 
