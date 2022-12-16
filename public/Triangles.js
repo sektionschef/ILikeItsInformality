@@ -47,11 +47,11 @@ class Triangle {
         // this.gamma = radians(getRandomFromInterval(10, 60));
         this.gamma = this.angleCenter + PI / 18;
 
-        this.B = p5.Vector.fromAngle(this.theta, this.lengthB).add(this.A);
-        this.C = p5.Vector.fromAngle(this.gamma, this.lengthC).add(this.A);
+        this.B = p5.Vector.fromAngle(this.theta, this.lengthB).add(this.Adyn);
+        this.C = p5.Vector.fromAngle(this.gamma, this.lengthC).add(this.Adyn);
 
-        this.distanceB = p5.Vector.dist(this.A, this.B);
-        this.distanceC = p5.Vector.dist(this.A, this.C);
+        this.distanceB = p5.Vector.dist(this.Adyn, this.B);
+        this.distanceC = p5.Vector.dist(this.Adyn, this.C);
 
         if (this.distanceB > this.distanceC) {
             this.distance = this.distanceB;
@@ -59,7 +59,7 @@ class Triangle {
             this.distance = this.distanceC;
         }
 
-        this.coords = [[this.A.x, this.A.y], [this.B.x, this.B.y], [this.C.x, this.C.y]];
+        this.coords = [[this.Adyn.x, this.Adyn.y], [this.B.x, this.B.y], [this.C.x, this.C.y]];
 
         // this.createLines();
     }
