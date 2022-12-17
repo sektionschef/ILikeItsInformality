@@ -2,7 +2,7 @@ class Triangle {
 
     constructor(rank) {
         this.rank = rank;
-        this.angle = 0;
+        // this.angle = 0 // mountain;
         this.angleSpeed = getRandomFromInterval(-0.001, 0.001);// 0.001;
 
         if (fxrand() < 0.3) {
@@ -27,7 +27,11 @@ class Triangle {
             getRandomFromInterval(this.margin, height - this.margin)
         );
 
+        this.radius = p5.Vector.dist(this.center, this.A)
+        this.startAngle = p5.Vector.sub(this.A, this.center).heading();  // static
+        this.angle = this.startAngle;
         this.update();
+        // this.angle = this.angleCenter;  // REMOVE THIS?
     }
 
     update() {
@@ -36,10 +40,9 @@ class Triangle {
         //   var x = r * sin(angle);
         //   var y = r * cos(angle);
         // https://editor.p5js.org/ftobon@heartofla.org/sketches/SkBy9XP97
-        let radius = p5.Vector.dist(this.center, this.A)
-        this.Adyn = p5.Vector.add(createVector(radius * sin(this.angle), radius * cos(this.angle)), this.center);
 
-        // this.angleCenter = p5.Vector.sub(this.A, this.center).heading();  // static
+        this.Adyn = p5.Vector.add(createVector(this.radius * sin(this.angle), this.radius * cos(this.angle)), this.center);
+
         this.angleCenter = p5.Vector.sub(this.Adyn, this.center).heading();
 
         // this.theta = radians(getRandomFromInterval(300, 355));
@@ -145,7 +148,7 @@ class TriangleSystem {
 
     constructor() {
         this.triangles = [];
-        // this.triangleCount = 3;
+        // this.triangleCount = 5;
         this.triangleCount = TRIANGLECOUNT;
         // this.triangleCount = 1200;  // 1200
         // this.triangleCount = 3555;

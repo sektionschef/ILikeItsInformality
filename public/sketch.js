@@ -245,7 +245,7 @@ function setup() {
   pupselGrid = new PupselGrid();
 
   triangles = new TriangleSystem();
-  pupselGrid.create();  // needs triangle - RENAME SHOW
+  // pupselGrid.create();  // needs triangle - RENAME SHOW
 }
 
 
@@ -293,7 +293,7 @@ function draw() {
 
   background(170);
   triangles.show();
-  image(pupselGrid.pupselBuffer, 0, 0);
+  // image(pupselGrid.pupselBuffer, 0, 0);
 
   // triangles.debug();
 
