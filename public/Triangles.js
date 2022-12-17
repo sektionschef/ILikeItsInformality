@@ -31,7 +31,6 @@ class Triangle {
         this.startAngle = p5.Vector.sub(this.A, this.center).heading();  // static
         this.angle = this.startAngle;
         this.update();
-        // this.angle = this.angleCenter;  // REMOVE THIS?
     }
 
     update() {
