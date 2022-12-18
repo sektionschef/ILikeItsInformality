@@ -299,7 +299,7 @@ function draw() {
   // triangles.debug();
 
   // image(triangles.buffer, 0, 0);
-  image(pupselGrid.buffer, 0, 0);
+  // image(pupselGrid.buffer, 0, 0);
 
   // triangles.debug();
 

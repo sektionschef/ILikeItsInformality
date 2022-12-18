@@ -167,12 +167,10 @@ class TriangleSystem {
 
     show() {
         for (var i = 0; i < this.triangles.length; i++) {
-            // image(this.triangles[i].buffer, 0, 0);
+            var shapeBuffer = this.triangles[i].buffer;
+            var textureBuffer = pupselGrid.buffer;
 
-            var textureBuffer = createGraphics(DOMINANTSIDE * 0.3, DOMINANTSIDE * 0.3);
-            textureBuffer.background("red");
-
-            var result = maskBuffers(textureBuffer, this.triangles[i].buffer);
+            var result = maskBuffers(textureBuffer, shapeBuffer);
             // console.log(result);
             image(result, 0, 0);
         }
