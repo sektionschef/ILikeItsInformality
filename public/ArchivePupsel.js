@@ -1,34 +1,51 @@
 class PupselGrid {
 
-    constructor() {
+    constructor(data) {
+        this.margin = 0;
         this.pupselNumber = RESOLUTION // DOMINANTSIDE / RESOLUTION;  // 20 - 
-        this.pupselSize = DOMINANTSIDE / this.pupselNumber;
+        this.pupselSize = (DOMINANTSIDE - 2 * this.margin) / this.pupselNumber;
         this.pupselColors = PALETTE.pixelColors;
+        // console.log("blocksize: " + this.blockSize);
 
-        // SHOULD BE DYNAMIC
-        this.buffer = createGraphics(DOMINANTSIDE * 0.3, DOMINANTSIDE * 0.3);
+        this.pupselBuffer = createGraphics(width, height);
 
         this.pupsels = [];
+        var brushstrokes;
 
         // CREATE SPRITES
+        // console.log(PALETTE.pixelColors);
         this.sprites = {};
 
-        for (var pupselY = 0; pupselY <= height; pupselY += this.pupselSize) {
-            for (var pupselX = 0; pupselX <= width; pupselX += this.pupselSize) {
+        // for (var c = 0; c < PALETTE.pixelColors.length; c++) {
+        //     var spritesColor = []
+        //     for (var i = 0; i < 20; i++) {
+        //         spritesColor.push(PupselBrush.createPupselSprite(getRandomFromList(PALETTE.pixelColors)));
+        //     }
+        //     this.sprites[PALETTE.pixelColors[c]] = spritesColor;
+        // }
+        // console.log(this.sprites);
+
+        for (var pupselY = this.margin; pupselY <= (height - this.margin); pupselY += this.pupselSize) {
+            for (var pupselX = this.margin; pupselX <= (width - this.margin); pupselX += this.pupselSize) {
+
+                // if (blockX < 100 && blockX > (width - 100) && blockY < 100 && blockY > (height - 100)) {
 
                 this.center = createVector(pupselX + this.pupselSize / 2, pupselY + this.pupselSize / 2);
+
+                // brushstrokes = [];
 
                 this.pupsels.push({
                     "pos": createVector(pupselX, pupselY),
                     "center": this.center,
                     "pupselsize": this.pupselSize,
                     "color": this.color,
+                    // "brushstrokes": brushstrokes,
                 });
-            }
-        }
 
-        // PUT IT INSIDE THE LOOP
-        this.create();
+            }
+
+            // console.log(this.pupsels);
+        }
     }
 
     createBrushTiles(pupsel, x, y) {
@@ -48,7 +65,7 @@ class PupselGrid {
 
         push();
         sprite = getRandomFromList(this.sprites[colorString])
-        this.buffer.image(sprite, x - sprite.width / 2, y - sprite.height / 2);  // draws in center;
+        this.pupselBuffer.image(sprite, x - sprite.width / 2, y - sprite.height / 2);  // draws in center;
         pop();
         // console.log(i + ": " + x + "," + y);
     }
@@ -65,15 +82,14 @@ class PupselGrid {
             y = this.pupsels[i].pos.y;
 
             // default color
-            // this.pupsels[i].color = color('#ffffff');
-            this.pupsels[i].color = color('#4c5396');
+            this.pupsels[i].color = color('#ffffff');
 
-            // var newColor = triangles.insidePolygon(x, y, i);
-            // // console.log(oida);
-            // if (newColor) {
-            //     this.pupsels[i].color = newColor.color;
-            //     this.pupsels[i].rank = newColor.rank;
-            // }
+            var newColor = triangles.insidePolygon(x, y, i);
+            // console.log(oida);
+            if (newColor) {
+                this.pupsels[i].color = newColor.color;
+                this.pupsels[i].rank = newColor.rank;
+            }
 
             // stripes
             // if (i % 3 == 0) {

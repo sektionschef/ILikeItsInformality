@@ -9,52 +9,34 @@ class Triangle {
         // this.angle = 0 // mountain;
         this.angleSpeed = getRandomFromInterval(-0.001, 0.001);// 0.001;
 
-        this.buffer = createGraphics(DOMINANTSIDE * this.maxLength, DOMINANTSIDE * this.maxLength);
+        this.buffer = createGraphics(DOMINANTSIDE * this.minLength, DOMINANTSIDE * this.maxLength);
 
         if (fxrand() < 0.3) {
             this.pattern = true;
         }
 
+        this.marginCorrect = DOMINANTSIDE * 0.05;  // correct for the body size, for the margin
+        this.margin = DOMINANTSIDE * 0.1 - this.marginCorrect;
         this.lengthB = DOMINANTSIDE * getRandomFromInterval(this.minLength, this.maxLength);  // 0.1 -0.3
         this.lengthC = DOMINANTSIDE * getRandomFromInterval(this.minLength, this.maxLength); // 0.1 -0.3
 
         this.color = getRandomFromList(PALETTE.pixelColors);
         this.colorStroke = color("#323232"); // getRandomFromList(PALETTE.pixelColors);
 
-        // RANDOM CENTER
-        // this.center = createVector(
-        //     width / 2 + getRandomFromInterval(-DOMINANTSIDE * 0.1, DOMINANTSIDE * 0.1),
-        //     height / 2 + getRandomFromInterval(-DOMINANTSIDE * 0.1, DOMINANTSIDE * 0.1)
-        // );
-
         this.center = createVector(
-            this.buffer.width / 2,
-            this.buffer.height / 2,
-        )
-
-        // RANDOM PLACEMENT
-        // this.A = createVector(
-        //     getRandomFromInterval(this.margin, width - this.margin),
-        //     getRandomFromInterval(this.margin, height - this.margin)
-        // );
-
-        this.A = createVector(
-            this.buffer.width / 2,
-            this.buffer.height,
+            width / 2 + getRandomFromInterval(-DOMINANTSIDE * 0.1, DOMINANTSIDE * 0.1),
+            height / 2 + getRandomFromInterval(-DOMINANTSIDE * 0.1, DOMINANTSIDE * 0.1)
         );
 
-        this.angle = p5.Vector.sub(this.center, this.A).heading();  // static
+        this.A = createVector(
+            getRandomFromInterval(this.margin, width - this.margin),
+            getRandomFromInterval(this.margin, height - this.margin)
+        );
 
-        this.theta = this.angle - PI / 18;
-        this.gamma = this.angle + PI / 18;
-
-        this.B = p5.Vector.fromAngle(this.theta, this.lengthB).add(this.A);
-        this.C = p5.Vector.fromAngle(this.gamma, this.lengthC).add(this.A);
-
-        this.coords = [[this.A.x, this.A.y], [this.B.x, this.B.y], [this.C.x, this.C.y]];
-
-        // this.createLines();
-        this.create();
+        this.radius = p5.Vector.dist(this.center, this.A)
+        this.startAngle = p5.Vector.sub(this.A, this.center).heading();  // static
+        this.angle = this.startAngle;
+        this.update();
     }
 
     update() {
@@ -64,10 +46,30 @@ class Triangle {
         //   var y = r * cos(angle);
         // https://editor.p5js.org/ftobon@heartofla.org/sketches/SkBy9XP97
 
-        // this.Adyn = p5.Vector.add(createVector(this.radius * sin(this.angle), this.radius * cos(this.angle)), this.center);
+        this.Adyn = p5.Vector.add(createVector(this.radius * sin(this.angle), this.radius * cos(this.angle)), this.center);
 
-        // this.angleCenter = p5.Vector.sub(this.Adyn, this.center).heading();
+        this.angleCenter = p5.Vector.sub(this.Adyn, this.center).heading();
 
+        // this.theta = radians(getRandomFromInterval(300, 355));
+        this.theta = this.angleCenter - PI / 18;
+        // this.gamma = radians(getRandomFromInterval(10, 60));
+        this.gamma = this.angleCenter + PI / 18;
+
+        this.B = p5.Vector.fromAngle(this.theta, this.lengthB).add(this.Adyn);
+        this.C = p5.Vector.fromAngle(this.gamma, this.lengthC).add(this.Adyn);
+
+        this.distanceB = p5.Vector.dist(this.Adyn, this.B);
+        this.distanceC = p5.Vector.dist(this.Adyn, this.C);
+
+        if (this.distanceB > this.distanceC) {
+            this.distance = this.distanceB;
+        } else {
+            this.distance = this.distanceC;
+        }
+
+        this.coords = [[this.Adyn.x, this.Adyn.y], [this.B.x, this.B.y], [this.C.x, this.C.y]];
+
+        // this.createLines();
     }
 
     createLines() {
@@ -101,41 +103,54 @@ class Triangle {
 
     debug() {
 
-        this.buffer.push();
-        this.buffer.stroke("#4c8137");
-        this.buffer.strokeWeight(50);
-        this.buffer.point(this.A.x, this.A.y);
+        push();
+        stroke("#4c8137");
+        strokeWeight(50);
+        point(this.A.x, this.A.y);
 
-        this.buffer.stroke("#ad7f7f");
-        this.buffer.point(this.B.x, this.B.y);
+        stroke("#ad7f7f");
+        point(this.B.x, this.B.y);
 
-        this.buffer.stroke("#14195e");
-        this.buffer.point(this.C.x, this.C.y);
-        this.buffer.pop();
+        stroke("#14195e");
+        point(this.C.x, this.C.y);
+        pop();
 
-        this.buffer.push();
-        this.buffer.stroke("#ff1bff");
-        this.buffer.strokeWeight(50);
-        this.buffer.point(this.center.x, this.center.y);
-        this.buffer.pop();
+        push();
+        noFill();
+        stroke("black");
+        strokeWeight(10);
+        rect(this.margin, this.margin, width - this.margin * 2, height - this.margin * 2)
+        pop();
+
+        push();
+        stroke("#ff1bff");
+        strokeWeight(50);
+        point(this.center.x, this.center.y);
+        pop();
     }
 
     create() {
 
-        // this.update();
+        this.update();
 
         this.buffer.push();
         this.buffer.stroke("#323232");
         this.buffer.strokeWeight(3);
         this.buffer.fill(this.color);
         this.buffer.beginShape();
-        this.buffer.vertex(this.A.x, this.A.y);
-        // this.buffer.vertex(this.Adyn.x, this.Adyn.y);
+        // vertex(this.A.x, this.A.y);
+        this.buffer.vertex(this.Adyn.x, this.Adyn.y);
         this.buffer.vertex(this.B.x, this.B.y);
         this.buffer.vertex(this.C.x, this.C.y);
         this.buffer.endShape(CLOSE);
 
+        // this.buffer.triangle(30, 75, 58, 20, 86, 75);
+
         this.buffer.pop();
+
+
+
+        this.angle += this.angleSpeed;
     }
 }
 
@@ -151,6 +166,8 @@ class TriangleSystem {
         for (var i = 0; i < this.triangleCount; i++) {
             this.triangles.push(new Triangle(i));
         }
+
+        this.create();
     }
 
     debug() {
@@ -167,14 +184,8 @@ class TriangleSystem {
 
     show() {
         for (var i = 0; i < this.triangles.length; i++) {
-            // image(this.triangles[i].buffer, 0, 0);
-
-            var textureBuffer = createGraphics(DOMINANTSIDE * 0.3, DOMINANTSIDE * 0.3);
-            textureBuffer.background("red");
-
-            var result = maskBuffers(textureBuffer, this.triangles[i].buffer);
-            // console.log(result);
-            image(result, 0, 0);
+            // console.log(this.triangles[i].buffer);
+            image(this.triangles[i].buffer, 0, 0);
         }
     }
 

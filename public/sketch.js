@@ -11,9 +11,9 @@ let canvas;
 let rescaling_width;
 let rescaling_height;
 
-let RESOLUTION = 100; // how many dots per dominantside length, 200 - 700, 800 top
+let RESOLUTION = 400; // how many dots per dominantside length, 200 - 700, 800 top
 let BRUSHSIZE = 0.01;  // 0.01, 0.005, 0.003, 0.001
-let TRIANGLECOUNT = 1200; //1200, 3555 top
+let TRIANGLECOUNT = 1; //1200, 3555 top
 
 let foglyPoints = [];
 let pixies;
@@ -245,7 +245,9 @@ function setup() {
   pupselGrid = new PupselGrid();
 
   triangles = new TriangleSystem();
-  pupselGrid.create();  // needs triangle - RENAME SHOW
+
+  // OLD - create now inside pupselgrid
+  // pupselGrid.create();  // needs triangle - RENAME SHOW
 }
 
 
@@ -289,11 +291,15 @@ function draw() {
     // pixies.show();
     // image(pixies.buffer, 0, 0);
 
+
   }
 
   background(170);
   triangles.show();
-  image(pupselGrid.pupselBuffer, 0, 0);
+  // triangles.debug();
+
+  // image(triangles.buffer, 0, 0);
+  image(pupselGrid.buffer, 0, 0);
 
   // triangles.debug();
 
@@ -328,7 +334,7 @@ function draw() {
 
   if (frameCount == 20) {
     // if (gridly_background.done == true) {
-    // ALLDONE = true;
+    ALLDONE = true;
     // }
   }
 
