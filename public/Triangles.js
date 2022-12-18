@@ -1,10 +1,11 @@
 class Triangle {
 
-    constructor(rank) {
+    constructor(rank, totalCenter) {
         this.maxLength = 0.3;
         this.minLength = 0.1;
 
         this.rank = rank;
+        this.totalCenter = totalCenter;
 
         // this.angle = 0 // mountain;
         this.angleSpeed = getRandomFromInterval(-0.001, 0.001);// 0.001;
@@ -21,22 +22,18 @@ class Triangle {
         this.color = getRandomFromList(PALETTE.pixelColors);
         this.colorStroke = color("#323232"); // getRandomFromList(PALETTE.pixelColors);
 
-        // RANDOM CENTER
-        // this.center = createVector(
-        //     width / 2 + getRandomFromInterval(-DOMINANTSIDE * 0.1, DOMINANTSIDE * 0.1),
-        //     height / 2 + getRandomFromInterval(-DOMINANTSIDE * 0.1, DOMINANTSIDE * 0.1)
-        // );
-
         this.center = createVector(
             this.buffer.width / 2,
             this.buffer.height / 2,
         )
 
-        // RANDOM PLACEMENT
-        // this.A = createVector(
-        //     getRandomFromInterval(this.margin, width - this.margin),
-        //     getRandomFromInterval(this.margin, height - this.margin)
-        // );
+        // RANDOM PLACEMENT - total Position
+        this.pos = createVector(
+            getRandomFromInterval(0, width),
+            getRandomFromInterval(0, height)
+        );
+        this.radius = p5.Vector.dist(this.totalCenter, this.pos);
+        this.angleTotalCenter = p5.Vector.sub(this.totalCenter, this.pos).heading();
 
         this.A = createVector(
             this.buffer.width / 2,
@@ -55,19 +52,6 @@ class Triangle {
 
         // this.createLines();
         this.create();
-    }
-
-    update() {
-
-        //   convert polar coordinates to cartesian coordinates
-        //   var x = r * sin(angle);
-        //   var y = r * cos(angle);
-        // https://editor.p5js.org/ftobon@heartofla.org/sketches/SkBy9XP97
-
-        // this.Adyn = p5.Vector.add(createVector(this.radius * sin(this.angle), this.radius * cos(this.angle)), this.center);
-
-        // this.angleCenter = p5.Vector.sub(this.Adyn, this.center).heading();
-
     }
 
     createLines() {
@@ -111,7 +95,6 @@ class Triangle {
 
         this.buffer.stroke("#14195e");
         this.buffer.point(this.C.x, this.C.y);
-        this.buffer.pop();
 
         this.buffer.push();
         this.buffer.stroke("#ff1bff");
@@ -134,8 +117,9 @@ class Triangle {
         this.buffer.vertex(this.B.x, this.B.y);
         this.buffer.vertex(this.C.x, this.C.y);
         this.buffer.endShape(CLOSE);
-
         this.buffer.pop();
+
+        // this.debug();
     }
 }
 
@@ -152,6 +136,12 @@ class TriangleSystem {
         this.triangles = [];
         this.pupselGrids = [];
 
+        // RANDOM CENTER
+        this.totalCenter = createVector(
+            width / 2 + getRandomFromInterval(-DOMINANTSIDE * 0.1, DOMINANTSIDE * 0.1),
+            height / 2 + getRandomFromInterval(-DOMINANTSIDE * 0.1, DOMINANTSIDE * 0.1)
+        );
+
 
         for (var i = 0; i < this.pupselGridCount; i++) {
             // this.triangles.push(new Triangle(i));
@@ -160,10 +150,11 @@ class TriangleSystem {
         }
 
         for (var i = 0; i < this.triangleCount; i++) {
-            this.triangles.push(new Triangle(i));
+            this.triangles.push(new Triangle(i, this.totalCenter));
             var shapeBuffer = this.triangles[i].buffer;
             var textureBuffer = getRandomFromList(this.pupselGrids);
 
+            // this.triangles[i].buffer = textureBuffer;
             this.triangles[i].buffer = maskBuffers(textureBuffer, shapeBuffer);
         }
 
@@ -171,13 +162,56 @@ class TriangleSystem {
 
     debug() {
         for (var i = 0; i < this.triangles.length; i++) {
-            this.triangles[i].debug();
+            //     this.triangles[i].debug();
+
+            // DEBUG ANGLE
+            // push();
+            // fill("pink");
+            // noStroke();
+
+            // translate(this.triangles[i].pos.x, this.triangles[i].pos.y)
+            // rotate(this.triangles[i].angleTotalCenter - PI / 2);
+            // triangle(
+            //     0, 0,
+            //     100, 0,
+            //     50, 150
+            // );
+            // pop();
         }
+
+        push()
+        stroke("black");
+        strokeWeight(50);
+        point(this.totalCenter.x, this.totalCenter.y);
+        pop()
+    }
+
+    update(currentTriangle) {
+
+        //   convert polar coordinates to cartesian coordinates
+        //   var x = r * sin(angle);
+        //   var y = r * cos(angle);
+        // https://editor.p5js.org/ftobon@heartofla.org/sketches/SkBy9XP97
+
+        // this.Adyn = p5.Vector.add(createVector(this.radius * sin(this.angle), this.radius * cos(this.angle)), this.center);
+
+        // this.angleCenter = p5.Vector.sub(this.Adyn, this.center).heading();
+
     }
 
     show() {
+
         for (var i = 0; i < this.triangles.length; i++) {
+
+            this.update(this.triangles[i]);
+
+            push();
+            imageMode(CENTER);
+            translate(this.triangles[i].pos.x, this.triangles[i].pos.y)
+            rotate(this.triangles[i].angleTotalCenter - PI / 2);
+
             image(this.triangles[i].buffer, 0, 0);
+            pop();
         }
     }
 

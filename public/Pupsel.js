@@ -6,7 +6,7 @@ class PupselGrid {
         this.pupselColors = PALETTE.pixelColors;
 
         // SHOULD BE DYNAMIC
-        this.buffer = createGraphics(DOMINANTSIDE * 0.3, DOMINANTSIDE * 0.3);
+        this.buffer = createGraphics(DOMINANTSIDE * 0.1, DOMINANTSIDE * 0.3);
 
         this.pupsels = [];
 
@@ -148,7 +148,9 @@ class PupselBrush {
             buffer.stroke(distortColorSuperNew(
                 color(red(colorObject), green(colorObject), blue(colorObject), 100)
                 , 30));
-            buffer.strokeWeight(1);
+
+            // INTERESTING HERE
+            buffer.strokeWeight(20); // 1
 
             buffer.line(
                 buffer.width / 2,

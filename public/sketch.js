@@ -11,8 +11,8 @@ let canvas;
 let rescaling_width;
 let rescaling_height;
 
-let RESOLUTION = 200; // how many dots per dominantside length, 200 - 700, 800 top
-let BRUSHSIZE = 0.01;  // 0.01, 0.005, 0.003, 0.001
+let RESOLUTION = 50; // how many dots per dominantside length, 200 - 700, 800 top
+let BRUSHSIZE = 0.05;  // 0.01, 0.005, 0.003, 0.001
 let TRIANGLECOUNT = 1; //1200, 3555 top
 
 let foglyPoints = [];
@@ -244,7 +244,7 @@ function setup() {
 
   // pupselGrid = new PupselGrid();
 
-  triangles = new TriangleSystem();
+  triangleSystem = new TriangleSystem();
 
   // OLD - create now inside pupselgrid
   // pupselGrid.create();  // needs triangle - RENAME SHOW
@@ -295,8 +295,8 @@ function draw() {
   }
 
   background(170);
-  triangles.show();
-  // triangles.debug();
+  triangleSystem.show();
+  triangleSystem.debug();
 
   // image(triangles.buffer, 0, 0);
   // image(pupselGrid.buffer, 0, 0);
