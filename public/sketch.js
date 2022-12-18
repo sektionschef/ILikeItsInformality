@@ -11,7 +11,7 @@ let canvas;
 let rescaling_width;
 let rescaling_height;
 
-let RESOLUTION = 400; // how many dots per dominantside length, 200 - 700, 800 top
+let RESOLUTION = 200; // how many dots per dominantside length, 200 - 700, 800 top
 let BRUSHSIZE = 0.01;  // 0.01, 0.005, 0.003, 0.001
 let TRIANGLECOUNT = 1; //1200, 3555 top
 
@@ -242,7 +242,7 @@ function setup() {
 
   // hatchesBug = new Hatches("y", createVector(717, 50), createVector(898, 898), color(30), 0, 0, DISTANCE_BETWEEN_LINES);
 
-  pupselGrid = new PupselGrid();
+  // pupselGrid = new PupselGrid();
 
   triangles = new TriangleSystem();
 

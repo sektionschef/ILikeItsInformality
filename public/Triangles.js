@@ -142,15 +142,31 @@ class Triangle {
 class TriangleSystem {
 
     constructor() {
-        this.triangles = [];
-        // this.triangleCount = 5;
-        this.triangleCount = TRIANGLECOUNT;
+        this.triangleCount = 5;
         // this.triangleCount = 1200;  // 1200
         // this.triangleCount = 3555;
+        // this.triangleCount = TRIANGLECOUNT;
+
+        this.pupselGridCount = 4;
+
+        this.triangles = [];
+        this.pupselGrids = [];
+
+
+        for (var i = 0; i < this.pupselGridCount; i++) {
+            // this.triangles.push(new Triangle(i));
+            var pupselGrid_ = new PupselGrid()
+            this.pupselGrids.push(pupselGrid_.buffer);
+        }
 
         for (var i = 0; i < this.triangleCount; i++) {
             this.triangles.push(new Triangle(i));
+            var shapeBuffer = this.triangles[i].buffer;
+            var textureBuffer = getRandomFromList(this.pupselGrids);
+
+            this.triangles[i].buffer = maskBuffers(textureBuffer, shapeBuffer);
         }
+
     }
 
     debug() {
@@ -159,20 +175,9 @@ class TriangleSystem {
         }
     }
 
-    create() {
-        for (var i = 0; i < this.triangles.length; i++) {
-            this.triangles[i].create();
-        }
-    }
-
     show() {
         for (var i = 0; i < this.triangles.length; i++) {
-            var shapeBuffer = this.triangles[i].buffer;
-            var textureBuffer = pupselGrid.buffer;
-
-            var result = maskBuffers(textureBuffer, shapeBuffer);
-            // console.log(result);
-            image(result, 0, 0);
+            image(this.triangles[i].buffer, 0, 0);
         }
     }
 
