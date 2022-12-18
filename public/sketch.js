@@ -334,7 +334,7 @@ function draw() {
 
   if (frameCount == 20) {
     // if (gridly_background.done == true) {
-    ALLDONE = true;
+    // ALLDONE = true;
     // }
   }
 

@@ -6,7 +6,7 @@ class PupselGrid {
         this.pupselColors = PALETTE.pixelColors;
 
         // SHOULD BE DYNAMIC
-        this.buffer = createGraphics(DOMINANTSIDE * 0.1, DOMINANTSIDE * 0.3);
+        this.buffer = createGraphics(DOMINANTSIDE * 0.3, DOMINANTSIDE * 0.3);
 
         this.pupsels = [];
 

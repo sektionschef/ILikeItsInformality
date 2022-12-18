@@ -34,6 +34,7 @@ class Triangle {
         );
         this.radius = p5.Vector.dist(this.totalCenter, this.pos);
         this.angleTotalCenter = p5.Vector.sub(this.totalCenter, this.pos).heading();
+        this.angleDyn = this.angleTotalCenter;
 
         this.A = createVector(
             this.buffer.width / 2,
@@ -103,9 +104,23 @@ class Triangle {
         this.buffer.pop();
     }
 
-    create() {
+    update() {
 
-        // this.update();
+        //   convert polar coordinates to cartesian coordinates
+        //   var x = r * sin(angle);
+        //   var y = r * cos(angle);
+        // https://editor.p5js.org/ftobon@heartofla.org/sketches/SkBy9XP97
+
+        this.angleDyn += this.angleSpeed;
+        this.pos = p5.Vector.add(createVector(this.radius * sin(this.angleDyn), this.radius * cos(this.angleDyn)), this.totalCenter);
+        this.angleTotalCenter = p5.Vector.sub(this.totalCenter, this.pos).heading();
+
+        // this.angleCenter = p5.Vector.sub(this.Adyn, this.center).heading();
+
+
+    }
+
+    create() {
 
         this.buffer.push();
         this.buffer.stroke("#323232");
@@ -186,24 +201,11 @@ class TriangleSystem {
         pop()
     }
 
-    update(currentTriangle) {
-
-        //   convert polar coordinates to cartesian coordinates
-        //   var x = r * sin(angle);
-        //   var y = r * cos(angle);
-        // https://editor.p5js.org/ftobon@heartofla.org/sketches/SkBy9XP97
-
-        // this.Adyn = p5.Vector.add(createVector(this.radius * sin(this.angle), this.radius * cos(this.angle)), this.center);
-
-        // this.angleCenter = p5.Vector.sub(this.Adyn, this.center).heading();
-
-    }
-
     show() {
 
         for (var i = 0; i < this.triangles.length; i++) {
 
-            this.update(this.triangles[i]);
+            this.triangles[i].update();
 
             push();
             imageMode(CENTER);
