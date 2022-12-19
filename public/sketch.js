@@ -13,7 +13,7 @@ let rescaling_height;
 
 let RESOLUTION = 50; // how many dots per dominantside length, 200 - 700, 800 top
 let BRUSHSIZE = 0.05;  // 0.01, 0.005, 0.003, 0.001
-let TRIANGLECOUNT = 1; //1200, 3555 top
+let TRIANGLECOUNT = 20; //1200, 3555 top
 
 let foglyPoints = [];
 let pixies;

@@ -141,15 +141,16 @@ class Triangle {
 class TriangleSystem {
 
     constructor() {
-        this.triangleCount = 5;
+        // this.triangleCount = 5;
         // this.triangleCount = 1200;  // 1200
         // this.triangleCount = 3555;
-        // this.triangleCount = TRIANGLECOUNT;
+        this.triangleCount = TRIANGLECOUNT;
 
         this.pupselGridCount = 4;
 
         this.triangles = [];
         this.pupselGrids = [];
+        this.pupselGridsPixel = [];
 
         // RANDOM CENTER
         this.totalCenter = createVector(
@@ -162,17 +163,19 @@ class TriangleSystem {
             // this.triangles.push(new Triangle(i));
             var pupselGrid_ = new PupselGrid()
             this.pupselGrids.push(pupselGrid_.buffer);
+            this.pupselGridsPixel.push(pupselGrid_.buffer.get());
         }
 
         for (var i = 0; i < this.triangleCount; i++) {
             this.triangles.push(new Triangle(i, this.totalCenter));
+            // if (fxrand() > 0.8) {
             var shapeBuffer = this.triangles[i].buffer;
-            var textureBuffer = getRandomFromList(this.pupselGrids);
+            var textureBuffer = getRandomFromList(this.pupselGridsPixel);
 
             // this.triangles[i].buffer = textureBuffer;
             this.triangles[i].buffer = maskBuffers(textureBuffer, shapeBuffer);
+            // }
         }
-
     }
 
     debug() {

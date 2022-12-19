@@ -1,7 +1,10 @@
 // das vordere bleibt, das hintere filtert alles raus, wo im zweiten keine transparenz hat
 function maskBuffers(textureBuffer, shapeBuffer) {
     var maskedBuffer;
-    (maskedBuffer = textureBuffer.get()).mask(shapeBuffer.get());
+    // (maskedBuffer = textureBuffer.get()).mask(shapeBuffer.get());
+
+    // works
+    (maskedBuffer = textureBuffer.get()).mask(shapeBuffer);
     return maskedBuffer
 }
 

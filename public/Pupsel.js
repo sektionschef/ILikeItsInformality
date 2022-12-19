@@ -150,7 +150,7 @@ class PupselBrush {
                 , 30));
 
             // INTERESTING HERE
-            buffer.strokeWeight(20); // 1
+            buffer.strokeWeight(1); // 1
 
             buffer.line(
                 buffer.width / 2,
