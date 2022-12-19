@@ -146,10 +146,10 @@ class TriangleSystem {
         // this.triangleCount = 3555;
         this.triangleCount = TRIANGLECOUNT;
 
-        this.pupselGridCount = 4;
+        this.PopselTextureCount = 4;
 
         this.triangles = [];
-        this.pupselGrids = [];
+        this.textures = [];
         this.pupselGridsPixel = [];
 
         // RANDOM CENTER
@@ -159,22 +159,18 @@ class TriangleSystem {
         );
 
 
-        for (var i = 0; i < this.pupselGridCount; i++) {
-            // this.triangles.push(new Triangle(i));
-            var pupselGrid_ = new PupselGrid()
-            this.pupselGrids.push(pupselGrid_.buffer);
-            this.pupselGridsPixel.push(pupselGrid_.buffer.get());
-        }
 
         for (var i = 0; i < this.triangleCount; i++) {
             this.triangles.push(new Triangle(i, this.totalCenter));
-            // if (fxrand() > 0.8) {
-            var shapeBuffer = this.triangles[i].buffer;
-            var textureBuffer = getRandomFromList(this.pupselGridsPixel);
+        }
 
-            // this.triangles[i].buffer = textureBuffer;
-            this.triangles[i].buffer = maskBuffers(textureBuffer, shapeBuffer);
-            // }
+        // one singel triangle
+        // for (var i = 0; i < this.PopselTextureCount; i++) {
+        //     this.textures.push(new PopselTexture(this.triangles[0]).buffer);
+        // }
+
+        for (var i = 0; i < this.triangles.length; i++) {
+            this.triangles[i].buffer = new PopselTexture(this.triangles[i]).buffer;
         }
     }
 
@@ -217,6 +213,11 @@ class TriangleSystem {
 
             image(this.triangles[i].buffer, 0, 0);
             pop();
+
+            // SHOW THE TEXTURE 
+            // push()
+            // image(this.textures[0], 0, 0);
+            // pop()
         }
     }
 
