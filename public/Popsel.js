@@ -7,6 +7,9 @@ class PopselTexture {
 
         // SHOULD BE DYNAMIC
         this.buffer = createGraphics(DOMINANTSIDE * 0.3, DOMINANTSIDE * 0.3);
+        // this.buffer.background(200);
+
+        // this.buffer.image(shape.buffer, 0, 0);
 
         this.pupsels = [];
 
@@ -19,12 +22,12 @@ class PopselTexture {
 
                 this.center = createVector(pupselX + this.pupselSize / 2, pupselY + this.pupselSize / 2);
 
-
                 // transparent
-                pupselColor = color('#4c539600');
+                // pupselColor = color('#4c539600');
 
                 if (insidePolygon([pupselX, pupselY], shape.coords)) {
-                    pupselColor = color('#ec0000');
+                    // pupselColor = color('#ec0000');
+                    pupselColor = shape.color;
                 } else {
                     continue;
                 }
@@ -156,7 +159,7 @@ class PopselBrush {
     static showBrushStrokes(pupsel) {
 
         this.brushNumber = 15;
-        this.brushSize = DOMINANTSIDE * 0.001;  // 0.01, 0.005, 0.003, 0.004
+        this.brushSize = BRUSHSIZE; // DOMINANTSIDE * 0.001;  // 0.01, 0.005, 0.003, 0.004
 
         // this.brushSize = map(pupsel.rank, 1200, 0, DOMINANTSIDE * 0.0003, DOMINANTSIDE * 0.01);
 

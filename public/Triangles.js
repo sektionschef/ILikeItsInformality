@@ -170,7 +170,9 @@ class TriangleSystem {
         // }
 
         for (var i = 0; i < this.triangles.length; i++) {
-            this.triangles[i].buffer = new PopselTexture(this.triangles[i]).buffer;
+            if (fxrand() > 0.5) {
+                this.triangles[i].buffer = new PopselTexture(this.triangles[i]).buffer;
+            }
         }
     }
 
