@@ -1,8 +1,19 @@
 class Triangle {
 
     constructor(rank, totalCenter) {
-        this.maxLength = 0.3;
-        this.minLength = 0.1;
+        // this.maxLength = 0.3;
+        // this.minLength = 0.1;
+
+        if (rank < TRIANGLECOUNT / 3) {
+            this.maxLength = 0.7;
+            this.minLength = 0.4;
+        } else if (rank < 2 * TRIANGLECOUNT / 3) {
+            this.maxLength = 0.4;
+            this.minLength = 0.2;
+        } else {
+            this.maxLength = 0.3;
+            this.minLength = 0.1;
+        }
 
         this.rank = rank;
         this.totalCenter = totalCenter;

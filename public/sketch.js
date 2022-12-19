@@ -11,9 +11,9 @@ let canvas;
 let rescaling_width;
 let rescaling_height;
 
-let RESOLUTION = 400; // how many dots per dominantside length, 200 - 700, 800 top
-let BRUSHSIZE = 0.001;  // 0.01, 0.005, 0.003, 0.001
-let TRIANGLECOUNT = 400; //1200, 3555 top
+let RESOLUTION = 300; // how many dots per dominantside length, 200 - 700, 800 top
+let BRUSHSIZE = 0.1;  // 0.01, 0.005, 0.003, 0.001
+let TRIANGLECOUNT = 300; //1200, 3555 top
 
 let foglyPoints = [];
 let pixies;

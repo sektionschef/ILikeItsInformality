@@ -195,10 +195,10 @@ class PopselBrush {
 
             buffer.push();
             // stroke(colorObject);
-            // buffer.stroke(distortColorSuperNew(colorObject, 30));
-            buffer.stroke(distortColorSuperNew(
-                color(red(colorObject), green(colorObject), blue(colorObject), 100)
-                , 30));
+            buffer.stroke(distortColorSuperNew(colorObject, 30));
+            // buffer.stroke(distortColorSuperNew(
+            //     color(red(colorObject), green(colorObject), blue(colorObject), 100)
+            //     , 30));
 
             // INTERESTING HERE
             buffer.strokeWeight(1); // 1
