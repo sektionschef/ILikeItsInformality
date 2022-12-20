@@ -152,16 +152,18 @@ class Triangle {
 class TriangleSystem {
 
     constructor() {
-        // this.triangleCount = 5;
+        this.triangleCount = 120;
         // this.triangleCount = 1200;  // 1200
         // this.triangleCount = 3555;
-        this.triangleCount = TRIANGLECOUNT;
+        // this.triangleCount = TRIANGLECOUNT;
 
         this.PopselTextureCount = 4;
+        this.bufferCount = 1;
 
         this.triangles = [];
         this.textures = [];
         this.pupselGridsPixel = [];
+        this.buffers = [];
 
         // RANDOM CENTER
         this.totalCenter = createVector(
@@ -169,7 +171,11 @@ class TriangleSystem {
             height / 2 + getRandomFromInterval(-DOMINANTSIDE * 0.1, DOMINANTSIDE * 0.1)
         );
 
-
+        for (var i = 0; i < this.bufferCount; i++) {
+            this.buffers.push(
+                createGraphics(width, height)
+            );
+        }
 
         for (var i = 0; i < this.triangleCount; i++) {
             this.triangles.push(new Triangle(i, this.totalCenter));
@@ -185,6 +191,8 @@ class TriangleSystem {
                 this.triangles[i].buffer = new PopselTexture(this.triangles[i]).buffer;
             }
         }
+
+        this.create();
     }
 
     debug() {
@@ -213,32 +221,35 @@ class TriangleSystem {
         pop()
     }
 
-    show() {
+    create() {
 
         for (var i = 0; i < this.triangles.length; i++) {
 
             this.triangles[i].update();
 
-            push();
-            imageMode(CENTER);
-            translate(this.triangles[i].pos.x, this.triangles[i].pos.y)
-            rotate(this.triangles[i].angleTotalCenter - PI / 2);
-
-            image(this.triangles[i].buffer, 0, 0);
-            pop();
-
-            // GEAR Buffer
-            // gearBuffer.push();
-            // gearBuffer.imageMode(CENTER);
-            // gearBuffer.translate(this.triangles[i].pos.x, this.triangles[i].pos.y)
-
-            // gearBuffer.image(this.triangles[i].buffer, 0, 0)
-            // gearBuffer.pop();
-
             // SHOW THE TEXTURE 
             // push()
             // image(this.textures[0], 0, 0);
             // pop()
+
+            // DIRECTLY ON CANVAS
+            // push();
+            // imageMode(CENTER);
+            // translate(this.triangles[i].pos.x, this.triangles[i].pos.y)
+            // rotate(this.triangles[i].angleTotalCenter - PI / 2);
+
+            // image(this.triangles[i].buffer, 0, 0);
+            // pop();
+
+            // GEAR Buffer
+            var bufferTemp = getRandomFromList(this.buffers);
+            bufferTemp.push();
+            bufferTemp.imageMode(CENTER);
+            bufferTemp.translate(this.triangles[i].pos.x, this.triangles[i].pos.y)
+            bufferTemp.rotate(this.triangles[i].angleTotalCenter - PI / 2);
+
+            bufferTemp.image(this.triangles[i].buffer, 0, 0)
+            bufferTemp.pop();
         }
     }
 

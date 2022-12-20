@@ -246,11 +246,11 @@ function setup() {
   // pupselGrid = new PupselGrid();
 
   triangleSystem = new TriangleSystem();
+  ROTATION = 0;
+  ROTATIONSPEED = 0.001;
 
   // OLD - create now inside pupselgrid
   // pupselGrid.create();  // needs triangle - RENAME SHOW
-
-  gearBuffer = createGraphics(width, height);
 }
 
 
@@ -299,8 +299,17 @@ function draw() {
   }
 
   background(170);
-  triangleSystem.show();
 
+  ROTATION += ROTATIONSPEED;
+  push();
+  imageMode(CENTER);
+  // FUZZY CENTER
+  translate(width / 2, height / 2);
+  rotate(ROTATION);
+  image(triangleSystem.buffers[0], 0, 0);
+  pop();
+
+  // triangleSystem.show();
   // triangleSystem.debug();
 
   // image(triangles.buffer, 0, 0);
@@ -335,8 +344,6 @@ function draw() {
 
   // brushBug.update();
   // brushBug.show();
-
-  // image(gearBuffer, 0, 0);
 
   if (frameCount == 20) {
     // if (gridly_background.done == true) {
