@@ -13,7 +13,8 @@ let rescaling_height;
 
 let RESOLUTION = 300; // how many dots per dominantside length, 200 - 700, 800 top
 let BRUSHSIZE = 0.1;  // 0.01, 0.005, 0.003, 0.001
-let TRIANGLECOUNT = 300; //1200, 3555 top
+let TRIANGLECOUNT = 400; //1200, 3555 top
+let GEARBUFFERCOUNT = 20;
 
 let foglyPoints = [];
 let pixies;
@@ -309,6 +310,12 @@ function draw() {
     image(triangleSystem.buffers[i], 0, 0);
     pop();
   }
+
+  // CENTER
+  // push();
+  // strokeWeight(30);
+  // point(width / 2, height / 2);
+  // pop();
 
   // triangleSystem.show();
   // triangleSystem.debug();

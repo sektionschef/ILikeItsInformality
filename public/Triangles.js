@@ -1,19 +1,20 @@
 class Triangle {
 
     constructor(rank, totalCenter) {
-        // this.maxLength = 0.3;
-        // this.minLength = 0.1;
+        // this.margin = DOMINANTSIDE * 0.1;
+        this.maxLength = 0.3;
+        this.minLength = 0.1;
 
-        if (rank < TRIANGLECOUNT / 3) {
-            this.maxLength = 0.7;
-            this.minLength = 0.4;
-        } else if (rank < 2 * TRIANGLECOUNT / 3) {
-            this.maxLength = 0.4;
-            this.minLength = 0.2;
-        } else {
-            this.maxLength = 0.3;
-            this.minLength = 0.1;
-        }
+        // if (rank < TRIANGLECOUNT / 3) {
+        //     this.maxLength = 0.7;
+        //     this.minLength = 0.4;
+        // } else if (rank < 2 * TRIANGLECOUNT / 3) {
+        //     this.maxLength = 0.4;
+        //     this.minLength = 0.2;
+        // } else {
+        //     this.maxLength = 0.3;
+        //     this.minLength = 0.1;
+        // }
 
         this.rank = rank;
         this.totalCenter = totalCenter;
@@ -40,8 +41,8 @@ class Triangle {
 
         // RANDOM PLACEMENT - total Position
         this.pos = createVector(
-            getRandomFromInterval(0, width),
-            getRandomFromInterval(0, height)
+            getRandomFromInterval(this.buffer.width / 2, width - this.buffer.width / 2),
+            getRandomFromInterval(this.buffer.height / 2, height - this.buffer.height / 2)
         );
         this.radius = p5.Vector.dist(this.totalCenter, this.pos);
         this.angleTotalCenter = p5.Vector.sub(this.totalCenter, this.pos).heading();
@@ -152,13 +153,13 @@ class Triangle {
 class TriangleSystem {
 
     constructor() {
-        this.triangleCount = 120;
+        // this.triangleCount = 12;
         // this.triangleCount = 1200;  // 1200
         // this.triangleCount = 3555;
-        // this.triangleCount = TRIANGLECOUNT;
+        this.triangleCount = TRIANGLECOUNT;
 
-        this.PopselTextureCount = 4;
-        this.bufferCount = 20;
+        this.PopselTextureCount = 1;
+        this.bufferCount = GEARBUFFERCOUNT;
 
         this.triangles = [];
         this.textures = [];
@@ -179,12 +180,14 @@ class TriangleSystem {
             );
             this.bufferRotations.push(0);
             this.bufferRotationSpeed.push(getRandomFromList([
-                -0.01,
-                - 0.001,
-                -0.003,
-                0.01,
-                0.001,
-                0.003,
+                -0.0001,
+                -0.0002,
+                -0.0003,
+                -0.0005,
+                0.0001,
+                0.0002,
+                0.0003,
+                0.0005,
             ]));
         }
 
@@ -198,9 +201,9 @@ class TriangleSystem {
         // }
 
         for (var i = 0; i < this.triangles.length; i++) {
-            if (fxrand() > 0.5) {
-                this.triangles[i].buffer = new PopselTexture(this.triangles[i]).buffer;
-            }
+            // if (fxrand() > 0.5) {
+            //     this.triangles[i].buffer = new PopselTexture(this.triangles[i]).buffer;
+            // }
         }
 
         this.create();
