@@ -158,12 +158,14 @@ class TriangleSystem {
         // this.triangleCount = TRIANGLECOUNT;
 
         this.PopselTextureCount = 4;
-        this.bufferCount = 1;
+        this.bufferCount = 20;
 
         this.triangles = [];
         this.textures = [];
         this.pupselGridsPixel = [];
         this.buffers = [];
+        this.bufferRotations = [];
+        this.bufferRotationSpeed = [];
 
         // RANDOM CENTER
         this.totalCenter = createVector(
@@ -175,6 +177,15 @@ class TriangleSystem {
             this.buffers.push(
                 createGraphics(width, height)
             );
+            this.bufferRotations.push(0);
+            this.bufferRotationSpeed.push(getRandomFromList([
+                -0.01,
+                - 0.001,
+                -0.003,
+                0.01,
+                0.001,
+                0.003,
+            ]));
         }
 
         for (var i = 0; i < this.triangleCount; i++) {
