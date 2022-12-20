@@ -171,6 +171,16 @@ function keyTyped() {
     if (key === 'e' || key == 'E') {
         // exportHighResolution();  // paper
         exportCanvas(canvas);  // webgl
+    } else if (key === ' ') {
+        if (ANIMATIONSTATE) {
+            console.log("stop animation");
+            noLoop();
+            ANIMATIONSTATE = false;
+        } else {
+            console.log("restart animation")
+            loop();
+            ANIMATIONSTATE = true;
+        }
     }
 }
 

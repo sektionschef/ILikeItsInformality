@@ -18,6 +18,7 @@ let TRIANGLECOUNT = 300; //1200, 3555 top
 let foglyPoints = [];
 let pixies;
 
+let ANIMATIONSTATE = true;
 let PALETTE;
 let PALETTE_LABEL;
 let ALLDONE = false;
@@ -248,6 +249,8 @@ function setup() {
 
   // OLD - create now inside pupselgrid
   // pupselGrid.create();  // needs triangle - RENAME SHOW
+
+  gearBuffer = createGraphics(width, height);
 }
 
 
@@ -291,11 +294,13 @@ function draw() {
     // pixies.show();
     // image(pixies.buffer, 0, 0);
 
+    // triangleSystem.show();
 
   }
 
   background(170);
   triangleSystem.show();
+
   // triangleSystem.debug();
 
   // image(triangles.buffer, 0, 0);
@@ -331,6 +336,7 @@ function draw() {
   // brushBug.update();
   // brushBug.show();
 
+  // image(gearBuffer, 0, 0);
 
   if (frameCount == 20) {
     // if (gridly_background.done == true) {

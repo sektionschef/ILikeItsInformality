@@ -227,6 +227,14 @@ class TriangleSystem {
             image(this.triangles[i].buffer, 0, 0);
             pop();
 
+            // GEAR Buffer
+            // gearBuffer.push();
+            // gearBuffer.imageMode(CENTER);
+            // gearBuffer.translate(this.triangles[i].pos.x, this.triangles[i].pos.y)
+
+            // gearBuffer.image(this.triangles[i].buffer, 0, 0)
+            // gearBuffer.pop();
+
             // SHOW THE TEXTURE 
             // push()
             // image(this.textures[0], 0, 0);
