@@ -157,11 +157,13 @@ class TriangleSystem {
         // this.triangleCount = 1200;  // 1200
         // this.triangleCount = 3555;
         this.triangleCount = TRIANGLECOUNT;
+        this.triangleTemplateCount = 20;
 
         this.PopselTextureCount = 1;
         this.bufferCount = GEARBUFFERCOUNT;
 
         this.triangles = [];
+        this.triangleTemplates = [];
         this.textures = [];
         this.pupselGridsPixel = [];
         this.buffers = [];
@@ -195,15 +197,20 @@ class TriangleSystem {
             this.triangles.push(new Triangle(i, this.totalCenter));
         }
 
-        // one singel triangle
-        // for (var i = 0; i < this.PopselTextureCount; i++) {
-        //     this.textures.push(new PopselTexture(this.triangles[0]).buffer);
-        // }
+        // create a set of templates
+        for (var i = 0; i < this.triangleTemplateCount; i++) {
+            this.triangleTemplates[i] = new PopselTexture(this.triangles[i]).buffer;
+        }
 
         for (var i = 0; i < this.triangles.length; i++) {
             // if (fxrand() > 0.5) {
-            //     this.triangles[i].buffer = new PopselTexture(this.triangles[i]).buffer;
+            // this.triangles[i].buffer = new PopselTexture(this.triangles[i]).buffer;
             // }
+
+            // if (fxrand() > 0.5) {
+            this.triangles[i].buffer = getRandomFromList(this.triangleTemplates);
+            // }
+
         }
 
         this.create();
@@ -267,6 +274,20 @@ class TriangleSystem {
         }
     }
 
+    show() {
+        for (var i = 0; i < triangleSystem.buffers.length; i++) {
+            push();
+            imageMode(CENTER);
+            triangleSystem.bufferRotations[i] += triangleSystem.bufferRotationSpeed[i];
+            // FUZZY CENTER
+            translate(width / 2, height / 2);
+            rotate(triangleSystem.bufferRotations[i]);
+            image(triangleSystem.buffers[i], 0, 0);
+            pop();
+        }
+    }
+
+    // EXTRACT from here
     insidePolygon(x, y, v) {  // v is the index
         // ATTENTION FOR OVERLAPPING ELEMENTS - WHICH ONE CAN BE SEEN?
         var colorDyn;

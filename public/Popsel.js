@@ -1,22 +1,33 @@
 class PopselTexture {
 
     constructor(shape) {
-        this.pupselNumber = RESOLUTION // DOMINANTSIDE / RESOLUTION;  // 20 - 
+        this.pupselNumber = getRandomFromList([400, 300, 200]); // RESOLUTION; 
+        this.brushNumber = 15;
+        this.brushSize = DOMINANTSIDE * BRUSHSIZE;
+        this.brushStrokeWeight = 1; // 1, 2
+
+        this.lowDist = 3;
+        this.medDist = 6;
+        this.highDist = 12;
+
+        this.shape = shape;
         this.pupselSize = DOMINANTSIDE / this.pupselNumber;
         this.pupselColors = PALETTE.pixelColors;
 
+        this.pattern = getRandomFromList([true, false, false, false]);
+
+        this.pupsels = [];
+        this.sprites = {};
+
         // SHOULD BE DYNAMIC
         this.buffer = createGraphics(DOMINANTSIDE * 0.3, DOMINANTSIDE * 0.3);
-        // this.buffer.background(200);
 
         // this.buffer.image(shape.buffer, 0, 0);
 
-        this.pupsels = [];
+        // this.drawShape();
 
         var pupselColor;
-        // CREATE SPRITES
-        this.sprites = {};
-
+        var i = 0;
         for (var pupselY = 0; pupselY <= height; pupselY += this.pupselSize) {
             for (var pupselX = 0; pupselX <= width; pupselX += this.pupselSize) {
 
@@ -25,60 +36,126 @@ class PopselTexture {
                 // transparent
                 // pupselColor = color('#4c539600');
 
-                if (insidePolygon([pupselX, pupselY], shape.coords)) {
-                    // pupselColor = color('#ec0000');
-                    pupselColor = shape.color;
+                // DEMO
+                // pupselColor = color('#ec0000');
+
+                // ANTI DEMO
+                if (insidePolygon([pupselX, pupselY], this.shape.coords)) {
+                    pupselColor = this.shape.color;
                 } else {
                     continue;
                 }
 
+                // Contour - deprecated
+                // if (insidePolygon([x, y], this.shape.lines)) {
+                //     colorDyn = color('#424242');
+                // }
+
+
+                // stripes
+                if (this.pattern) {
+                    // if (i % 3 == 0) {  // vertical
+                    if (i % 7 == 0) {  // diagnoal
+                        // pupselColor = color('#161616');
+                        pupselColor = color(red(pupselColor) - 80, green(pupselColor) - 80, blue(pupselColor) - 80);
+                    }
+                }
+
+                // distort color - generates more sprites
+                // pupselColor = distortColorSuperNew(pupselColor, 30);
+
+                // GRADIENT
+                pupselColor = brightenSuperNew(pupselColor, map(
+                    pupselY,
+                    0,
+                    this.buffer.height,
+                    -50,
+                    50
+                ));
+
+                // DISTORT Color
+                // pupselColor = getRandomFromList([
+                //     pupselColor = color(red(pupselColor) - this.lowDist, green(pupselColor) - this.lowDist, blue(pupselColor) - this.lowDist),
+                //     pupselColor = color(red(pupselColor) - this.medDist, green(pupselColor) - this.medDist, blue(pupselColor) - this.medDist),
+                //     // pupselColor = color(red(pupselColor) - this.highDist, green(pupselColor) - this.highDist, blue(pupselColor) - this.highDist),
+                //     pupselColor = pupselColor,
+                //     pupselColor = color(red(pupselColor) + this.lowDist, green(pupselColor) + this.lowDist, blue(pupselColor) + this.lowDist),
+                //     pupselColor = color(red(pupselColor) + this.medDist, green(pupselColor) + this.medDist, blue(pupselColor) + this.medDist),
+                //     // pupselColor = color(red(pupselColor) + this.highDist, green(pupselColor) + this.highDist, blue(pupselColor) + this.highDist),
+                // ]);
+
+
                 // this.showPoints(pupselX, pupselY, pupselColor);
                 // this.showBrushStrokes(pupselX, pupselY, pupselColor);
                 this.createBrushTiles(pupselX, pupselY, pupselColor);
+
+                i += 1;
             }
         }
 
-        // PUT IT INSIDE THE LOOP
-        // this.create();
     }
 
 
-    showPoints(x, y, colorObject) {
+    drawShape() {
+        this.bufferShape = createGraphics(this.buffer.width, this.buffer.height);
 
-        this.buffer.push();
-        this.buffer.stroke(colorObject);
-        this.buffer.strokeWeight(20);
-        this.buffer.point(x, y);
-        this.buffer.pop();
-    }
+        // fill polygon!!
+        this.bufferShape.push();
+        this.bufferShape.drawingContext.filter = 'blur(12px)';  // `blur(${this.blur * blurFeature}px)`
+        // this.bufferShape.blendMode(BURN);
+        // this.bufferShape.stroke("#323232");
+        // this.bufferShape.strokeWeight(3);
+        this.bufferShape.noStroke();
+        // this.bufferShape.fill(shape.color);
+        // this.bufferShape.fill(color(red(shape.color), green(shape.color), blue(shape.color), 100));
+        // this.bufferShape.fill("#2525257c");
+        this.bufferShape.fill(color(red(this.shape.color) - 100, green(this.shape.color) - 100, blue(this.shape.color) - 100, 180));
 
+        this.bufferShape.beginShape();
+        this.bufferShape.vertex(this.shape.A.x, this.shape.A.y);
+        this.bufferShape.vertex(this.shape.B.x, this.shape.B.y);
+        this.bufferShape.vertex(this.shape.C.x, this.shape.C.y);
+        this.bufferShape.endShape(CLOSE);
+        this.bufferShape.pop();
 
-    showBrushStrokes(x, y, colorObject) {
-
-        this.brushNumber = 15;
-        this.brushSize = DOMINANTSIDE * 0.001;  // 0.01, 0.005, 0.003, 0.004
-
-        // this.brushSize = map(pupsel.rank, 1200, 0, DOMINANTSIDE * 0.0003, DOMINANTSIDE * 0.01);
-
-        for (var i = 0; i < this.brushNumber; i++) {
-
-            push();
-            // stroke(pupsel.color);
-            stroke(distortColorSuperNew(colorObject, 30));
-            // strokeWeight(0.5);
-            strokeWeight(1);
-
-            line(
-                x,
-                y,
-                x + getRandomFromInterval(-this.brushSize, this.brushSize),
-                y + getRandomFromInterval(-this.brushSize, this.brushSize)
-            );
-
-            pop();
-        }
+        this.buffer.image(this.bufferShape, 0, 0);
 
     }
+
+    // showPoints(x, y, colorObject) {
+    //     this.buffer.push();
+    //     this.buffer.stroke(colorObject);
+    //     this.buffer.strokeWeight(20);
+    //     this.buffer.point(x, y);
+    //     this.buffer.pop();
+    // }
+
+
+    // showBrushStrokes(x, y, colorObject) {
+    //     this.brushNumber = 15;
+    //     this.brushSize = DOMINANTSIDE * 0.001;  // 0.01, 0.005, 0.003, 0.004
+
+    //     // this.brushSize = map(pupsel.rank, 1200, 0, DOMINANTSIDE * 0.0003, DOMINANTSIDE * 0.01);
+
+    //     for (var i = 0; i < this.brushNumber; i++) {
+
+    //         push();
+    //         // stroke(pupsel.color);
+    //         stroke(distortColorSuperNew(colorObject, 30));
+    //         // strokeWeight(0.5);
+    //         strokeWeight(1);
+
+    //         line(
+    //             x,
+    //             y,
+    //             x + getRandomFromInterval(-this.brushSize, this.brushSize),
+    //             y + getRandomFromInterval(-this.brushSize, this.brushSize)
+    //         );
+
+    //         pop();
+    //     }
+
+    // }
 
     createBrushTiles(x, y, colorObject) {
         var colorString;
@@ -90,110 +167,29 @@ class PopselTexture {
         if (this.sprites[colorString] === undefined) {
             var spritesColor = []
             for (var sp = 0; sp < 5; sp++) {
-                spritesColor.push(PupselBrush.createPupselSprite(colorString, this.pupselSize));
+                spritesColor.push(this.createPupselSprite(colorString, this.pupselSize));
             }
             this.sprites[colorString] = spritesColor;
         }
 
         push();
         sprite = getRandomFromList(this.sprites[colorString])
-        this.buffer.image(sprite, x - sprite.width / 2, y - sprite.height / 2);  // draws in center;
+        imageMode(CENTER);
+        // this.buffer.image(sprite, x - sprite.width / 2, y - sprite.height / 2);  // draws in center;
+        this.buffer.image(sprite, x, y);  // draws in center;
         pop();
         // console.log(i + ": " + x + "," + y);
     }
 
+    createPupselSprite(colorObject, pupselSize) {
 
-
-    create() {
-        var x;
-        var y;
-
-        for (var i = 0; i < this.pupsels.length; i++) {
-
-            // x = (i % this.pupselNumber) * this.pupselSize;
-            // y = Math.floor(i / this.pupselNumber) * this.pupselSize;
-            x = this.pupsels[i].pos.x;
-            y = this.pupsels[i].pos.y;
-
-            // default color
-            // this.pupsels[i].color = color('#ffffff');
-            this.pupsels[i].color = color('#4c5396');
-
-            // var newColor = triangles.insidePolygon(x, y, i);
-            // // console.log(oida);
-            // if (newColor) {
-            //     this.pupsels[i].color = newColor.color;
-            //     this.pupsels[i].rank = newColor.rank;
-            // }
-
-            // stripes
-            // if (i % 3 == 0) {
-            //     this.color = color('#3d3d3d');
-            // }
-
-            // distort color
-            this.pupsels[i].color = distortColorSuperNew(this.pupsels[i].color, 15);
-
-            // PupselBrush.showPoints(this.pupsels[i]);
-            // PupselBrush.showBrushStrokes(this.pupsels[i]);
-            this.createBrushTiles(this.pupsels[i], x, y);
-        }
-    }
-}
-
-
-class PopselBrush {
-
-    constructor() {
-    }
-
-    static showPoints(pupsel) {
-
-        push();
-        stroke(pupsel.color);
-        strokeWeight(10);
-        point(pupsel.pos.x, pupsel.pos.y);
-        pop();
-    }
-
-    static showBrushStrokes(pupsel) {
-
-        this.brushNumber = 15;
-        this.brushSize = BRUSHSIZE; // DOMINANTSIDE * 0.001;  // 0.01, 0.005, 0.003, 0.004
-
-        // this.brushSize = map(pupsel.rank, 1200, 0, DOMINANTSIDE * 0.0003, DOMINANTSIDE * 0.01);
+        var buffer = createGraphics(this.brushSize * 2, this.brushSize * 2);
+        // let buffer = createGraphics(pupselSize, pupselSize);
 
         for (var i = 0; i < this.brushNumber; i++) {
 
-            push();
-            // stroke(pupsel.color);
-            stroke(distortColorSuperNew(pupsel.color, 30));
-            // strokeWeight(0.5);
-            strokeWeight(1);
-
-            line(
-                pupsel.pos.x,
-                pupsel.pos.y,
-                pupsel.pos.x + getRandomFromInterval(-this.brushSize, this.brushSize),
-                pupsel.pos.y + getRandomFromInterval(-this.brushSize, this.brushSize)
-            );
-
-            pop();
-        }
-
-    }
-
-
-    static createPupselSprite(colorObject, pupselSize) {
-        let brushNumber = 15;
-        let brushSize = DOMINANTSIDE * BRUSHSIZE;
-
-        // var buffer = createGraphics(this.brushSize * 2, this.brushSize * 2);
-        let buffer = createGraphics(pupselSize, pupselSize);
-
-        for (var i = 0; i < brushNumber; i++) {
-
             buffer.push();
+            // buffer.blendMode(OVERLAY);
             // stroke(colorObject);
             buffer.stroke(distortColorSuperNew(colorObject, 30));
             // buffer.stroke(distortColorSuperNew(
@@ -201,13 +197,13 @@ class PopselBrush {
             //     , 30));
 
             // INTERESTING HERE
-            buffer.strokeWeight(1); // 1
+            buffer.strokeWeight(this.brushStrokeWeight); // 1,2
 
             buffer.line(
                 buffer.width / 2,
                 buffer.height / 2,
-                buffer.width / 2 + getRandomFromInterval(-brushSize, brushSize),
-                buffer.height / 2 + getRandomFromInterval(-brushSize, brushSize)
+                buffer.width / 2 + getRandomFromInterval(-this.brushSize, this.brushSize),
+                buffer.height / 2 + getRandomFromInterval(-this.brushSize, this.brushSize)
             );
 
             buffer.pop();
@@ -216,4 +212,6 @@ class PopselBrush {
         }
         return buffer;
     }
+
 }
+
