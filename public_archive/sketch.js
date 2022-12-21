@@ -1,5 +1,11 @@
+const MODE = 1  // "FINE ART";
+// const MODE = 2  // DEBUG MESSAGES
+// const MODE = 5 // all debug messages
+
 const NOISESEED = hashFnv32a(fxhash);
-// console.log("Noise seed: " + NOISESEED);
+if (MODE > 1) {
+  console.log("Noise seed: " + NOISESEED);
+}
 
 let canvas;
 let rescaling_width;
@@ -87,7 +93,9 @@ function preload() {
   if (urlParams.has('highres')) {
     CURRENTPIXELDENS = parseInt(urlParams.get('highres'));
   }
-  // console.log("CURRENTPIXELDENS: " + CURRENTPIXELDENS);
+  if (MODE > 1) {
+    console.log("CURRENTPIXELDENS: " + CURRENTPIXELDENS);
+  }
 
   // if (urlParams.has('infinity')) {
   //   INFINITYSTRING = urlParams.get('infinity');
@@ -198,8 +206,10 @@ function setup() {
 
 
 
-  // console.log("Display density: " + displayDensity());
-  // console.log("Pixel density: " + pixelDensity())
+  if (MODE > 1) {
+    console.log("Display density: " + displayDensity());
+    // console.log("Pixel density: " + pixelDensity())
+  }
 
   // BRUSH example
   // A1 = createVector(0.2 * DOMINANTSIDE, width / 2, 0);

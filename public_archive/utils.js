@@ -115,10 +115,15 @@ function scaleDynamicallyPaper() {
         // console.log("width is larger than height. Height dominates.")
         exportRatio = dynamicHeightRatio;
     }
-    // console.log("Display density: " + displayDensity());
-    // console.log("Pixel density: " + pixelDensity())
+    if (MODE > 1) {
+        console.log("Display density: " + displayDensity());
+        console.log("Pixel density: " + pixelDensity())
+    }
     exportRatio /= pixelDensity();
-    // console.log("exportRatio: " + exportRatio);
+    if (MODE > 1) {
+        console.log("exportRatio: " + exportRatio);
+    }
+
 
     rescaling_width = Math.floor(GOAL / exportRatio);
     rescaling_height = Math.floor(GOAL / exportRatio);
@@ -128,12 +133,16 @@ function scaleDynamically() {
 
     if (FRAMED == false) {
         if (windowHeight > windowWidth) {
-            // console.log("Width is smaller than height. Width dominates")
+            if (MODE > 1) {
+                console.log("Width is smaller than height. Width dominates")
+            }
             DOMINANTSIDE = Math.floor(windowWidth);
             rescaling_width = Math.floor(windowWidth);
             rescaling_height = Math.floor(windowWidth);
         } else {
-            // console.log("width is larger than height. Height dominates.")
+            if (MODE > 1) {
+                console.log("width is larger than height. Height dominates.")
+            }
             DOMINANTSIDE = Math.floor(windowHeight);
             rescaling_width = Math.floor(windowHeight);
             rescaling_height = Math.floor(windowHeight);
@@ -283,7 +292,9 @@ function choosePalette() {
     }
     // console.log(allPalettes);
     PALETTE_LABEL = getRandomFromList(allPalettes);
-    // console.log("Palette: " + PALETTE_LABEL);
+    if (MODE > 1) {
+        console.log("Palette: " + PALETTE_LABEL);
+    }
     PALETTE = PALETTESYSTEM[PALETTE_LABEL];
 }
 
