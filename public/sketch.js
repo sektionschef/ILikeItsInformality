@@ -110,18 +110,22 @@ function setup() {
     canvas.parent("canvasHolderPlain");
   }
 
-  // triangleSystem = new TriangleSystem();
+  triangleSystem = new TriangleSystem();
 
   // TEXTURE EXAMPLE
   // textureEx = new PopselTexture("");
 
-  STROKE_SIZE = 10;
+  STROKE_SIZE = 1;
   STROKE_COLOR = color("black");
   STROKE_NOISE = 0
   STROKE_NOISE_2 = 0
   STROKE_DISTORT = 0
   SCALING_FACTOR = 1;
   linesEx = new Lines(0, 0, width, height, 0, 0, DOMINANTSIDE * 0.01);
+
+  for (var i = 0; i < 5000; i++) {
+    linesEx.show();
+  }
 
 }
 
@@ -137,8 +141,8 @@ function draw() {
   background(PALETTE.background);
   // image(textureEx.buffer, 0, 0);
 
-  // triangleSystem.show();
-  linesEx.show();
+  image(linesEx.buffer, 0, 0);
+  triangleSystem.show();
 
 
   // image(triangles.buffer, 0, 0);

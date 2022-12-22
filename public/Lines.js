@@ -1,10 +1,11 @@
 class Line {
-    constructor(orientation, x, y, limit_x, limit_y) {
+    constructor(orientation, x, y, limit_x, limit_y, buffer) {
         this.orientation = orientation;
         this.x = x;
         this.y = y;
         this.limit_x = limit_x;
         this.limit_y = limit_y;
+        this.buffer = buffer;
         this.history = [];
         this.line_color = distortColor(color(STROKE_COLOR), STROKE_NOISE);
         this.line_color_second = distortColor(color(STROKE_COLOR), STROKE_NOISE_2);
@@ -84,23 +85,13 @@ class Line {
             }
 
             // brush
-            // line_canvas.push();
-            // line_canvas.noStroke();
-            // line_canvas.fill(this.line_color);
-            // line_canvas.circle(this.x * SCALING_FACTOR, this.y * SCALING_FACTOR, this.stroke_size_dynamic);
-            // // line_canvas.fill(0);
-            // line_canvas.fill(this.line_color_second);
-            // line_canvas.circle(this.x * SCALING_FACTOR, this.y * SCALING_FACTOR, 1);
-            // line_canvas.pop()
-
-            push();
-            noStroke();
-            fill(this.line_color);
-            circle(this.x * SCALING_FACTOR, this.y * SCALING_FACTOR, this.stroke_size_dynamic);
-            // fill(0);
-            fill(this.line_color_second);
-            circle(this.x * SCALING_FACTOR, this.y * SCALING_FACTOR, 1);
-            pop()
+            this.buffer.push();
+            this.buffer.noStroke();
+            this.buffer.fill(this.line_color);
+            this.buffer.circle(this.x * SCALING_FACTOR, this.y * SCALING_FACTOR, this.stroke_size_dynamic);
+            this.buffer.fill(this.line_color_second);
+            this.buffer.circle(this.x * SCALING_FACTOR, this.y * SCALING_FACTOR, 1);
+            this.buffer.pop()
         }
     }
 }
@@ -115,12 +106,13 @@ class Lines {
         this.padding_y = padding_y;
         this.distance_between_lines = distance_between_lines;
 
-        // this.buffer = createGraphics(width, height);
+        this.buffer = createGraphics(width, height);
 
         this.bodies = [];
         this.all_lines_complete = false;
 
-        let chosen_axis = getRandomFromList(["x", "y", "xy", "yx", "blank"])
+        // let chosen_axis = getRandomFromList(["x", "y", "xy", "yx", "blank"])
+        let chosen_axis = getRandomFromList(["x", "y", "xy", "yx"])
 
         if (chosen_axis == "x") {
             this.count_lines = ((this.y_stop - this.y_start) - 2 * this.padding_y) / this.distance_between_lines;
@@ -131,7 +123,9 @@ class Lines {
                     (this.x_start + this.padding_x),
                     (this.y_start + this.padding_y + this.distance_between_lines * i),
                     (this.x_stop - this.padding_x),
-                    this.y_stop - this.padding_y));
+                    this.y_stop - this.padding_y),
+                    this.buffer,
+                );
             }
         } else if (chosen_axis == "y") {
             this.count_lines = ((this.x_stop - this.x_start) - 2 * this.padding_x) / this.distance_between_lines;
@@ -142,7 +136,9 @@ class Lines {
                     (this.x_start + this.padding_x + this.distance_between_lines * i),
                     (this.y_start + this.padding_y),
                     this.x_stop - this.padding_x,
-                    (this.y_stop - this.padding_x)));
+                    (this.y_stop - this.padding_x),
+                    this.buffer,
+                ));
             }
         } else if (chosen_axis == "xy") {
             this.count_lines = ((this.x_stop - this.x_start) - 2 * this.padding_x) / this.distance_between_lines;
@@ -163,7 +159,8 @@ class Lines {
                     (this.x_start + this.padding_x),
                     (this.y_start + this.padding_y + this.distance_between_lines * i),
                     this.x_stop - this.padding_x,
-                    (this.y_stop - this.padding_y)));
+                    (this.y_stop - this.padding_y),
+                    this.buffer,));
             }
         } else if (chosen_axis == "yx") {
             this.count_lines = ((this.x_stop - this.x_start) - 2 * this.padding_x) / this.distance_between_lines;
@@ -174,7 +171,8 @@ class Lines {
                     this.x_start + this.padding_x + this.distance_between_lines * i,
                     (this.y_stop - this.padding_y),
                     (this.x_stop - this.padding_x),
-                    (this.y_start + this.padding_y)
+                    (this.y_start + this.padding_y),
+                    this.buffer,
                 )
                 );
             }
@@ -186,7 +184,8 @@ class Lines {
                     this.x_start + this.padding_x,
                     (this.y_stop - this.padding_y - this.distance_between_lines * i),
                     (this.x_stop - this.padding_x),
-                    (this.y_start + this.padding_y)
+                    (this.y_start + this.padding_y),
+                    this.buffer,
                 )
                 );
             }
