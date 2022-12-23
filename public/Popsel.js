@@ -29,8 +29,8 @@ class PopselTexture {
 
         var pupselColor;
         var i = 0;
-        for (var pupselY = 0; pupselY <= height; pupselY += this.pupselSize) {
-            for (var pupselX = 0; pupselX <= width; pupselX += this.pupselSize) {
+        for (var pupselY = 0; pupselY < (this.buffer.height - this.pupselSize); pupselY += this.pupselSize) {
+            for (var pupselX = 0; pupselX < (this.buffer.width - this.pupselSize); pupselX += this.pupselSize) {
 
                 this.center = createVector(pupselX + this.pupselSize / 2, pupselY + this.pupselSize / 2);
 
@@ -174,8 +174,9 @@ class PopselTexture {
         push();
         sprite = getRandomFromList(this.sprites[colorString])
         imageMode(CENTER);
-        // this.buffer.image(sprite, x - sprite.width / 2, y - sprite.height / 2);  // draws in center;
-        this.buffer.image(sprite, x, y);  // draws in center;
+        // this.buffer.image(sprite, x - sprite.width / 2, y - sprite.height / 2); 
+        // this.buffer.image(sprite, x, y);
+        this.buffer.image(sprite, x, y);
         pop();
         // console.log(i + ": " + x + "," + y);
     }
@@ -204,11 +205,20 @@ class PopselTexture {
                 buffer.width / 2 + getRandomFromInterval(-this.brushSize, this.brushSize),
                 buffer.height / 2 + getRandomFromInterval(-this.brushSize, this.brushSize)
             );
-
             buffer.pop();
 
-
         }
+        // DEBUG
+        // buffer.push();
+        // buffer.noFill();
+        // buffer.strokeWeight(1);
+        // buffer.stroke(color("black"));
+        // buffer.rect(0, 0, buffer.width, buffer.height);  // cool effect
+
+        // buffer.stroke(color("red"));
+        // buffer.point(buffer.width / 2, buffer.height / 2);
+        // buffer.pop();
+
         return buffer;
     }
 
