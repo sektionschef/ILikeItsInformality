@@ -3,7 +3,7 @@ const NOISESEED = hashFnv32a(fxhash);
 
 // let RESOLUTION = 100; // how many dots per dominantside length, 200 - 700, 800 top
 let BRUSHSIZE = 0.006;  // 0.01, 0.006, 0.005, 0.003, 0.001
-let TRIANGLECOUNT = 300; // 300, 400 cool - 1200 for full bodies
+let TRIANGLECOUNT = 200; // 300, 400 cool - 1200 for full bodies
 let GEARBUFFERCOUNT = 20;
 
 let canvas;
@@ -115,7 +115,10 @@ function setup() {
   // TEXTURE EXAMPLE
   // textureEx = new PopselTexture({
   //   "color": color(150),
-  //   "coords": [[0, 0], [width, 0], [width, height], [0, height]]
+  //   "coords": [[0, 0], [width, 0], [width, height], [0, height]],
+  //   "A": createVector(0, 0),
+  //   "B": createVector(0, 0),
+  //   "C": createVector(0, 0),
   // });
 
   // LINES EXAMPLE

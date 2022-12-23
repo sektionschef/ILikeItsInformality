@@ -172,8 +172,8 @@ class TriangleSystem {
 
         // RANDOM CENTER
         this.totalCenter = createVector(
-            width / 2 + getRandomFromInterval(-DOMINANTSIDE * 0.1, DOMINANTSIDE * 0.1),
-            height / 2 + getRandomFromInterval(-DOMINANTSIDE * 0.1, DOMINANTSIDE * 0.1)
+            width / 2 + getRandomFromInterval(-DOMINANTSIDE * 0.05, DOMINANTSIDE * 0.05),
+            height / 2 + getRandomFromInterval(-DOMINANTSIDE * 0.05, DOMINANTSIDE * 0.05)
         );
 
         for (var i = 0; i < this.bufferCount; i++) {

@@ -16,7 +16,7 @@ class PopselTexture {
         this.pupselSize = DOMINANTSIDE / this.pupselNumber;
         this.pupselColors = PALETTE.pixelColors;
 
-        this.pattern = getRandomFromList([0, 0, 3, 7]);
+        this.pattern = getRandomFromList([0, 0, 0, 3, 4, 5]);
 
         this.pupsels = [];
         this.sprites = {};
@@ -31,10 +31,13 @@ class PopselTexture {
 
         this.drawShape();
 
+        let colorboost;
         var pupselColor;
         var i = 0;
         for (var pupselY = 0; pupselY <= (this.buffer.height); pupselY += this.pupselSize) {
             for (var pupselX = 0; pupselX <= (this.buffer.width); pupselX += this.pupselSize) {
+
+                i += 1;
 
                 // this.center = createVector(pupselX + this.pupselSize / 2, pupselY + this.pupselSize / 2);
 
@@ -59,8 +62,14 @@ class PopselTexture {
 
                 // HATCHES
                 if (this.pattern > 0) {
-                    if (i % this.pattern == 0) {  // vertical
-                        pupselColor = color(red(pupselColor) - 80, green(pupselColor) - 80, blue(pupselColor) - 80);
+                    // if (i % this.pattern == 0 || (i - 1) % this.pattern == 0) {
+                    if (i % this.pattern == 0) {
+                        if (brightness(pupselColor) > 50) {
+                            colorboost = -80;
+                        } else {
+                            colorboost = 80
+                        }
+                        pupselColor = color(red(pupselColor) + colorboost, green(pupselColor) + colorboost, blue(pupselColor) + colorboost);
                     }
                 }
 
@@ -92,7 +101,6 @@ class PopselTexture {
                 // this.showBrushStrokes(pupselX, pupselY, pupselColor);
                 this.createBrushTiles(pupselX, pupselY, pupselColor);
 
-                i += 1;
                 // break;
             }
             // break;
