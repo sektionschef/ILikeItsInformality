@@ -9,7 +9,7 @@ class PopselTexture {
         this.lowDist = 3;
         this.medDist = 6;
         this.highDist = 12;
-        this.spriteCount = 7;
+        this.spriteCount = 10;
 
         this.shape = shape;
         this.pupselSize = DOMINANTSIDE / this.pupselNumber;
@@ -25,14 +25,17 @@ class PopselTexture {
 
         // this.buffer.image(shape.buffer, 0, 0);
 
+        // DEBUG - show buffer edges
+        // this.buffer.rect(0, 0, width, height);
+
         // this.drawShape();
 
         var pupselColor;
         var i = 0;
-        for (var pupselY = 0; pupselY < (this.buffer.height - this.pupselSize); pupselY += this.pupselSize) {
-            for (var pupselX = 0; pupselX < (this.buffer.width - this.pupselSize); pupselX += this.pupselSize) {
+        for (var pupselY = 0; pupselY <= (this.buffer.height); pupselY += this.pupselSize) {
+            for (var pupselX = 0; pupselX <= (this.buffer.width); pupselX += this.pupselSize) {
 
-                this.center = createVector(pupselX + this.pupselSize / 2, pupselY + this.pupselSize / 2);
+                // this.center = createVector(pupselX + this.pupselSize / 2, pupselY + this.pupselSize / 2);
 
                 // transparent
                 // pupselColor = color('#4c539600');
@@ -89,7 +92,9 @@ class PopselTexture {
                 this.createBrushTiles(pupselX, pupselY, pupselColor);
 
                 i += 1;
+                // break;
             }
+            // break;
         }
 
     }
@@ -166,25 +171,24 @@ class PopselTexture {
         if (this.sprites[colorString] === undefined) {
             var spritesColor = []
             for (var sp = 0; sp < this.spriteCount; sp++) {
-                spritesColor.push(this.createPupselSprite(colorString, this.pupselSize));
+                spritesColor.push(this.createPupselSprite(colorString));
             }
             this.sprites[colorString] = spritesColor;
         }
 
+        // console.log("x:" + x + " y:" + y);
+
         push();
         sprite = getRandomFromList(this.sprites[colorString])
-        imageMode(CENTER);
+        this.buffer.imageMode(CENTER)
         // this.buffer.image(sprite, x - sprite.width / 2, y - sprite.height / 2); 
-        // this.buffer.image(sprite, x, y);
         this.buffer.image(sprite, x, y);
         pop();
-        // console.log(i + ": " + x + "," + y);
     }
 
-    createPupselSprite(colorObject, pupselSize) {
+    createPupselSprite(colorObject) {
 
-        var buffer = createGraphics(this.brushSize * 2, this.brushSize * 2);
-        // let buffer = createGraphics(pupselSize, pupselSize);
+        let buffer = createGraphics(this.brushSize * 2, this.brushSize * 2);
 
         for (var i = 0; i < this.brushNumber; i++) {
 
