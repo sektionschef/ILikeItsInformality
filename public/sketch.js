@@ -1,9 +1,9 @@
 const NOISESEED = hashFnv32a(fxhash);
 // console.log("Noise seed: " + NOISESEED);
 
-// let RESOLUTION = 300; // how many dots per dominantside length, 200 - 700, 800 top
+// let RESOLUTION = 100; // how many dots per dominantside length, 200 - 700, 800 top
 let BRUSHSIZE = 0.006;  // 0.01, 0.006, 0.005, 0.003, 0.001
-let TRIANGLECOUNT = 20; // 300, 400 cool - 1200 for full bodies
+let TRIANGLECOUNT = 300; // 300, 400 cool - 1200 for full bodies
 let GEARBUFFERCOUNT = 20;
 
 let canvas;
@@ -110,13 +110,13 @@ function setup() {
     canvas.parent("canvasHolderPlain");
   }
 
-  // triangleSystem = new TriangleSystem();
+  triangleSystem = new TriangleSystem();
 
   // TEXTURE EXAMPLE
-  textureEx = new PopselTexture({
-    "color": color(150),
-    "coords": [[0, 0], [width, 0], [width, height], [0, height]]
-  });
+  // textureEx = new PopselTexture({
+  //   "color": color(150),
+  //   "coords": [[0, 0], [width, 0], [width, height], [0, height]]
+  // });
 
   // LINES EXAMPLE
   // STROKE_SIZE = 1;
@@ -143,16 +143,10 @@ function draw() {
   }
 
   background(PALETTE.background);
-  image(textureEx.buffer, 0, 0);
-
+  // image(textureEx.buffer, 0, 0);
   // image(linesEx.buffer, 0, 0);
-  // triangleSystem.show();
 
-
-  // image(triangles.buffer, 0, 0);
-  // image(pupselGrid.buffer, 0, 0);
-
-  // triangles.debug();
+  triangleSystem.show();
 
   if (frameCount == 20) {
     // if (gridly_background.done == true) {

@@ -1,6 +1,7 @@
 class PopselTexture {
 
     constructor(shape) {
+        // this.pupselNumber = RESOLUTION;
         this.pupselNumber = getRandomFromList([400, 300, 200]); // RESOLUTION; 
         this.brushNumber = 15;
         this.brushSize = DOMINANTSIDE * BRUSHSIZE;
@@ -28,7 +29,7 @@ class PopselTexture {
         // DEBUG - show buffer edges
         // this.buffer.rect(0, 0, width, height);
 
-        // this.drawShape();
+        this.drawShape();
 
         var pupselColor;
         var i = 0;
@@ -71,8 +72,8 @@ class PopselTexture {
                     pupselY,
                     0,
                     this.buffer.height,
-                    -50,
-                    50
+                    -10,
+                    10
                 ));
 
                 // DISTORT Color
@@ -105,15 +106,18 @@ class PopselTexture {
 
         // fill polygon!!
         this.bufferShape.push();
-        this.bufferShape.drawingContext.filter = 'blur(12px)';  // `blur(${this.blur * blurFeature}px)`
+        this.bufferShape.drawingContext.filter = 'blur(10px)';  // `blur(${this.blur * blurFeature}px)`
+
         // this.bufferShape.blendMode(BURN);
-        // this.bufferShape.stroke("#323232");
-        // this.bufferShape.strokeWeight(3);
-        this.bufferShape.noStroke();
-        // this.bufferShape.fill(shape.color);
-        // this.bufferShape.fill(color(red(shape.color), green(shape.color), blue(shape.color), 100));
+        this.bufferShape.stroke("#323232");
+        this.bufferShape.strokeWeight(8);
+        this.bufferShape.noFill();
+
+        // this.bufferShape.noStroke();
+        // this.bufferShape.fill(this.shape.color);
+        // this.bufferShape.fill(color(red(this.shape.color), green(this.shape.color), blue(this.shape.color), 100));
         // this.bufferShape.fill("#2525257c");
-        this.bufferShape.fill(color(red(this.shape.color) - 100, green(this.shape.color) - 100, blue(this.shape.color) - 100, 180));
+        // this.bufferShape.fill(color(red(this.shape.color) - 100, green(this.shape.color) - 100, blue(this.shape.color) - 100, 180));
 
         this.bufferShape.beginShape();
         this.bufferShape.vertex(this.shape.A.x, this.shape.A.y);

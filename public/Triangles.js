@@ -280,7 +280,8 @@ class TriangleSystem {
             imageMode(CENTER);
             triangleSystem.bufferRotations[i] += triangleSystem.bufferRotationSpeed[i];
             // FUZZY CENTER
-            translate(width / 2, height / 2);
+            // translate(width / 2, height / 2);
+            translate(this.totalCenter.x, this.totalCenter.y);
             rotate(triangleSystem.bufferRotations[i]);
             image(triangleSystem.buffers[i], 0, 0);
             pop();
