@@ -24,9 +24,9 @@ class Triangle {
 
         this.buffer = createGraphics(DOMINANTSIDE * this.maxLength, DOMINANTSIDE * this.maxLength);
 
-        if (fxrand() < 0.3) {
-            this.pattern = true;
-        }
+        // if (fxrand() < 0.3) {
+        this.pattern = true;
+        // }
 
         this.lengthB = DOMINANTSIDE * getRandomFromInterval(this.minLength, this.maxLength);  // 0.1 -0.3
         this.lengthC = DOMINANTSIDE * getRandomFromInterval(this.minLength, this.maxLength); // 0.1 -0.3
@@ -311,7 +311,7 @@ class TriangleSystem {
                 if (this.triangles[i].pattern) {
                     // console.log("ioad")
                     if (v % 3 == 0) {
-                        colorDyn = color('#424242');
+                        // colorDyn = color('#424242');
                     }
                 }
 

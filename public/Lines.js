@@ -113,6 +113,7 @@ class Lines {
 
         // let chosen_axis = getRandomFromList(["x", "y", "xy", "yx", "blank"])
         let chosen_axis = getRandomFromList(["x", "y", "xy", "yx"])
+        // console.log("chosen axis: " + chosen_axis);
 
         if (chosen_axis == "x") {
             this.count_lines = ((this.y_stop - this.y_start) - 2 * this.padding_y) / this.distance_between_lines;

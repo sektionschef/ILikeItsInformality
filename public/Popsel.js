@@ -9,12 +9,13 @@ class PopselTexture {
         this.lowDist = 3;
         this.medDist = 6;
         this.highDist = 12;
+        this.spriteCount = 7;
 
         this.shape = shape;
         this.pupselSize = DOMINANTSIDE / this.pupselNumber;
         this.pupselColors = PALETTE.pixelColors;
 
-        this.pattern = getRandomFromList([true, false, false, false]);
+        this.pattern = getRandomFromList([0, 0, 3, 7]);
 
         this.pupsels = [];
         this.sprites = {};
@@ -52,11 +53,9 @@ class PopselTexture {
                 // }
 
 
-                // stripes
-                if (this.pattern) {
-                    // if (i % 3 == 0) {  // vertical
-                    if (i % 7 == 0) {  // diagnoal
-                        // pupselColor = color('#161616');
+                // HATCHES
+                if (this.pattern > 0) {
+                    if (i % this.pattern == 0) {  // vertical
                         pupselColor = color(red(pupselColor) - 80, green(pupselColor) - 80, blue(pupselColor) - 80);
                     }
                 }
@@ -166,7 +165,7 @@ class PopselTexture {
         // create it if it isn't there yet
         if (this.sprites[colorString] === undefined) {
             var spritesColor = []
-            for (var sp = 0; sp < 5; sp++) {
+            for (var sp = 0; sp < this.spriteCount; sp++) {
                 spritesColor.push(this.createPupselSprite(colorString, this.pupselSize));
             }
             this.sprites[colorString] = spritesColor;

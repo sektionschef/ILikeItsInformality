@@ -2,8 +2,8 @@ const NOISESEED = hashFnv32a(fxhash);
 // console.log("Noise seed: " + NOISESEED);
 
 // let RESOLUTION = 300; // how many dots per dominantside length, 200 - 700, 800 top
-let BRUSHSIZE = 0.006;  // 0.01, 0.005, 0.003, 0.001
-let TRIANGLECOUNT = 300; // 400 cool - 1200, 3555 top
+let BRUSHSIZE = 0.006;  // 0.01, 0.006, 0.005, 0.003, 0.001
+let TRIANGLECOUNT = 20; // 300, 400 cool - 1200 for full bodies
 let GEARBUFFERCOUNT = 20;
 
 let canvas;
@@ -110,22 +110,26 @@ function setup() {
     canvas.parent("canvasHolderPlain");
   }
 
-  triangleSystem = new TriangleSystem();
+  // triangleSystem = new TriangleSystem();
 
   // TEXTURE EXAMPLE
-  // textureEx = new PopselTexture("");
+  textureEx = new PopselTexture({
+    "color": color(150),
+    "coords": [[0, 0], [width, 0], [width, height], [0, height]]
+  });
 
-  STROKE_SIZE = 1;
-  STROKE_COLOR = color("black");
-  STROKE_NOISE = 0
-  STROKE_NOISE_2 = 0
-  STROKE_DISTORT = 0
-  SCALING_FACTOR = 1;
-  linesEx = new Lines(0, 0, width, height, 0, 0, DOMINANTSIDE * 0.01);
+  // LINES EXAMPLE
+  // STROKE_SIZE = 1;
+  // STROKE_COLOR = color("black");
+  // STROKE_NOISE = 0
+  // STROKE_NOISE_2 = 0
+  // STROKE_DISTORT = 0
+  // SCALING_FACTOR = 1;
+  // linesEx = new Lines(0, 0, width, height, 0, 0, DOMINANTSIDE * 0.01);
 
-  for (var i = 0; i < 5000; i++) {
-    linesEx.show();
-  }
+  // for (var i = 0; i < 5000; i++) {
+  //   linesEx.show();
+  // }
 
 }
 
@@ -139,10 +143,10 @@ function draw() {
   }
 
   background(PALETTE.background);
-  // image(textureEx.buffer, 0, 0);
+  image(textureEx.buffer, 0, 0);
 
-  image(linesEx.buffer, 0, 0);
-  triangleSystem.show();
+  // image(linesEx.buffer, 0, 0);
+  // triangleSystem.show();
 
 
   // image(triangles.buffer, 0, 0);
