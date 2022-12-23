@@ -10,6 +10,7 @@ let canvas;
 let rescaling_width;
 let rescaling_height;
 
+let backgroundTexture;
 
 let ANIMATIONSTATE = true;
 let PALETTE;
@@ -110,7 +111,7 @@ function setup() {
     canvas.parent("canvasHolderPlain");
   }
 
-  triangleSystem = new TriangleSystem();
+  // triangleSystem = new TriangleSystem();
 
   // TEXTURE EXAMPLE
   // textureEx = new PopselTexture({
@@ -124,15 +125,29 @@ function setup() {
   // LINES EXAMPLE
   // STROKE_SIZE = 1;
   // STROKE_COLOR = color("black");
-  // STROKE_NOISE = 0
-  // STROKE_NOISE_2 = 0
-  // STROKE_DISTORT = 0
+  // STROKE_NOISE = 0;
+  // STROKE_NOISE_2 = 0;
+  // STROKE_DISTORT = 0;
   // SCALING_FACTOR = 1;
   // linesEx = new Lines(0, 0, width, height, 0, 0, DOMINANTSIDE * 0.01);
 
-  // for (var i = 0; i < 5000; i++) {
-  //   linesEx.show();
+  // for (var i = 0; i < 4000; i++) {
+  // // while (linesEx.all_lines_complete == false) {
+  // linesEx.show();
   // }
+
+  backgroundTexture = createGraphics(width, height);
+  var stepSize = DOMINANTSIDE * 0.003;
+  for (var y = 0; y <= height; y += stepSize) {
+    for (var x = 0; x <= width; x += stepSize) {
+
+      backgroundTexture.fill(distortColorSuperNew(PALETTE.background, 5))
+      // backgroundTexture.noFill();
+      backgroundTexture.strokeWeight(DOMINANTSIDE * 0.0005);
+      backgroundTexture.stroke(distortColorSuperNew(PALETTE.background, 10));
+      backgroundTexture.rect(x, y, stepSize, stepSize);
+    }
+  }
 
 }
 
@@ -146,10 +161,12 @@ function draw() {
   }
 
   background(PALETTE.background);
+  image(backgroundTexture, 0, 0);
   // image(textureEx.buffer, 0, 0);
   // image(linesEx.buffer, 0, 0);
 
-  triangleSystem.show();
+
+  // triangleSystem.show();
 
   if (frameCount == 20) {
     // if (gridly_background.done == true) {
