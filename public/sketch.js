@@ -1,8 +1,15 @@
 const NOISESEED = hashFnv32a(fxhash);
 // console.log("Noise seed: " + NOISESEED);
 
-// let RESOLUTION = 100; // how many dots per dominantside length, 200 - 700, 800 top
-let BRUSHSIZE = 0.006;  // 0.01, 0.006, 0.005, 0.003, 0.001
+let PROFILES = {
+  Resolution: 600,
+  Brushsize: 0.001,
+  TRIANGLECOUNT: 200,
+  GEARBUFFERCOUNT: 20,
+}
+
+let RESOLUTION = 600; // how many dots per dominantside length, 200 - 700, 800 top
+let BRUSHSIZE = 0.001;  // 0.01, 0.006, 0.005, 0.003, 0.001
 let TRIANGLECOUNT = 200; // 300, 400 cool - 1200 for full bodies
 let GEARBUFFERCOUNT = 20;
 
@@ -111,7 +118,7 @@ function setup() {
     canvas.parent("canvasHolderPlain");
   }
 
-  // triangleSystem = new TriangleSystem();
+  triangleSystem = new TriangleSystem();
 
   // TEXTURE EXAMPLE
   // textureEx = new PopselTexture({
@@ -166,7 +173,7 @@ function draw() {
   // image(linesEx.buffer, 0, 0);
 
 
-  // triangleSystem.show();
+  triangleSystem.show();
 
   if (frameCount == 20) {
     // if (gridly_background.done == true) {

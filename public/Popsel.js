@@ -1,8 +1,8 @@
 class PopselTexture {
 
     constructor(shape) {
-        // this.pupselNumber = RESOLUTION;
-        this.pupselNumber = getRandomFromList([400, 300, 200]); // RESOLUTION; 
+        this.pupselNumber = RESOLUTION;
+        // this.pupselNumber = getRandomFromList([400, 300, 200]); // RESOLUTION; 
         this.brushNumber = 15;
         this.brushSize = DOMINANTSIDE * BRUSHSIZE;
         this.brushStrokeWeight = 1; // 1, 2
