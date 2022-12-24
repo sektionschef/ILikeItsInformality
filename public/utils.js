@@ -348,6 +348,12 @@ function setTagsHTML() {
     document.querySelector('meta[property="og:description"]').setAttribute("content", DESCRIPTION);
 }
 
+function setSpotHTML() {
+    const fullscreenDiv = document.createElement("div");
+    fullscreenDiv.setAttribute("id", "fullscreen");
+    document.body.insertBefore(fullscreenDiv, document.getElementById("Konkas"));
+}
+
 function getSteep(A1, A2) {
     var k = (A1.y - A2.y) / (A1.x - A2.x);
     // console.log(k);

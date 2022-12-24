@@ -2,14 +2,20 @@ const NOISESEED = hashFnv32a(fxhash);
 // console.log("Noise seed: " + NOISESEED);
 
 let PROFILES = {
+  title: "fine",
   Resolution: 600,
   Brushsize: 0.001,
+  TRIANGLECOUNT: 200,
+  GEARBUFFERCOUNT: 20,
+  title: "furry",
+  Resolution: 600,
+  Brushsize: 0.01,
   TRIANGLECOUNT: 200,
   GEARBUFFERCOUNT: 20,
 }
 
 let RESOLUTION = 600; // how many dots per dominantside length, 200 - 700, 800 top
-let BRUSHSIZE = 0.001;  // 0.01, 0.006, 0.005, 0.003, 0.001
+let BRUSHSIZE = 0.01;  // 0.01, 0.006, 0.005, 0.003, 0.001
 let TRIANGLECOUNT = 200; // 300, 400 cool - 1200 for full bodies
 let GEARBUFFERCOUNT = 20;
 
@@ -19,7 +25,7 @@ let rescaling_height;
 
 let backgroundTexture;
 
-let ANIMATIONSTATE = true;
+let ANIMATIONSTATE = false;
 let PALETTE;
 let PALETTE_LABEL;
 let ALLDONE = false;
@@ -29,6 +35,7 @@ let MARGIN;  // ??
 let RESCALINGCONSTANT = 800;  // the width the painting was designed in
 let FRAMEDWIDTH = 800;
 let FRAMED = false;
+let SPOT = false;
 
 let TITLE = "I like its informality";
 let ARTIST = "Stefan Schwaha, @sektionschef";
@@ -86,9 +93,23 @@ function preload() {
     }
   }
 
+  if (urlParams.has('spot')) {
+    if (urlParams.get("spot") === "true") {
+      SPOT = true;
+    }
+  }
+
+  if (urlParams.has('animated')) {
+    if (urlParams.get("animated") === "true") {
+      ANIMATIONSTATE = true;
+    }
+  }
+
   if (FRAMED) {
     setFrameHTML();
     setLabelHTML();
+  } else if (SPOT) {
+    setSpotHTML();
   } else {
     setPlainHTML();
   }
@@ -114,6 +135,8 @@ function setup() {
   canvas.id('badAssCanvas');
   if (FRAMED) {
     canvas.parent("canvasHolderFrame");
+  } else if (SPOT) {
+    canvas.parent("fullscreen");
   } else {
     canvas.parent("canvasHolderPlain");
   }
@@ -156,6 +179,8 @@ function setup() {
     }
   }
 
+
+
 }
 
 
@@ -164,35 +189,24 @@ function draw() {
   if (frameCount == 1) {
     pixelDensity(CURRENTPIXELDENS);
 
+    showArt();
+    fxpreview();
     // background(170);
   }
 
-  background(PALETTE.background);
-  image(backgroundTexture, 0, 0);
+  if (ANIMATIONSTATE) {
+    showArt();
+  }
   // image(textureEx.buffer, 0, 0);
   // image(linesEx.buffer, 0, 0);
-
-
-  triangleSystem.show();
-
-  if (frameCount == 20) {
-    // if (gridly_background.done == true) {
-    // ALLDONE = true;
-    // }
-  }
-
-  // show line sunnybunny
-  // line(sunnybunny.coordsList[0][0], sunnybunny.coordsList[0][1], sunnybunny.coordsList[1][0], sunnybunny.coordsList[1][1])
-
-  if (ALLDONE == true) {
-    console.log("All done");
-    noLoop();
-    fxpreview();
-    console.warn(Math.round(fxrand() * 1000) / 1000);
-  }
 
 }
 
 function mousePressed() {
 }
 
+function showArt() {
+  background(PALETTE.background);
+  image(backgroundTexture, 0, 0);
+  triangleSystem.show();
+}
