@@ -47,6 +47,7 @@ class Triangle {
         this.radius = p5.Vector.dist(this.totalCenter, this.pos);
         this.angleTotalCenter = p5.Vector.sub(this.totalCenter, this.pos).heading();
         this.angleDyn = this.angleTotalCenter;
+        // this.angleDyn = 0;
 
         this.A = createVector(
             this.buffer.width / 2,

@@ -17,8 +17,8 @@ let PROFILES = {
 }
 
 let RESOLUTION = 500; // how many dots per dominantside length, 200 - 700, 800 top
-let BRUSHSIZE = 0.006;  // 0.01, 0.006, 0.005, 0.003, 0.001
-let TRIANGLECOUNT = 200; // 300, 400 cool - 1200 for full bodies
+let BRUSHSIZE = 0.003;  // 0.01, 0.006, 0.005, 0.003, 0.001
+let TRIANGLECOUNT = 200; // 200 - enough, 300, 400 cool - 1200 for full bodies
 let GEARBUFFERCOUNT = 20;
 
 let canvas;
@@ -53,22 +53,15 @@ let CURRENTPIXELDENS = 1;
 
 
 const PALETTESYSTEM = {
-  // "Boom": {
-  //   "background": "#aaaaaa",
-  //   "pixelColors": ["#303030", "#606060", "#909090", "#bbbbbb", "#eeeeee"],
+  // "by the power of greyscale": {
+  //   "background": "#858585",
+  //   "pixelColors": ["#303030", "#5c5c5c", "#adadad", "#eeeeee"],
   // },
-  // "Fillitz": {
-  //   // "background": "#ffffff",
-  //   "pixelColors": ["#ffffff", "#cfcfcf", "#d6d6d6", "#c4c4c4", "#b3b3b3"],
-  // },
-  // "Color": {
-  //   // "background": "#aaaaaa",
-  //   "pixelColors": ["#ffe58e", "#dabd3c", "#896e8f", "#9b69a0", "#3f1241"],
-  // },
-  "ok": {
-    "background": "#cfcfcf",
-    "pixelColors": ["#303030", "#5c5c5c", "#adadad", "#eeeeee"],
+  "the admiral": {
+    "background": "#a3b2c4",
+    "pixelColors": ["#0A2647", "#1a4572", "#2a69bb", "#3fa5fd"],
   },
+
 }
 
 choosePalette();
@@ -156,8 +149,8 @@ function setup() {
 
   // LINES EXAMPLE
   STROKE_SIZE = 1;
-  // STROKE_COLOR = color("black");
-  STROKE_COLOR = color(PALETTE.background);
+  STROKE_COLOR = color("#555555");
+  STROKE_COLOR = color(red(color(PALETTE.background)) - 50, green(color(PALETTE.background)) - 50, blue(color(PALETTE.background)) - 50);
   STROKE_NOISE = 0;
   STROKE_NOISE_2 = 0;
   STROKE_DISTORT = 0;

@@ -65,9 +65,9 @@ class PopselTexture {
                     // if (i % this.pattern == 0 || (i - 1) % this.pattern == 0) {
                     if (i % this.pattern == 0) {
                         if (brightness(pupselColor) > 50) {
-                            colorboost = -80;
+                            colorboost = -50;
                         } else {
-                            colorboost = 80
+                            colorboost = 50
                         }
                         pupselColor = color(red(pupselColor) + colorboost, green(pupselColor) + colorboost, blue(pupselColor) + colorboost);
                     }
@@ -77,13 +77,13 @@ class PopselTexture {
                 // pupselColor = distortColorSuperNew(pupselColor, 30);
 
                 // GRADIENT
-                pupselColor = brightenSuperNew(pupselColor, map(
-                    pupselY,
-                    0,
-                    this.buffer.height,
-                    -10,
-                    10
-                ));
+                // pupselColor = brightenSuperNew(pupselColor, map(
+                //     pupselY,
+                //     0,
+                //     this.buffer.height,
+                //     -150, // -10
+                //     150  // 10
+                // ));
 
                 // DISTORT Color
                 // pupselColor = getRandomFromList([
@@ -106,15 +106,34 @@ class PopselTexture {
             // break;
         }
 
+        // this.buffer.push();
+        // this.buffer.blendMode(OVERLAY);
+        // this.buffer.noStroke();
+        // this.buffer.fill("#ffa0f7");
+        // for (var i = 0; i < 3; i++) {
+        //     this.buffer.triangle(
+        //         this.shape.A.x, this.shape.A.y,
+        //         this.shape.B.x, this.shape.B.y,
+        //         this.shape.C.x, this.shape.C.y,
+        //         // getRandomFromInterval(this.shape.A.x, this.shape.B.x), getRandomFromInterval(this.shape.A.y, this.shape.B.y),
+        //         // getRandomFromInterval(this.shape.B.x, this.shape.C.x), getRandomFromInterval(this.shape.B.y, this.shape.C.y),
+        //         // getRandomFromInterval(this.shape.C.x, this.shape.A.x), getRandomFromInterval(this.shape.C.y, this.shape.A.y),
+        //     );
+        // }
+        // this.buffer.pop();
     }
 
 
     drawShape() {
+
+        this.strokeWeight = 2 // 8, 18;
+        this.blurSize = 2 // 10, 20;
+
         this.bufferShape = createGraphics(this.buffer.width, this.buffer.height);
 
         // fill polygon!!
         this.bufferShape.push();
-        this.bufferShape.drawingContext.filter = 'blur(10px)';  // `blur(${this.blur * blurFeature}px)`  // 20
+        this.bufferShape.drawingContext.filter = `blur(${this.blurSize}px)` //- 'blur(10px)'
 
         // this.bufferShape.blendMode(BURN);
         // this.bufferShape.stroke("#323232");
@@ -124,12 +143,12 @@ class PopselTexture {
             this.strokeColor = color(red(this.shape.color) + 100, green(this.shape.color) + 100, blue(this.shape.color) + 100);
         }
         this.bufferShape.stroke(this.strokeColor);
-        this.bufferShape.strokeWeight(8); // 18
+        this.bufferShape.strokeWeight(this.strokeWeight); // 18
         this.bufferShape.noFill();
 
         // this.bufferShape.noStroke();
-        this.bufferShape.fill(this.shape.color);
-        // this.bufferShape.fill(color(red(this.shape.color), green(this.shape.color), blue(this.shape.color), 100));
+        // this.bufferShape.fill(this.shape.color);
+        this.bufferShape.fill(color(red(this.shape.color), green(this.shape.color), blue(this.shape.color), 150));
         // this.bufferShape.fill("#2525257c");
         // this.bufferShape.fill(color(red(this.shape.color) - 100, green(this.shape.color) - 100, blue(this.shape.color) - 100, 180));
 
