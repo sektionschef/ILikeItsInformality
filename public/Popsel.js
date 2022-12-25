@@ -7,9 +7,9 @@ class PopselTexture {
         this.brushSize = DOMINANTSIDE * BRUSHSIZE;
         this.brushStrokeWeight = 1; // 1, 2
 
-        this.lowDist = 3;
-        this.medDist = 6;
-        this.highDist = 12;
+        this.lowDist = 10;
+        this.medDist = 20;
+        this.highDist = 30;
         this.spriteCount = 10;
 
         this.shape = shape;
@@ -77,13 +77,13 @@ class PopselTexture {
                 // pupselColor = distortColorSuperNew(pupselColor, 30);
 
                 // GRADIENT
-                // pupselColor = brightenSuperNew(pupselColor, map(
-                //     pupselY,
-                //     0,
-                //     this.buffer.height,
-                //     -150, // -10
-                //     150  // 10
-                // ));
+                pupselColor = brightenSuperNew(pupselColor, map(
+                    pupselX,
+                    0,
+                    this.buffer.width,
+                    -100, // -10
+                    100  // 10
+                ));
 
                 // DISTORT Color
                 // pupselColor = getRandomFromList([
@@ -97,9 +97,13 @@ class PopselTexture {
                 // ]);
 
 
-                // this.showPoints(pupselX, pupselY, pupselColor);
-                // this.showBrushStrokes(pupselX, pupselY, pupselColor);
-                this.createBrushTiles(pupselX, pupselY, pupselColor);
+                if (fxrand() > 0.5) {
+                    this.showPoints(pupselX, pupselY, pupselColor);
+                    // this.showBrushStrokes(pupselX, pupselY, pupselColor);
+                } else {
+
+                    this.createBrushTiles(pupselX, pupselY, pupselColor);
+                }
 
                 // break;
             }
@@ -126,14 +130,14 @@ class PopselTexture {
 
     drawShape() {
 
-        this.strokeWeight = 2 // 8, 18;
-        this.blurSize = 2 // 10, 20;
+        this.strokeWeight = 1 // 8, 18;
+        // this.blurSize = 4 // 10, 20;
 
         this.bufferShape = createGraphics(this.buffer.width, this.buffer.height);
 
         // fill polygon!!
         this.bufferShape.push();
-        this.bufferShape.drawingContext.filter = `blur(${this.blurSize}px)` //- 'blur(10px)'
+        // this.bufferShape.drawingContext.filter = `blur(${this.blurSize}px)` //- 'blur(10px)'
 
         // this.bufferShape.blendMode(BURN);
         // this.bufferShape.stroke("#323232");
@@ -163,13 +167,13 @@ class PopselTexture {
 
     }
 
-    // showPoints(x, y, colorObject) {
-    //     this.buffer.push();
-    //     this.buffer.stroke(colorObject);
-    //     this.buffer.strokeWeight(20);
-    //     this.buffer.point(x, y);
-    //     this.buffer.pop();
-    // }
+    showPoints(x, y, colorObject) {
+        this.buffer.push();
+        this.buffer.stroke(colorObject);
+        this.buffer.strokeWeight(10);
+        this.buffer.point(x, y);
+        this.buffer.pop();
+    }
 
 
     // showBrushStrokes(x, y, colorObject) {
