@@ -1,6 +1,6 @@
 class Brush {
-    constructor(start, end, colorObject, category) {
-        // this.buffer = buffer;
+    constructor(start, end, colorObject, category, buffer) {
+        this.buffer = buffer;
         this.fullspeed = 5; // BRUSHFULLSPEED // 2-5;
         this.opacityLevel = 30;
         this.radiusMin = 0.003 * DOMINANTSIDE; // BRUSHSIZEMIN; // 1;
@@ -216,19 +216,13 @@ class Brush {
 
             this.savePath();
 
-            if (pointInPolygon(sunny.coordsList, [this.pos.x, this.pos.y])) {
-                this.strokeColorTemp = highlightColor(this.strokeColor, 80);
-            } else {
-                this.strokeColorTemp = this.strokeColor;
-            }
-
         }
 
     }
 
     show() {
 
-
+        let MODE = 1
         if (MODE >= 5) {
             // scalar
             push();
@@ -302,24 +296,26 @@ class Brush {
         if (this.alive) {
 
             for (var i = 0; i < this.elements.length; i++) {
-                paintBroBuffer.push();
+                this.buffer.push();
                 // brushBuffer.translate(-width / 2, -height / 2);
                 // console.log(this.elements);
-                paintBroBuffer.strokeWeight(this.strokeSize);
-                // paintBroBuffer.stroke(distortColorNew(this.strokeColor, this.strokeColorDistort, false))
-                paintBroBuffer.stroke(distortColorNew(this.strokeColorTemp, this.strokeColorDistort, false))
-                // paintBroBuffer.noFill();
-                paintBroBuffer.fill(this.strokeColorTemp);
+                this.buffer.strokeWeight(this.strokeSize);
+                // this.buffer.stroke(distortColorNew(this.strokeColor, this.strokeColorDistort, false))
+                // this.buffer.stroke(distortColorNew(this.strokeColorTemp, this.strokeColorDistort, false))
+                this.buffer.stroke("black");
+                // this.buffer.noFill();
+                // this.buffer.fill(this.strokeColorTemp);
+                this.buffer.fill(color("pink"));
                 if (this.brushShape == "Line") {
-                    paintBroBuffer.line(this.elements[i].posX, this.elements[i].posY, this.elements[i].posBX, this.elements[i].posBY);
+                    this.buffer.line(this.elements[i].posX, this.elements[i].posY, this.elements[i].posBX, this.elements[i].posBY);
                 } else if (this.brushShape == "Ellipse") {
-                    paintBroBuffer.ellipse(this.elements[i].posX, this.elements[i].posY, this.elements[i].width, this.elements[i].height);
+                    this.buffer.ellipse(this.elements[i].posX, this.elements[i].posY, this.elements[i].width, this.elements[i].height);
                 } else if (this.brushShape == "Triangle") {
-                    paintBroBuffer.triangle(this.elements[i].posX, this.elements[i].posY, this.elements[i].posBX, this.elements[i].posBY, this.elements[i].posCX, this.elements[i].posCY);
+                    this.buffer.triangle(this.elements[i].posX, this.elements[i].posY, this.elements[i].posBX, this.elements[i].posBY, this.elements[i].posCX, this.elements[i].posCY);
                 } else {
                     console.warn("No brush shape specified, oida!")
                 }
-                paintBroBuffer.pop();
+                this.buffer.pop();
             }
         }
     }
@@ -330,6 +326,7 @@ class Brush {
 class BrushSystem {
     constructor() {
         this.brushes = [];
+        this.buffer = createGraphics(width, height);
     }
 
     add(brush) {
