@@ -3,9 +3,9 @@ class PopselTexture {
     constructor(shape) {
         // this.pupselNumber = RESOLUTION;
         this.pupselNumber = getRandomFromList([400, 300, 200]); // RESOLUTION; 
-        BRUSHSIZE = getRandomFromList([0.01, 0.008, 0.006, 0.005, 0.003]);
         this.brushNumber = 15;
-        this.brushSize = DOMINANTSIDE * BRUSHSIZE;
+        // this.brushSize = DOMINANTSIDE * BRUSHSIZE;
+        this.brushSize = shape.brushSize;
         this.brushStrokeWeight = 1; // 1, 2
 
         this.lowDist = 10;
@@ -30,7 +30,11 @@ class PopselTexture {
         // DEBUG - show buffer edges
         // this.buffer.rect(0, 0, width, height);
 
-        this.drawShape();
+        if (this.shape.points) {
+
+        } else {
+            this.drawShape();
+        }
 
         let colorboost;
         var pupselColor;
@@ -80,10 +84,10 @@ class PopselTexture {
                 // GRADIENT
                 pupselColor = brightenSuperNew(pupselColor, map(
                     pupselX,
-                    0,
-                    this.buffer.width,
-                    -100, // -10
-                    100  // 10
+                    this.shape.B.x,
+                    this.shape.C.x,
+                    -25, // -10
+                    25  // 10
                 ));
 
                 // DISTORT Color
@@ -98,11 +102,10 @@ class PopselTexture {
                 // ]);
 
 
-                if (fxrand() > 0.5) {
+                if (this.shape.points) {
                     this.showPoints(pupselX, pupselY, pupselColor);
                     // this.showBrushStrokes(pupselX, pupselY, pupselColor);
                 } else {
-
                     this.createBrushTiles(pupselX, pupselY, pupselColor);
                 }
 
@@ -132,7 +135,7 @@ class PopselTexture {
     drawShape() {
 
         this.strokeWeight = 1 // 8, 18;
-        this.blurSize = 1 // 10, 20;
+        this.blurSize = 2 // 10, 20;
 
         this.bufferShape = createGraphics(this.buffer.width, this.buffer.height);
 
@@ -171,7 +174,7 @@ class PopselTexture {
     showPoints(x, y, colorObject) {
         this.buffer.push();
         this.buffer.stroke(colorObject);
-        this.buffer.strokeWeight(10);
+        this.buffer.strokeWeight(5);
         this.buffer.point(x, y);
         this.buffer.pop();
     }

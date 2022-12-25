@@ -19,7 +19,7 @@ let PROFILES = {
 let RESOLUTION = 500; // how many dots per dominantside length, 200 - 700, 800 top
 let BRUSHSIZE;
 // let BRUSHSIZE = 0.007;  // 0.01, 0.006, 0.005, 0.003, 0.001
-let TRIANGLECOUNT = 100; // 200 - enough, 300, 400 cool - 1200 for full bodies
+let TRIANGLECOUNT = 200; // 200 - enough, 300, 400 cool - 1200 for full bodies
 let GEARBUFFERCOUNT = 20;
 
 let startTime, endTime;
@@ -55,10 +55,12 @@ let CURRENTPIXELDENS = 1;
 
 
 const PALETTESYSTEM = {
-  // "by the power of greyscale": {
-  //   "background": "#858585",
-  //   "pixelColors": ["#303030", "#5c5c5c", "#adadad", "#eeeeee"],
-  // },
+  "by the power of greyscale": {
+    // "background": "#858585",
+    // "pixelColors": ["#303030", "#5c5c5c", "#adadad", "#eeeeee"],
+    "background": "#adadad",
+    "pixelColors": ["#303030", "#6b6b6b", "#eeeeee"],
+  },
   // "the admiral": {
   //   "background": "#a3b2c4",
   //   "pixelColors": ["#16202b", "#0f447c", "#5a84bb", "#91c6f5"],
@@ -67,10 +69,10 @@ const PALETTESYSTEM = {
   //   "background": "#96a1b3ff",
   //   "pixelColors": ["#242f40ff", "#cca43bff", "#7e7e7eff", "#ddddddff"],
   // },
-  "jeunesse": {
-    "background": "#c1c2c4ff",
-    "pixelColors": ["#cf773bff", "#279ca0ff", "#242424ff", "#99409cff"],
-  },
+  // "jeunesse": {
+  //   "background": "#c1c2c4ff",
+  //   "pixelColors": ["#cf773bff", "#279ca0ff", "#242424ff", "#99409cff"],
+  // },
 
 }
 
@@ -147,7 +149,7 @@ function setup() {
     canvas.parent("canvasHolderPlain");
   }
 
-  triangleSystem = new TriangleSystem();
+  // triangleSystem = new TriangleSystem();
 
   // TEXTURE EXAMPLE
   // textureEx = new PopselTexture({
@@ -166,7 +168,7 @@ function setup() {
   STROKE_NOISE_2 = 0;
   STROKE_DISTORT = 0;
   SCALING_FACTOR = 1;
-  linesEx = new Lines(0, 0, width, height, 0, 0, DOMINANTSIDE * 0.01);
+  linesEx = new Lines(0, 0, width, height, DOMINANTSIDE * 0.01);
 
   for (var i = 0; i < 4000; i++) {
     // while (linesEx.all_lines_complete == false) {
@@ -218,5 +220,5 @@ function showArt() {
   background(PALETTE.background);
   image(backgroundTexture, 0, 0);
   image(linesEx.buffer, 0, 0);
-  triangleSystem.show();
+  // triangleSystem.show();
 }

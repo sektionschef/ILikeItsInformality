@@ -4,6 +4,13 @@ class Triangle {
         // this.margin = DOMINANTSIDE * 0.1;
         this.maxLength = 0.3;
         this.minLength = 0.1;
+        // this.brushSize = DOMINANTSIDE * getRandomFromList([0.02, 0.01, 0.008, 0.006, 0.005, 0.003]);
+        this.brushSize = DOMINANTSIDE * getRandomFromList([0.008, 0.006, 0.005, 0.003]);
+        if (fxrand() > 0.6) {
+            this.points = true;
+        } else {
+            this.points = false;
+        }
 
         // if (rank < TRIANGLECOUNT / 3) {
         //     this.maxLength = 0.7;
