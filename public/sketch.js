@@ -14,7 +14,7 @@ let PROFILES = {
   GEARBUFFERCOUNT: 20,
 }
 
-let RESOLUTION = 600; // how many dots per dominantside length, 200 - 700, 800 top
+let RESOLUTION = 500; // how many dots per dominantside length, 200 - 700, 800 top
 let BRUSHSIZE = 0.01;  // 0.01, 0.006, 0.005, 0.003, 0.001
 let TRIANGLECOUNT = 200; // 300, 400 cool - 1200 for full bodies
 let GEARBUFFERCOUNT = 20;
@@ -65,7 +65,7 @@ const PALETTESYSTEM = {
   // },
   "ok": {
     "background": "#aaaaaa",
-    "pixelColors": ["#303030", "#909090", "#eeeeee"],
+    "pixelColors": ["#303030", "#5c5c5c", "#adadad", "#eeeeee"],
   },
 }
 
@@ -153,18 +153,18 @@ function setup() {
   // });
 
   // LINES EXAMPLE
-  // STROKE_SIZE = 1;
-  // STROKE_COLOR = color("black");
-  // STROKE_NOISE = 0;
-  // STROKE_NOISE_2 = 0;
-  // STROKE_DISTORT = 0;
-  // SCALING_FACTOR = 1;
-  // linesEx = new Lines(0, 0, width, height, 0, 0, DOMINANTSIDE * 0.01);
+  STROKE_SIZE = 1;
+  STROKE_COLOR = color("black");
+  STROKE_NOISE = 0;
+  STROKE_NOISE_2 = 0;
+  STROKE_DISTORT = 0;
+  SCALING_FACTOR = 1;
+  linesEx = new Lines(0, 0, width, height, 0, 0, DOMINANTSIDE * 0.01);
 
-  // for (var i = 0; i < 4000; i++) {
-  // // while (linesEx.all_lines_complete == false) {
-  // linesEx.show();
-  // }
+  for (var i = 0; i < 4000; i++) {
+    // while (linesEx.all_lines_complete == false) {
+    linesEx.show();
+  }
 
   backgroundTexture = createGraphics(width, height);
   var stepSize = DOMINANTSIDE * 0.003;
@@ -198,7 +198,6 @@ function draw() {
     showArt();
   }
   // image(textureEx.buffer, 0, 0);
-  // image(linesEx.buffer, 0, 0);
 
 }
 
@@ -208,5 +207,6 @@ function mousePressed() {
 function showArt() {
   background(PALETTE.background);
   image(backgroundTexture, 0, 0);
+  image(linesEx.buffer, 0, 0);
   triangleSystem.show();
 }

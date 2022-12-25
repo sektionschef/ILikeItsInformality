@@ -114,11 +114,11 @@ class PopselTexture {
 
         // fill polygon!!
         this.bufferShape.push();
-        this.bufferShape.drawingContext.filter = 'blur(10px)';  // `blur(${this.blur * blurFeature}px)`
+        this.bufferShape.drawingContext.filter = 'blur(10px)';  // `blur(${this.blur * blurFeature}px)`  // 20
 
         // this.bufferShape.blendMode(BURN);
         this.bufferShape.stroke("#323232");
-        this.bufferShape.strokeWeight(8);
+        this.bufferShape.strokeWeight(8); // 18
         this.bufferShape.noFill();
 
         // this.bufferShape.noStroke();

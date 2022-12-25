@@ -112,7 +112,7 @@ class Lines {
         this.all_lines_complete = false;
 
         // let chosen_axis = getRandomFromList(["x", "y", "xy", "yx", "blank"])
-        let chosen_axis = getRandomFromList(["x", "y", "xy", "yx"])
+        let chosen_axis = getRandomFromList(["y", "yx"])
         console.log("chosen axis: " + chosen_axis);
 
         if (chosen_axis == "x") {
