@@ -1,8 +1,8 @@
 class PopselTexture {
 
     constructor(shape) {
-        this.pupselNumber = RESOLUTION;
-        // this.pupselNumber = getRandomFromList([400, 300, 200]); // RESOLUTION; 
+        // this.pupselNumber = RESOLUTION;
+        this.pupselNumber = getRandomFromList([400, 300, 200]); // RESOLUTION; 
         this.brushNumber = 15;
         this.brushSize = DOMINANTSIDE * BRUSHSIZE;
         this.brushStrokeWeight = 1; // 1, 2
@@ -117,12 +117,18 @@ class PopselTexture {
         this.bufferShape.drawingContext.filter = 'blur(10px)';  // `blur(${this.blur * blurFeature}px)`  // 20
 
         // this.bufferShape.blendMode(BURN);
-        this.bufferShape.stroke("#323232");
+        // this.bufferShape.stroke("#323232");
+        if (brightness(this.shape.color) > 50) {
+            this.strokeColor = color(red(this.shape.color) - 100, green(this.shape.color) - 100, blue(this.shape.color) - 100);
+        } else {
+            this.strokeColor = color(red(this.shape.color) + 100, green(this.shape.color) + 100, blue(this.shape.color) + 100);
+        }
+        this.bufferShape.stroke(this.strokeColor);
         this.bufferShape.strokeWeight(8); // 18
         this.bufferShape.noFill();
 
         // this.bufferShape.noStroke();
-        // this.bufferShape.fill(this.shape.color);
+        this.bufferShape.fill(this.shape.color);
         // this.bufferShape.fill(color(red(this.shape.color), green(this.shape.color), blue(this.shape.color), 100));
         // this.bufferShape.fill("#2525257c");
         // this.bufferShape.fill(color(red(this.shape.color) - 100, green(this.shape.color) - 100, blue(this.shape.color) - 100, 180));

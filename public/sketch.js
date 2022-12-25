@@ -1,6 +1,8 @@
 const NOISESEED = hashFnv32a(fxhash);
 // console.log("Noise seed: " + NOISESEED);
 
+// resolution difference
+
 let PROFILES = {
   title: "fine",
   Resolution: 600,
@@ -15,7 +17,7 @@ let PROFILES = {
 }
 
 let RESOLUTION = 500; // how many dots per dominantside length, 200 - 700, 800 top
-let BRUSHSIZE = 0.01;  // 0.01, 0.006, 0.005, 0.003, 0.001
+let BRUSHSIZE = 0.006;  // 0.01, 0.006, 0.005, 0.003, 0.001
 let TRIANGLECOUNT = 200; // 300, 400 cool - 1200 for full bodies
 let GEARBUFFERCOUNT = 20;
 
@@ -64,7 +66,7 @@ const PALETTESYSTEM = {
   //   "pixelColors": ["#ffe58e", "#dabd3c", "#896e8f", "#9b69a0", "#3f1241"],
   // },
   "ok": {
-    "background": "#aaaaaa",
+    "background": "#cfcfcf",
     "pixelColors": ["#303030", "#5c5c5c", "#adadad", "#eeeeee"],
   },
 }
@@ -107,7 +109,7 @@ function preload() {
 
   if (FRAMED) {
     setFrameHTML();
-    setLabelHTML();
+    // setLabelHTML();
   } else if (SPOT) {
     setSpotHTML();
   } else {
@@ -154,7 +156,8 @@ function setup() {
 
   // LINES EXAMPLE
   STROKE_SIZE = 1;
-  STROKE_COLOR = color("black");
+  // STROKE_COLOR = color("black");
+  STROKE_COLOR = color(PALETTE.background);
   STROKE_NOISE = 0;
   STROKE_NOISE_2 = 0;
   STROKE_DISTORT = 0;
