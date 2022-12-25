@@ -17,10 +17,12 @@ let PROFILES = {
 }
 
 let RESOLUTION = 500; // how many dots per dominantside length, 200 - 700, 800 top
-let BRUSHSIZE = 0.003;  // 0.01, 0.006, 0.005, 0.003, 0.001
-let TRIANGLECOUNT = 200; // 200 - enough, 300, 400 cool - 1200 for full bodies
+let BRUSHSIZE;
+// let BRUSHSIZE = 0.007;  // 0.01, 0.006, 0.005, 0.003, 0.001
+let TRIANGLECOUNT = 100; // 200 - enough, 300, 400 cool - 1200 for full bodies
 let GEARBUFFERCOUNT = 20;
 
+let startTime, endTime;
 let canvas;
 let rescaling_width;
 let rescaling_height;
@@ -57,9 +59,17 @@ const PALETTESYSTEM = {
   //   "background": "#858585",
   //   "pixelColors": ["#303030", "#5c5c5c", "#adadad", "#eeeeee"],
   // },
-  "the admiral": {
-    "background": "#a3b2c4",
-    "pixelColors": ["#0A2647", "#1a4572", "#2a69bb", "#3fa5fd"],
+  // "the admiral": {
+  //   "background": "#a3b2c4",
+  //   "pixelColors": ["#16202b", "#0f447c", "#5a84bb", "#91c6f5"],
+  // },
+  // "the admiral": {
+  //   "background": "#96a1b3ff",
+  //   "pixelColors": ["#242f40ff", "#cca43bff", "#7e7e7eff", "#ddddddff"],
+  // },
+  "jeunesse": {
+    "background": "#c1c2c4ff",
+    "pixelColors": ["#cf773bff", "#279ca0ff", "#242424ff", "#99409cff"],
   },
 
 }
@@ -114,6 +124,7 @@ function preload() {
 }
 
 function setup() {
+  startTime = performance.now()
 
   noiseSeed(NOISESEED);
   randomSeed(NOISESEED);
@@ -187,6 +198,9 @@ function draw() {
 
     showArt();
     fxpreview();
+
+    let endTime = performance.now()
+    console.log(`Call to doSomething took ${endTime - startTime} milliseconds`)
     // background(170);
   }
 

@@ -3,6 +3,7 @@ class PopselTexture {
     constructor(shape) {
         // this.pupselNumber = RESOLUTION;
         this.pupselNumber = getRandomFromList([400, 300, 200]); // RESOLUTION; 
+        BRUSHSIZE = getRandomFromList([0.01, 0.008, 0.006, 0.005, 0.003]);
         this.brushNumber = 15;
         this.brushSize = DOMINANTSIDE * BRUSHSIZE;
         this.brushStrokeWeight = 1; // 1, 2
@@ -131,13 +132,13 @@ class PopselTexture {
     drawShape() {
 
         this.strokeWeight = 1 // 8, 18;
-        // this.blurSize = 4 // 10, 20;
+        this.blurSize = 1 // 10, 20;
 
         this.bufferShape = createGraphics(this.buffer.width, this.buffer.height);
 
         // fill polygon!!
         this.bufferShape.push();
-        // this.bufferShape.drawingContext.filter = `blur(${this.blurSize}px)` //- 'blur(10px)'
+        this.bufferShape.drawingContext.filter = `blur(${this.blurSize}px)` //- 'blur(10px)'
 
         // this.bufferShape.blendMode(BURN);
         // this.bufferShape.stroke("#323232");
