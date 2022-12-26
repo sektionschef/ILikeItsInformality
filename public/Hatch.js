@@ -338,7 +338,8 @@ class hatchSystem {
         this.buffer = createGraphics(width, height);
 
         // this.chosen_axis = getRandomFromList(["x", "y", "xy", "yx", "blank"])
-        this.chosen_axis = getRandomFromList(["x"])
+        this.chosen_axis = getRandomFromList(["x", "y", "xy", "yx"])
+        // this.chosen_axis = getRandomFromList(["yx"])
         console.log("chosen axis: " + this.chosen_axis);
 
         this.createHatches();
@@ -384,21 +385,31 @@ class hatchSystem {
 
             for (let i = 0; i < this.count_lines; i++) {
                 this.hatches.push(new Hatch(
-                    this.chosen_axis,
-                    (this.x_start + this.distance_between_lines * i),
-                    (this.y_start),
-                    this.x_stop,
-                    (this.y_stop)));
+                    createVector(
+                        (this.x_start + this.distance_between_lines * i),
+                        (this.y_start),
+                    ),
+                    createVector(
+                        this.x_stop,
+                        (this.y_stop - this.distance_between_lines * i),
+                    ),
+                    this.color,
+                    this.buffer
+                ));
             }
             this.count_lines = (this.y_stop - this.y_start) / this.distance_between_lines;
             // skip first one
             for (let i = 1; i < this.count_lines; i++) {
                 this.hatches.push(new Hatch(
-                    this.chosen_axis,
-                    (this.x_start),
-                    (this.y_start + this.distance_between_lines * i),
-                    this.x_stop,
-                    (this.y_stop),
+                    createVector(
+                        (this.x_start),
+                        (this.y_start + this.distance_between_lines * i),
+                    ),
+                    createVector(
+                        this.x_stop - this.distance_between_lines * i,
+                        (this.y_stop),
+                    ),
+                    this.color,
                     this.buffer,));
             }
         } else if (this.chosen_axis == "yx") {
@@ -406,11 +417,15 @@ class hatchSystem {
 
             for (let i = 0; i < this.count_lines; i++) {
                 this.hatches.push(new Hatch(
-                    this.chosen_axis,
-                    this.x_start + this.distance_between_lines * i,
-                    (this.y_stop),
-                    (this.x_stop),
-                    (this.y_start),
+                    createVector(
+                        this.x_start + this.distance_between_lines * i,
+                        (this.y_stop),
+                    ),
+                    createVector(
+                        (this.x_stop),
+                        (this.y_start + this.distance_between_lines * i),
+                    ),
+                    this.color,
                     this.buffer,
                 )
                 );
@@ -419,16 +434,21 @@ class hatchSystem {
 
             for (let i = 1; i < this.count_lines; i++) {
                 this.hatches.push(new Hatch(
-                    this.chosen_axis,
-                    this.x_start,
-                    (this.y_stop - this.distance_between_lines * i),
-                    (this.x_stop),
-                    (this.y_start),
+                    createVector(
+                        this.x_start,
+                        (this.y_stop - this.distance_between_lines * i),
+                    ),
+                    createVector(
+                        (this.x_stop - this.distance_between_lines * i),
+                        (this.y_start),
+                    ),
+                    this.color,
                     this.buffer,
                 )
                 );
             }
         } else if (this.chosen_axis == "blank") {
+
         }
     }
 
