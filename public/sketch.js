@@ -162,31 +162,32 @@ function setup() {
 
   // LINES EXAMPLE
 
-  brushSystem = new BrushSystem();
-  // BRUSH example
-  A1 = createVector(0.2 * DOMINANTSIDE, width / 2, 0);
-  A2 = createVector(0.6 * DOMINANTSIDE, width / 2, 0);
-  B1 = createVector(0.2 * DOMINANTSIDE, height / 2 - 100, 0);
-  B2 = createVector(0.6 * DOMINANTSIDE, width / 2 + 100, 0);
+  hatchSystem = new hatchSystem(0, 0, width, height, 130);
+  // hatch example
+  // A1 = createVector(0.2 * DOMINANTSIDE, width / 2, 0);
+  // A2 = createVector(0.6 * DOMINANTSIDE, width / 2, 0);
+  // B1 = createVector(0.2 * DOMINANTSIDE, height / 2 - 100, 0);
+  // B2 = createVector(0.6 * DOMINANTSIDE, width / 2 + 100, 0);
 
-  mastaBrush = new Brush(A1, A2, color("#363636"), "", brushSystem.buffer);
-  brushSystem.add(mastaBrush);
-  mastaBrush2 = new Brush(B1, B2, color("#181818"), "", brushSystem.buffer);
-  brushSystem.add(mastaBrush2);
+  // mastahatch = new Hatch(A1, A2, color("#363636"), "", hatchSystem.buffer);
+  // hatchSystem.add(mastahatch);
+  // mastahatch2 = new Hatch(B1, B2, color("#181818"), "", hatchSystem.buffer);
+  // hatchSystem.add(mastahatch2);
 
-  STROKE_SIZE = 1;
-  STROKE_COLOR = color("#555555");
-  STROKE_COLOR = color(red(color(PALETTE.background)) - 50, green(color(PALETTE.background)) - 50, blue(color(PALETTE.background)) - 50);
-  STROKE_NOISE = 0;
-  STROKE_NOISE_2 = 0;
-  STROKE_DISTORT = 0;
-  SCALING_FACTOR = 1;
-  linesEx = new Lines(0, 0, width, height, DOMINANTSIDE * 0.01);
+  // old Lines
+  // STROKE_SIZE = 1;
+  // STROKE_COLOR = color("#555555");
+  // STROKE_COLOR = color(red(color(PALETTE.background)) - 50, green(color(PALETTE.background)) - 50, blue(color(PALETTE.background)) - 50);
+  // STROKE_NOISE = 0;
+  // STROKE_NOISE_2 = 0;
+  // STROKE_DISTORT = 0;
+  // SCALING_FACTOR = 1;
+  // linesEx = new Lines(0, 0, width, height, DOMINANTSIDE * 0.01);
 
-  while (brushSystem.check_all_complete() == false) {
+  while (hatchSystem.check_all_complete() == false) {
     // for (var i = 0; i < 4000; i++) {
     // linesEx.show();
-    brushSystem.show();
+    hatchSystem.show();
   }
 
   backgroundTexture = createGraphics(width, height);
@@ -220,7 +221,7 @@ function draw() {
     // background(170);
   }
 
-  image(brushSystem.buffer, 0, 0);
+  image(hatchSystem.buffer, 0, 0);
 
   if (ANIMATIONSTATE) {
     showArt();
@@ -235,6 +236,6 @@ function mousePressed() {
 function showArt() {
   background(PALETTE.background);
   image(backgroundTexture, 0, 0);
-  image(linesEx.buffer, 0, 0);
+  // image(linesEx.buffer, 0, 0);
   // triangleSystem.show();
 }

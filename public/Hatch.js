@@ -1,15 +1,15 @@
-class Brush {
-    constructor(start, end, colorObject, category, buffer) {
-        this.brushfullspeedmin = 1;
-        this.brushfullspeedmax = 2;
-        this.brushfullspeed = Math.round(getRandomFromInterval(this.brushfullspeedmin, this.brushfullspeedmax) * 100) / 100;
-        this.fullspeed = 15; // BRUSHFULLSPEED // 2-5;
+class Hatch {
+    constructor(start, end, colorObject, buffer) {
+        this.hatchfullspeedmin = 1;
+        this.hatchfullspeedmax = 2;
+        this.hatchfullspeed = Math.round(getRandomFromInterval(this.hatchfullspeedmin, this.hatchfullspeedmax) * 100) / 100;
+        this.fullspeed = 15; // hatchFULLSPEED // 2-5;
         this.opacityLevel = 255;
         this.radiusMin = 0.002 * DOMINANTSIDE; // 1;
         this.radiusMax = 0.003 * DOMINANTSIDE; // 2;
-        // this.brushShape = "Ellipse";
-        // this.brushShape = "Line";
-        this.brushShape = "Triangle";
+        // this.hatchShape = "Ellipse";
+        // this.hatchShape = "Line";
+        this.hatchShape = "Triangle";
         this.buffer = buffer;
         this.distanceBoost = 4; // 4 faster, 8 slower, but thicker - where the points are
         // this.noiseYzoom = 0.007;  // zoom on noise
@@ -19,12 +19,11 @@ class Brush {
         this.fillColor = color(red(colorObject), green(colorObject), blue(colorObject), this.opacityLevel);
         // this.strokeColor = colorObject;
         this.strokeColor = color(red(colorObject), green(colorObject), blue(colorObject), this.opacityLevel);
-        this.strokeSize = 0.2; // BRUSHFIBRESIZE;  // good one
-        this.strokeColorDistort = 10; // BRUSHFIBRECOLORNOISE;
+        this.strokeSize = 0.2; // hatchFIBRESIZE;  // good one
+        this.strokeColorDistort = 10; // hatchFIBRECOLORNOISE;
 
         this.start = start;
         this.end = end;
-        this.category = category;
 
         this.alive = true;
         this.passedA = false;
@@ -55,7 +54,7 @@ class Brush {
 
         this.get_orientation();
 
-        // trying to get scalar projection - create a 90 degrees finish line for the brush
+        // trying to get scalar projection - create a 90 degrees finish line for the hatch
         this.anglePath = atan2(this.end.y - this.start.y, this.end.x - this.start.x);
         // console.log(this.anglePath);
         this.endOrtho = p5.Vector.add(this.end, p5.Vector.fromAngle(this.anglePath - PI / 2, 100));
@@ -100,9 +99,7 @@ class Brush {
             // this.strokeColor = "blue";
             this.orientation = "left/bottom-top/right";
         } else {
-            if (MODE > 1) {
-                console.warn("some noise with this.angle: " + this.angle);
-            }
+            console.warn("some noise with this.angle: " + this.angle);
             // throw "no orientation"
             // this.alive = false;
             this.orientation = "unkown";
@@ -130,46 +127,46 @@ class Brush {
 
     savePath() {
 
-        this.brushSize = this.radius;
+        this.hatchSize = this.radius;
 
         this.elements = [];  // remove history
 
-        if (this.brushShape == "Line") {
+        if (this.hatchShape == "Line") {
 
             for (var i = 0; i < this.elementCount; i++) {
                 this.elements.push({
                     shape: "Line",
-                    posX: this.pos.x + getP5RandomFromInterval(-this.brushSize, this.brushSize),
-                    posY: this.pos.y + getP5RandomFromInterval(-this.brushSize, this.brushSize),
-                    posBX: this.pos.x + getP5RandomFromInterval(-this.brushSize, this.brushSize),
-                    posBY: this.pos.y + getP5RandomFromInterval(-this.brushSize, this.brushSize),
+                    posX: this.pos.x + getP5RandomFromInterval(-this.hatchSize, this.hatchSize),
+                    posY: this.pos.y + getP5RandomFromInterval(-this.hatchSize, this.hatchSize),
+                    posBX: this.pos.x + getP5RandomFromInterval(-this.hatchSize, this.hatchSize),
+                    posBY: this.pos.y + getP5RandomFromInterval(-this.hatchSize, this.hatchSize),
                 })
             }
-        } else if (this.brushShape == "Ellipse") {
+        } else if (this.hatchShape == "Ellipse") {
 
             for (var i = 0; i < this.elementCount; i++) {
                 this.elements.push({
                     shape: "Ellipse",
-                    posX: this.pos.x + getP5RandomFromInterval(-this.brushSize, this.brushSize),
-                    posY: this.pos.y + getP5RandomFromInterval(-this.brushSize, this.brushSize),
-                    width: getP5RandomFromInterval(0, this.brushSize / 2),
-                    height: getP5RandomFromInterval(0, this.brushSize / 2),
+                    posX: this.pos.x + getP5RandomFromInterval(-this.hatchSize, this.hatchSize),
+                    posY: this.pos.y + getP5RandomFromInterval(-this.hatchSize, this.hatchSize),
+                    width: getP5RandomFromInterval(0, this.hatchSize / 2),
+                    height: getP5RandomFromInterval(0, this.hatchSize / 2),
                 })
             }
-        } else if (this.brushShape == "Triangle") {
+        } else if (this.hatchShape == "Triangle") {
             for (var i = 0; i < this.elementCount; i++) {
                 this.elements.push({
                     shape: "Triangle",
-                    posX: this.pos.x + getP5RandomFromInterval(-this.brushSize, this.brushSize),
-                    posY: this.pos.y + getP5RandomFromInterval(-this.brushSize, this.brushSize),
-                    posBX: this.pos.x + getP5RandomFromInterval(-this.brushSize, this.brushSize),
-                    posBY: this.pos.y + getP5RandomFromInterval(-this.brushSize, this.brushSize),
-                    posCX: this.pos.x + getP5RandomFromInterval(-this.brushSize, this.brushSize),
-                    posCY: this.pos.y + getP5RandomFromInterval(-this.brushSize, this.brushSize),
+                    posX: this.pos.x + getP5RandomFromInterval(-this.hatchSize, this.hatchSize),
+                    posY: this.pos.y + getP5RandomFromInterval(-this.hatchSize, this.hatchSize),
+                    posBX: this.pos.x + getP5RandomFromInterval(-this.hatchSize, this.hatchSize),
+                    posBY: this.pos.y + getP5RandomFromInterval(-this.hatchSize, this.hatchSize),
+                    posCX: this.pos.x + getP5RandomFromInterval(-this.hatchSize, this.hatchSize),
+                    posCY: this.pos.y + getP5RandomFromInterval(-this.hatchSize, this.hatchSize),
                 })
             }
         } else {
-            console.warn("No brush shape specified, oida!")
+            console.warn("No hatch shape specified, oida!")
         }
     }
 
@@ -211,10 +208,10 @@ class Brush {
 
             if (this.vel.x > 0) {
                 // this.radius = map(this.vel.x, 0, 3, 1, 0.3)
-                this.radius = Math.round(map(this.vel.x, this.brushfullspeedmin, this.brushfullspeedmax, this.radiusMax, this.radiusMin) * 100) / 100
+                this.radius = Math.round(map(this.vel.x, this.hatchfullspeedmin, this.hatchfullspeedmax, this.radiusMax, this.radiusMin) * 100) / 100
             } else if (this.vel.y > 0) {
                 // this.radius = map(this.vel.y, 0, 3, 1, 0.3)
-                this.radius = Math.round(map(this.vel.y, this.brushfullspeedmin, this.brushfullspeedmax, this.radiusMax, this.radiusMin) * 100) / 100
+                this.radius = Math.round(map(this.vel.y, this.hatchfullspeedmin, this.hatchfullspeedmax, this.radiusMax, this.radiusMin) * 100) / 100
             }
 
             this.savePath();
@@ -289,18 +286,18 @@ class Brush {
             ellipse(0, 0, this.radius * 3, this.radius * 3);
             pop();
         } else {
-            this.drawBrush();
+            this.drawHatch();
         }
         // }
     }
 
-    drawBrush() {
+    drawHatch() {
 
         if (this.alive) {
 
             for (var i = 0; i < this.elements.length; i++) {
                 this.buffer.push();
-                // brushBuffer.translate(-width / 2, -height / 2);
+                // hatchBuffer.translate(-width / 2, -height / 2);
                 // console.log(this.elements);
                 this.buffer.strokeWeight(this.strokeSize);
                 // this.buffer.stroke(distortColorNew(this.strokeColor, this.strokeColorDistort, false))
@@ -310,14 +307,14 @@ class Brush {
                 // this.buffer.fill(this.strokeColorTemp);
                 // this.buffer.fill(color("pink"));
                 this.buffer.noFill();
-                if (this.brushShape == "Line") {
+                if (this.hatchShape == "Line") {
                     this.buffer.line(this.elements[i].posX, this.elements[i].posY, this.elements[i].posBX, this.elements[i].posBY);
-                } else if (this.brushShape == "Ellipse") {
+                } else if (this.hatchShape == "Ellipse") {
                     this.buffer.ellipse(this.elements[i].posX, this.elements[i].posY, this.elements[i].width, this.elements[i].height);
-                } else if (this.brushShape == "Triangle") {
+                } else if (this.hatchShape == "Triangle") {
                     this.buffer.triangle(this.elements[i].posX, this.elements[i].posY, this.elements[i].posBX, this.elements[i].posBY, this.elements[i].posCX, this.elements[i].posCY);
                 } else {
-                    console.warn("No brush shape specified, oida!")
+                    console.warn("No hatch shape specified, oida!")
                 }
                 this.buffer.pop();
             }
@@ -327,37 +324,139 @@ class Brush {
 
 }
 
-class BrushSystem {
-    constructor() {
-        this.brushes = [];
+class hatchSystem {
+    constructor(x_start, y_start, x_stop, y_stop, distance_between_lines) {
+        this.color = color("black");
+
+        this.x_start = x_start;
+        this.y_start = y_start;
+        this.x_stop = x_stop;
+        this.y_stop = y_stop;
+        this.distance_between_lines = distance_between_lines;
+
+        this.hatches = [];
         this.buffer = createGraphics(width, height);
+
+        // this.chosen_axis = getRandomFromList(["x", "y", "xy", "yx", "blank"])
+        this.chosen_axis = getRandomFromList(["x"])
+        console.log("chosen axis: " + this.chosen_axis);
+
+        this.createHatches();
     }
 
-    add(brush) {
-        this.brushes.push(brush);
+    createHatches() {
+        if (this.chosen_axis == "x") {
+            this.count_lines = (this.y_stop - this.y_start) / this.distance_between_lines;
+
+            for (let i = 0; i < this.count_lines; i++) {
+                this.hatches.push(new Hatch(
+                    createVector(
+                        this.x_start,
+                        (this.y_start + this.distance_between_lines * i),
+                    ),
+                    createVector(
+                        this.x_stop,
+                        (this.y_start + this.distance_between_lines * i),
+                    ),
+                    this.color,
+                    this.buffer,
+                ));
+            }
+        } else if (this.chosen_axis == "y") {
+            this.count_lines = (this.x_stop - this.x_start) / this.distance_between_lines;
+
+            for (let i = 0; i < this.count_lines; i++) {
+                this.hatches.push(new Hatch(
+                    createVector(
+                        (this.x_start + this.distance_between_lines * i),
+                        (this.y_start),
+                    ),
+                    createVector(
+                        (this.x_start + this.distance_between_lines * i),
+                        this.y_stop,
+                    ),
+                    this.color,
+                    this.buffer,
+                ));
+            }
+        } else if (this.chosen_axis == "xy") {
+            this.count_lines = (this.x_stop - this.x_start) / this.distance_between_lines;
+
+            for (let i = 0; i < this.count_lines; i++) {
+                this.hatches.push(new Hatch(
+                    this.chosen_axis,
+                    (this.x_start + this.distance_between_lines * i),
+                    (this.y_start),
+                    this.x_stop,
+                    (this.y_stop)));
+            }
+            this.count_lines = (this.y_stop - this.y_start) / this.distance_between_lines;
+            // skip first one
+            for (let i = 1; i < this.count_lines; i++) {
+                this.hatches.push(new Hatch(
+                    this.chosen_axis,
+                    (this.x_start),
+                    (this.y_start + this.distance_between_lines * i),
+                    this.x_stop,
+                    (this.y_stop),
+                    this.buffer,));
+            }
+        } else if (this.chosen_axis == "yx") {
+            this.count_lines = (this.x_stop - this.x_start) / this.distance_between_lines;
+
+            for (let i = 0; i < this.count_lines; i++) {
+                this.hatches.push(new Hatch(
+                    this.chosen_axis,
+                    this.x_start + this.distance_between_lines * i,
+                    (this.y_stop),
+                    (this.x_stop),
+                    (this.y_start),
+                    this.buffer,
+                )
+                );
+            }
+            this.count_lines = (this.y_stop - this.y_start) / this.distance_between_lines;
+
+            for (let i = 1; i < this.count_lines; i++) {
+                this.hatches.push(new Hatch(
+                    this.chosen_axis,
+                    this.x_start,
+                    (this.y_stop - this.distance_between_lines * i),
+                    (this.x_stop),
+                    (this.y_start),
+                    this.buffer,
+                )
+                );
+            }
+        } else if (this.chosen_axis == "blank") {
+        }
+    }
+
+    add(hatch) {
+        this.hatches.push(hatch);
     }
 
     show() {
-        for (var brush of this.brushes) {
-            brush.update();
-            brush.show();
+        for (var hatch of this.hatches) {
+            hatch.update();
+            hatch.show();
         }
     }
 
     check_all_complete() {
 
         // skip if not needed at all
-        if (this.all_lines_complete == false || this.brushes.length > 0) {
+        if (this.all_lines_complete == false || this.hatches.length > 0) {
 
-            this.brushes_alive_status = [];
-            for (var brush of this.brushes) {
+            this.hatches_alive_status = [];
+            for (var hatch of this.hatches) {
 
-                this.brushes_alive_status.push(brush.alive);
-                // console.log(this.brushes_alive_status)
+                this.hatches_alive_status.push(hatch.alive);
+                // console.log(this.hatches_alive_status)
 
             }
 
-            return this.brushes_alive_status.every(element => element === false);
+            return this.hatches_alive_status.every(element => element === false);
         } else {
             return false;
         }
