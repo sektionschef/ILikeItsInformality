@@ -161,9 +161,6 @@ function setup() {
   // });
 
   // LINES EXAMPLE
-  BRUSHFULLSPEEDMIN = 2;
-  BRUSHFULLSPEEDMAX = 6;
-  BRUSHFULLSPEED = Math.round(getRandomFromInterval(BRUSHFULLSPEEDMIN, BRUSHFULLSPEEDMAX) * 100) / 100;
 
   brushSystem = new BrushSystem();
   // BRUSH example
@@ -172,9 +169,9 @@ function setup() {
   B1 = createVector(0.2 * DOMINANTSIDE, height / 2 - 100, 0);
   B2 = createVector(0.6 * DOMINANTSIDE, width / 2 + 100, 0);
 
-  mastaBrush = new Brush(A1, A2, color("#f55442"), "", brushSystem.buffer);
+  mastaBrush = new Brush(A1, A2, color("#363636"), "", brushSystem.buffer);
   brushSystem.add(mastaBrush);
-  mastaBrush2 = new Brush(B1, B2, color("#f55442"), "", brushSystem.buffer);
+  mastaBrush2 = new Brush(B1, B2, color("#181818"), "", brushSystem.buffer);
   brushSystem.add(mastaBrush2);
 
   STROKE_SIZE = 1;
@@ -186,9 +183,10 @@ function setup() {
   SCALING_FACTOR = 1;
   linesEx = new Lines(0, 0, width, height, DOMINANTSIDE * 0.01);
 
-  for (var i = 0; i < 4000; i++) {
-    // while (linesEx.all_lines_complete == false) {
-    linesEx.show();
+  while (brushSystem.check_all_complete() == false) {
+    // for (var i = 0; i < 4000; i++) {
+    // linesEx.show();
+    brushSystem.show();
   }
 
   backgroundTexture = createGraphics(width, height);
@@ -222,7 +220,6 @@ function draw() {
     // background(170);
   }
 
-  brushSystem.show();
   image(brushSystem.buffer, 0, 0);
 
   if (ANIMATIONSTATE) {

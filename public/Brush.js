@@ -1,13 +1,16 @@
 class Brush {
     constructor(start, end, colorObject, category, buffer) {
-        this.buffer = buffer;
-        this.fullspeed = 5; // BRUSHFULLSPEED // 2-5;
-        this.opacityLevel = 30;
-        this.radiusMin = 0.003 * DOMINANTSIDE; // BRUSHSIZEMIN; // 1;
-        this.radiusMax = 0.004 * DOMINANTSIDE; //BRUSHSIZEMAX; // 2;
+        this.brushfullspeedmin = 1;
+        this.brushfullspeedmax = 2;
+        this.brushfullspeed = Math.round(getRandomFromInterval(this.brushfullspeedmin, this.brushfullspeedmax) * 100) / 100;
+        this.fullspeed = 15; // BRUSHFULLSPEED // 2-5;
+        this.opacityLevel = 255;
+        this.radiusMin = 0.002 * DOMINANTSIDE; // 1;
+        this.radiusMax = 0.003 * DOMINANTSIDE; // 2;
         // this.brushShape = "Ellipse";
         // this.brushShape = "Line";
-        this.brushShape = "Triangle"; //BRUSHSHAPE;
+        this.brushShape = "Triangle";
+        this.buffer = buffer;
         this.distanceBoost = 4; // 4 faster, 8 slower, but thicker - where the points are
         // this.noiseYzoom = 0.007;  // zoom on noise
         // this.amplitudeNoiseY = 3.5;  // up and down on Y axis
@@ -208,10 +211,10 @@ class Brush {
 
             if (this.vel.x > 0) {
                 // this.radius = map(this.vel.x, 0, 3, 1, 0.3)
-                this.radius = Math.round(map(this.vel.x, BRUSHFULLSPEEDMIN, BRUSHFULLSPEEDMAX, this.radiusMax, this.radiusMin) * 100) / 100
+                this.radius = Math.round(map(this.vel.x, this.brushfullspeedmin, this.brushfullspeedmax, this.radiusMax, this.radiusMin) * 100) / 100
             } else if (this.vel.y > 0) {
                 // this.radius = map(this.vel.y, 0, 3, 1, 0.3)
-                this.radius = Math.round(map(this.vel.y, BRUSHFULLSPEEDMIN, BRUSHFULLSPEEDMAX, this.radiusMax, this.radiusMin) * 100) / 100
+                this.radius = Math.round(map(this.vel.y, this.brushfullspeedmin, this.brushfullspeedmax, this.radiusMax, this.radiusMin) * 100) / 100
             }
 
             this.savePath();
@@ -305,7 +308,8 @@ class Brush {
                 this.buffer.stroke("black");
                 // this.buffer.noFill();
                 // this.buffer.fill(this.strokeColorTemp);
-                this.buffer.fill(color("pink"));
+                // this.buffer.fill(color("pink"));
+                this.buffer.noFill();
                 if (this.brushShape == "Line") {
                     this.buffer.line(this.elements[i].posX, this.elements[i].posY, this.elements[i].posBX, this.elements[i].posBY);
                 } else if (this.brushShape == "Ellipse") {
@@ -340,7 +344,7 @@ class BrushSystem {
         }
     }
 
-    check_all_complete(category) {
+    check_all_complete() {
 
         // skip if not needed at all
         if (this.all_lines_complete == false || this.brushes.length > 0) {
@@ -348,10 +352,8 @@ class BrushSystem {
             this.brushes_alive_status = [];
             for (var brush of this.brushes) {
 
-                if (brush.category == category) {
-                    this.brushes_alive_status.push(brush.alive);
-                    // console.log(this.brushes_alive_status)
-                }
+                this.brushes_alive_status.push(brush.alive);
+                // console.log(this.brushes_alive_status)
 
             }
 
