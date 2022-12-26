@@ -56,8 +56,8 @@ let CURRENTPIXELDENS = 1;
 
 const PALETTESYSTEM = {
   "by the power of greyscale": {
-    // "background": "#858585",
-    // "pixelColors": ["#303030", "#5c5c5c", "#adadad", "#eeeeee"],
+    // OLD "background": "#858585",
+    // OLD "pixelColors": ["#303030", "#5c5c5c", "#adadad", "#eeeeee"],
     "background": "#adadad",
     "pixelColors": ["#303030", "#6b6b6b", "#eeeeee"],
   },
@@ -71,7 +71,7 @@ const PALETTESYSTEM = {
   // },
   // "jeunesse": {
   //   "background": "#c1c2c4ff",
-  //   "pixelColors": ["#cf773bff", "#279ca0ff", "#242424ff", "#99409cff"],
+  //   "pixelColors": ["#cf773bff", "#279ca0ff", "#242424ff"],  //  "#242424ff", "#99409cff"
   // },
 
 }
@@ -149,8 +149,6 @@ function setup() {
     canvas.parent("canvasHolderPlain");
   }
 
-  triangleSystem = new TriangleSystem();
-
   // TEXTURE EXAMPLE
   // textureEx = new PopselTexture({
   //   "color": color(150),
@@ -160,9 +158,6 @@ function setup() {
   //   "C": createVector(0, 0),
   // });
 
-  // LINES EXAMPLE
-  let hatchColor = color(red(color(PALETTE.background)) - 40, green(color(PALETTE.background)) - 40, blue(color(PALETTE.background)) - 40);
-  hatchSystem = new hatchSystem(0, 0, width, height, 30, hatchColor);
   // hatch example
   // A1 = createVector(0.2 * DOMINANTSIDE, width / 2, 0);
   // A2 = createVector(0.6 * DOMINANTSIDE, width / 2, 0);
@@ -174,35 +169,16 @@ function setup() {
   // mastahatch2 = new Hatch(B1, B2, color("#181818"), "", hatchSystem.buffer);
   // hatchSystem.add(mastahatch2);
 
-  // old Lines
-  // STROKE_SIZE = 1;
-  // STROKE_COLOR = color("#555555");
-  // STROKE_COLOR = color(red(color(PALETTE.background)) - 50, green(color(PALETTE.background)) - 50, blue(color(PALETTE.background)) - 50);
-  // STROKE_NOISE = 0;
-  // STROKE_NOISE_2 = 0;
-  // STROKE_DISTORT = 0;
-  // SCALING_FACTOR = 1;
-  // linesEx = new Lines(0, 0, width, height, DOMINANTSIDE * 0.01);
+  backgroundTexture = new BackgroundTexture();
+
+  triangleSystem = new TriangleSystem();
+
+  let hatchColor = color(red(color(PALETTE.background)) - 40, green(color(PALETTE.background)) - 40, blue(color(PALETTE.background)) - 40);
+  hatchSystem = new hatchSystem(0, 0, width, height, 30, hatchColor);
 
   while (hatchSystem.check_all_complete() == false) {
-    // for (var i = 0; i < 4000; i++) {
-    // linesEx.show();
     hatchSystem.show();
   }
-
-  backgroundTexture = createGraphics(width, height);
-  var stepSize = DOMINANTSIDE * 0.003;
-  for (var y = 0; y <= height; y += stepSize) {
-    for (var x = 0; x <= width; x += stepSize) {
-
-      backgroundTexture.fill(distortColorSuperNew(PALETTE.background, 5))
-      // backgroundTexture.noFill();
-      backgroundTexture.strokeWeight(DOMINANTSIDE * 0.0005);
-      backgroundTexture.stroke(distortColorSuperNew(PALETTE.background, 10));
-      backgroundTexture.rect(x, y, stepSize, stepSize);
-    }
-  }
-
 
 
 }
@@ -234,8 +210,7 @@ function mousePressed() {
 
 function showArt() {
   background(PALETTE.background);
-  image(backgroundTexture, 0, 0);
-  // image(linesEx.buffer, 0, 0);
+  image(backgroundTexture.buffer, 0, 0);
   image(hatchSystem.buffer, 0, 0);
   triangleSystem.show();
 }

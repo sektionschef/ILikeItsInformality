@@ -165,7 +165,7 @@ class TriangleSystem {
         // this.triangleCount = 1200;  // 1200
         // this.triangleCount = 3555;
         this.triangleCount = TRIANGLECOUNT;
-        this.triangleTemplateCount = 20;
+        this.triangleTemplateCount = 30;  // 20
 
         this.PopselTextureCount = 1;
         this.bufferCount = GEARBUFFERCOUNT;
