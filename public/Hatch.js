@@ -3,10 +3,10 @@ class Hatch {
         this.hatchfullspeedmin = 1;
         this.hatchfullspeedmax = 2;
         this.hatchfullspeed = Math.round(getRandomFromInterval(this.hatchfullspeedmin, this.hatchfullspeedmax) * 100) / 100;
-        this.fullspeed = 15; // hatchFULLSPEED // 2-5;
+        this.fullspeed = 3; // hatchFULLSPEED // 2-5;
         this.opacityLevel = 255;
-        this.radiusMin = 0.002 * DOMINANTSIDE; // 1;
-        this.radiusMax = 0.003 * DOMINANTSIDE; // 2;
+        this.radiusMin = 0.001 * DOMINANTSIDE; // 1;
+        this.radiusMax = 0.002 * DOMINANTSIDE; // 2;
         // this.hatchShape = "Ellipse";
         // this.hatchShape = "Line";
         this.hatchShape = "Triangle";
@@ -302,7 +302,8 @@ class Hatch {
                 this.buffer.strokeWeight(this.strokeSize);
                 // this.buffer.stroke(distortColorNew(this.strokeColor, this.strokeColorDistort, false))
                 // this.buffer.stroke(distortColorNew(this.strokeColorTemp, this.strokeColorDistort, false))
-                this.buffer.stroke("black");
+                this.buffer.stroke(this.strokeColor);
+                // this.buffer.stroke("black");
                 // this.buffer.noFill();
                 // this.buffer.fill(this.strokeColorTemp);
                 // this.buffer.fill(color("pink"));
@@ -325,8 +326,8 @@ class Hatch {
 }
 
 class hatchSystem {
-    constructor(x_start, y_start, x_stop, y_stop, distance_between_lines) {
-        this.color = color("black");
+    constructor(x_start, y_start, x_stop, y_stop, distance_between_lines, colorObject) {
+        this.color = colorObject;// color("black");
 
         this.x_start = x_start;
         this.y_start = y_start;

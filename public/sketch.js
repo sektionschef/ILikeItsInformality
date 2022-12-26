@@ -149,7 +149,7 @@ function setup() {
     canvas.parent("canvasHolderPlain");
   }
 
-  // triangleSystem = new TriangleSystem();
+  triangleSystem = new TriangleSystem();
 
   // TEXTURE EXAMPLE
   // textureEx = new PopselTexture({
@@ -161,8 +161,8 @@ function setup() {
   // });
 
   // LINES EXAMPLE
-
-  hatchSystem = new hatchSystem(0, 0, width, height, 130);
+  let hatchColor = color(red(color(PALETTE.background)) - 40, green(color(PALETTE.background)) - 40, blue(color(PALETTE.background)) - 40);
+  hatchSystem = new hatchSystem(0, 0, width, height, 30, hatchColor);
   // hatch example
   // A1 = createVector(0.2 * DOMINANTSIDE, width / 2, 0);
   // A2 = createVector(0.6 * DOMINANTSIDE, width / 2, 0);
@@ -221,7 +221,6 @@ function draw() {
     // background(170);
   }
 
-  image(hatchSystem.buffer, 0, 0);
 
   if (ANIMATIONSTATE) {
     showArt();
@@ -237,5 +236,6 @@ function showArt() {
   background(PALETTE.background);
   image(backgroundTexture, 0, 0);
   // image(linesEx.buffer, 0, 0);
-  // triangleSystem.show();
+  image(hatchSystem.buffer, 0, 0);
+  triangleSystem.show();
 }
