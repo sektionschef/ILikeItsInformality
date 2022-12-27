@@ -280,6 +280,7 @@ class hatchSystem {
         // console.log("chosen axis: " + this.chosen_axis);
 
         this.createHatches();
+        this.show();
     }
 
     createHatches() {
@@ -394,9 +395,11 @@ class hatchSystem {
     }
 
     show() {
-        for (var hatch of this.hatches) {
-            hatch.update();
-            hatch.show();
+        while (this.check_all_complete() == false) {
+            for (var hatch of this.hatches) {
+                hatch.update();
+                hatch.show();
+            }
         }
     }
 
@@ -419,4 +422,5 @@ class hatchSystem {
         }
 
     }
+
 }
