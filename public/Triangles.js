@@ -5,7 +5,7 @@ class Triangle {
         this.minLength = 0.1;
         this.angleSpeed = getRandomFromList([-0.001, -0.0005, 0.0005, 0.001]);// 0.001;
         // this.brushSize = DOMINANTSIDE * getRandomFromList([0.02, 0.01, 0.008, 0.006, 0.005, 0.003]);
-        this.brushSize = DOMINANTSIDE * getRandomFromList([0.008, 0.006, 0.005, 0.003]);
+        this.brushSize = DOMINANTSIDE * 0.008; // getRandomFromList([0.008, 0.006, 0.005, 0.003]);
 
 
         var picker = fxrand();

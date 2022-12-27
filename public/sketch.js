@@ -156,11 +156,10 @@ function setup() {
 
   backgroundTexture = new BackgroundTexture();
 
-  // triangleSystem = new TriangleSystem();
+  triangleSystem = new TriangleSystem();
 
-  let hatchColor = color(red(color(PALETTE.background)) - 40, green(color(PALETTE.background)) - 40, blue(color(PALETTE.background)) - 40);
+  let hatchColor = color(red(color(PALETTE.background)) - 30, green(color(PALETTE.background)) - 30, blue(color(PALETTE.background)) - 30);
   hatchSystem = new hatchSystem(0, 0, width, height, DOMINANTSIDE * 0.015, hatchColor);
-
 }
 
 
@@ -173,7 +172,7 @@ function draw() {
     fxpreview();
 
     let endTime = performance.now()
-    console.log(`It took ${(endTime - startTime) / 1000} seconds.`)
+    // console.log(`It took ${(endTime - startTime) / 1000} seconds.`)
     // background(170);
   }
 
@@ -192,5 +191,5 @@ function showArt() {
   background(PALETTE.background);
   image(backgroundTexture.buffer, 0, 0);
   image(hatchSystem.buffer, 0, 0);
-  // triangleSystem.show();
+  triangleSystem.show();
 }

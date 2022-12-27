@@ -154,7 +154,7 @@ class PopselTexture {
         }
         this.bufferShape.stroke(this.strokeColor);
         this.bufferShape.strokeWeight(this.strokeWeight); // 18
-        this.bufferShape.noFill();
+        // this.bufferShape.noFill();
 
         // this.bufferShape.noStroke();
         // this.bufferShape.fill(this.shape.color);
