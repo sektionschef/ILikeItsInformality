@@ -1,50 +1,32 @@
 class Triangle {
 
     constructor(rank, totalCenter) {
-        // this.margin = DOMINANTSIDE * 0.1;
         this.maxLength = 0.3;
         this.minLength = 0.1;
+        this.angleSpeed = getRandomFromList([-0.001, -0.0005, 0.0005, 0.001]);// 0.001;
         // this.brushSize = DOMINANTSIDE * getRandomFromList([0.02, 0.01, 0.008, 0.006, 0.005, 0.003]);
         this.brushSize = DOMINANTSIDE * getRandomFromList([0.008, 0.006, 0.005, 0.003]);
-        if (fxrand() > 0.6) {
-            this.points = true;
-        } else {
-            this.points = false;
-        }
 
-        // if (rank < TRIANGLECOUNT / 3) {
-        //     this.maxLength = 0.7;
-        //     this.minLength = 0.4;
-        // } else if (rank < 2 * TRIANGLECOUNT / 3) {
-        //     this.maxLength = 0.4;
-        //     this.minLength = 0.2;
-        // } else {
-        //     this.maxLength = 0.3;
-        //     this.minLength = 0.1;
-        // }
+
+        var picker = fxrand();
+        if (picker < 0.333) {
+            this.nature = "points";
+        } else if (picker < 0.666) {
+            this.nature = "pupsel";
+        } else {
+            this.nature = "plain";
+        }
 
         this.rank = rank;
         this.totalCenter = totalCenter;
 
-        // this.angle = 0 // mountain;
-        this.angleSpeed = getRandomFromInterval(-0.001, 0.001);// 0.001;
-
         this.buffer = createGraphics(DOMINANTSIDE * this.maxLength, DOMINANTSIDE * this.maxLength);
-
-        // if (fxrand() < 0.3) {
-        this.pattern = true;
-        // }
 
         this.lengthB = DOMINANTSIDE * getRandomFromInterval(this.minLength, this.maxLength);  // 0.1 -0.3
         this.lengthC = DOMINANTSIDE * getRandomFromInterval(this.minLength, this.maxLength); // 0.1 -0.3
 
         this.color = getRandomFromList(PALETTE.pixelColors);
         this.colorStroke = color("#323232"); // getRandomFromList(PALETTE.pixelColors);
-
-        this.center = createVector(
-            this.buffer.width / 2,
-            this.buffer.height / 2,
-        )
 
         // RANDOM PLACEMENT - total Position
         this.pos = createVector(
@@ -54,8 +36,13 @@ class Triangle {
         this.radius = p5.Vector.dist(this.totalCenter, this.pos);
         this.angleTotalCenter = p5.Vector.sub(this.totalCenter, this.pos).heading();
         this.angleDyn = this.angleTotalCenter;
-        // this.angleDyn = 0;
+        // this.angleDyn = 0;  // mountain
 
+
+        this.center = createVector(
+            this.buffer.width / 2,
+            this.buffer.height / 2,
+        )
         this.A = createVector(
             this.buffer.width / 2,
             this.buffer.height,
@@ -72,37 +59,37 @@ class Triangle {
         this.coords = [[this.A.x, this.A.y], [this.B.x, this.B.y], [this.C.x, this.C.y]];
 
         // this.createLines();
-        this.create();
+        // this.create();
     }
 
-    createLines() {
-        this.spotLengthy = DOMINANTSIDE * 0.003;  // 0.001 // draw line range, strokeWeight of line
+    // createLines() {
+    //     this.spotLengthy = DOMINANTSIDE * 0.003;  // 0.001 // draw line range, strokeWeight of line
 
-        // create the lines
-        this.ABAngle = p5.Vector.sub(this.B, this.A).heading();
-        this.ACAngle = p5.Vector.sub(this.C, this.A).heading();
+    //     // create the lines
+    //     this.ABAngle = p5.Vector.sub(this.B, this.A).heading();
+    //     this.ACAngle = p5.Vector.sub(this.C, this.A).heading();
 
-        this.ABSpot1 = p5.Vector.add(this.A, p5.Vector.fromAngle((this.ABAngle + PI / 2), this.spotLengthy));
-        this.ABSpot2 = p5.Vector.sub(this.A, p5.Vector.fromAngle((this.ABAngle + PI / 2), this.spotLengthy));
-        this.ABSpot3 = p5.Vector.add(this.B, p5.Vector.fromAngle((this.ABAngle + PI / 2), this.spotLengthy));
-        this.ABSpot4 = p5.Vector.sub(this.B, p5.Vector.fromAngle((this.ABAngle + PI / 2), this.spotLengthy));
+    //     this.ABSpot1 = p5.Vector.add(this.A, p5.Vector.fromAngle((this.ABAngle + PI / 2), this.spotLengthy));
+    //     this.ABSpot2 = p5.Vector.sub(this.A, p5.Vector.fromAngle((this.ABAngle + PI / 2), this.spotLengthy));
+    //     this.ABSpot3 = p5.Vector.add(this.B, p5.Vector.fromAngle((this.ABAngle + PI / 2), this.spotLengthy));
+    //     this.ABSpot4 = p5.Vector.sub(this.B, p5.Vector.fromAngle((this.ABAngle + PI / 2), this.spotLengthy));
 
-        this.ACSpot1 = p5.Vector.add(this.A, p5.Vector.fromAngle((this.ACAngle + PI / 2), this.spotLengthy));
-        this.ACSpot2 = p5.Vector.sub(this.A, p5.Vector.fromAngle((this.ACAngle + PI / 2), this.spotLengthy));
-        this.ACSpot3 = p5.Vector.add(this.C, p5.Vector.fromAngle((this.ACAngle + PI / 2), this.spotLengthy));
-        this.ACSpot4 = p5.Vector.sub(this.C, p5.Vector.fromAngle((this.ACAngle + PI / 2), this.spotLengthy));
+    //     this.ACSpot1 = p5.Vector.add(this.A, p5.Vector.fromAngle((this.ACAngle + PI / 2), this.spotLengthy));
+    //     this.ACSpot2 = p5.Vector.sub(this.A, p5.Vector.fromAngle((this.ACAngle + PI / 2), this.spotLengthy));
+    //     this.ACSpot3 = p5.Vector.add(this.C, p5.Vector.fromAngle((this.ACAngle + PI / 2), this.spotLengthy));
+    //     this.ACSpot4 = p5.Vector.sub(this.C, p5.Vector.fromAngle((this.ACAngle + PI / 2), this.spotLengthy));
 
-        this.lines = [
-            [this.ABSpot1.x, this.ABSpot1.y],
-            [this.ABSpot2.x, this.ABSpot2.y],
-            [this.ABSpot3.x, this.ABSpot3.y],
-            [this.ABSpot4.x, this.ABSpot4.y],
-            [this.ACSpot1.x, this.ACSpot1.y],
-            [this.ACSpot2.x, this.ACSpot2.y],
-            [this.ACSpot3.x, this.ACSpot3.y],
-            [this.ACSpot4.x, this.ACSpot4.y],
-        ];
-    }
+    //     this.lines = [
+    //         [this.ABSpot1.x, this.ABSpot1.y],
+    //         [this.ABSpot2.x, this.ABSpot2.y],
+    //         [this.ABSpot3.x, this.ABSpot3.y],
+    //         [this.ABSpot4.x, this.ABSpot4.y],
+    //         [this.ACSpot1.x, this.ACSpot1.y],
+    //         [this.ACSpot2.x, this.ACSpot2.y],
+    //         [this.ACSpot3.x, this.ACSpot3.y],
+    //         [this.ACSpot4.x, this.ACSpot4.y],
+    //     ];
+    // }
 
     debug() {
 
@@ -135,9 +122,8 @@ class Triangle {
         this.pos = p5.Vector.add(createVector(this.radius * sin(this.angleDyn), this.radius * cos(this.angleDyn)), this.totalCenter);
         this.angleTotalCenter = p5.Vector.sub(this.totalCenter, this.pos).heading();
 
+        // Adyn is moving without drawing a buffer, directly on the canvas
         // this.angleCenter = p5.Vector.sub(this.Adyn, this.center).heading();
-
-
     }
 
     create() {
@@ -165,10 +151,8 @@ class TriangleSystem {
         // this.triangleCount = 1200;  // 1200
         // this.triangleCount = 3555;
         this.triangleCount = TRIANGLECOUNT;
-        this.triangleTemplateCount = 30;  // 20
-
-        this.PopselTextureCount = 1;
         this.bufferCount = GEARBUFFERCOUNT;
+        this.triangleTemplateCount = 30;  // 20
 
         this.triangles = [];
         this.triangleTemplates = [];
@@ -254,7 +238,8 @@ class TriangleSystem {
 
         for (var i = 0; i < this.triangles.length; i++) {
 
-            this.triangles[i].update();
+            // without gear buffers - each triangle positioned on total canvas
+            // this.triangles[i].update();
 
             // SHOW THE TEXTURE 
             // push()
@@ -293,48 +278,6 @@ class TriangleSystem {
             rotate(triangleSystem.bufferRotations[i]);
             image(triangleSystem.buffers[i], 0, 0);
             pop();
-        }
-    }
-
-    // EXTRACT from here
-    insidePolygon(x, y, v) {  // v is the index
-        // ATTENTION FOR OVERLAPPING ELEMENTS - WHICH ONE CAN BE SEEN?
-        var colorDyn;
-
-        for (var i = 0; i < this.triangles.length; i++) {
-            // if one is found, enough - end the loop
-            if (insidePolygon([x, y], this.triangles[i].coords)) {
-                // return true;
-                // return this.triangles[i].color;
-
-                colorDyn = brightenSuperNew(this.triangles[i].color, map(
-                    p5.Vector.dist(createVector(x, y), this.triangles[i].A),
-                    0,
-                    this.triangles[i].distance,
-                    -50,
-                    50
-                ));
-
-
-                // PATTERN
-                if (this.triangles[i].pattern) {
-                    // console.log("ioad")
-                    if (v % 3 == 0) {
-                        // colorDyn = color('#424242');
-                    }
-                }
-
-                // Contour
-                // if (insidePolygon([x, y], this.triangles[i].lines)) {
-                //     colorDyn = color('#424242');
-                // }
-
-                // return colorDyn;
-                return {
-                    color: colorDyn,
-                    rank: i
-                }
-            }
         }
     }
 

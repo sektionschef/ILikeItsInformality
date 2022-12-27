@@ -2,7 +2,7 @@ class PopselTexture {
 
     constructor(shape) {
         // this.pupselNumber = RESOLUTION;
-        this.pupselNumber = getRandomFromList([400, 300, 200]); // RESOLUTION; 
+        this.pupselNumber = getRandomFromList([500, 400, 300, 200]); // RESOLUTION; 
         this.brushNumber = 15;
         // this.brushSize = DOMINANTSIDE * BRUSHSIZE;
         this.brushSize = shape.brushSize;
@@ -30,88 +30,90 @@ class PopselTexture {
         // DEBUG - show buffer edges
         // this.buffer.rect(0, 0, width, height);
 
-        if (this.shape.points) {
-
-        } else {
+        if (this.shape.nature == "pupsel" || this.shape.nature == "plain") {
             this.drawShape();
+        } else {
         }
 
-        let colorboost;
-        var pupselColor;
-        var i = 0;
-        for (var pupselY = 0; pupselY <= (this.buffer.height); pupselY += this.pupselSize) {
-            for (var pupselX = 0; pupselX <= (this.buffer.width); pupselX += this.pupselSize) {
+        if (this.shape.nature == "pupsel" || this.shape.nature == "points") {
 
-                i += 1;
+            let colorboost;
+            var pupselColor;
+            var i = 0;
+            for (var pupselY = 0; pupselY <= (this.buffer.height); pupselY += this.pupselSize) {
+                for (var pupselX = 0; pupselX <= (this.buffer.width); pupselX += this.pupselSize) {
 
-                // this.center = createVector(pupselX + this.pupselSize / 2, pupselY + this.pupselSize / 2);
+                    i += 1;
 
-                // transparent
-                // pupselColor = color('#4c539600');
+                    // this.center = createVector(pupselX + this.pupselSize / 2, pupselY + this.pupselSize / 2);
 
-                // DEMO
-                // pupselColor = color('#ec0000');
+                    // transparent
+                    // pupselColor = color('#4c539600');
 
-                // ANTI DEMO
-                if (insidePolygon([pupselX, pupselY], this.shape.coords)) {
-                    pupselColor = this.shape.color;
-                } else {
-                    continue;
-                }
+                    // DEMO
+                    // pupselColor = color('#ec0000');
 
-                // Contour - deprecated
-                // if (insidePolygon([x, y], this.shape.lines)) {
-                //     colorDyn = color('#424242');
-                // }
-
-
-                // HATCHES
-                if (this.pattern > 0) {
-                    // if (i % this.pattern == 0 || (i - 1) % this.pattern == 0) {
-                    if (i % this.pattern == 0) {
-                        if (brightness(pupselColor) > 50) {
-                            colorboost = -50;
-                        } else {
-                            colorboost = 50
-                        }
-                        pupselColor = color(red(pupselColor) + colorboost, green(pupselColor) + colorboost, blue(pupselColor) + colorboost);
+                    // ANTI DEMO
+                    if (insidePolygon([pupselX, pupselY], this.shape.coords)) {
+                        pupselColor = this.shape.color;
+                    } else {
+                        continue;
                     }
+
+                    // Contour - deprecated
+                    // if (insidePolygon([x, y], this.shape.lines)) {
+                    //     colorDyn = color('#424242');
+                    // }
+
+
+                    // HATCHES
+                    if (this.pattern > 0) {
+                        // if (i % this.pattern == 0 || (i - 1) % this.pattern == 0) {
+                        if (i % this.pattern == 0) {
+                            if (brightness(pupselColor) > 50) {
+                                colorboost = -50;
+                            } else {
+                                colorboost = 50
+                            }
+                            pupselColor = color(red(pupselColor) + colorboost, green(pupselColor) + colorboost, blue(pupselColor) + colorboost);
+                        }
+                    }
+
+                    // distort color - generates more sprites
+                    // pupselColor = distortColorSuperNew(pupselColor, 30);
+
+                    // GRADIENT
+                    pupselColor = brightenSuperNew(pupselColor, map(
+                        pupselX,
+                        this.shape.B.x,
+                        this.shape.C.x,
+                        -25, // -10
+                        25  // 10
+                    ));
+
+                    // DISTORT Color
+                    // pupselColor = getRandomFromList([
+                    //     pupselColor = color(red(pupselColor) - this.lowDist, green(pupselColor) - this.lowDist, blue(pupselColor) - this.lowDist),
+                    //     pupselColor = color(red(pupselColor) - this.medDist, green(pupselColor) - this.medDist, blue(pupselColor) - this.medDist),
+                    //     // pupselColor = color(red(pupselColor) - this.highDist, green(pupselColor) - this.highDist, blue(pupselColor) - this.highDist),
+                    //     pupselColor = pupselColor,
+                    //     pupselColor = color(red(pupselColor) + this.lowDist, green(pupselColor) + this.lowDist, blue(pupselColor) + this.lowDist),
+                    //     pupselColor = color(red(pupselColor) + this.medDist, green(pupselColor) + this.medDist, blue(pupselColor) + this.medDist),
+                    //     // pupselColor = color(red(pupselColor) + this.highDist, green(pupselColor) + this.highDist, blue(pupselColor) + this.highDist),
+                    // ]);
+
+
+                    if (this.shape.nature == "points") {
+                        this.showPoints(pupselX, pupselY, pupselColor);
+                        // this.showBrushStrokes(pupselX, pupselY, pupselColor);
+                    } else {
+                        this.createBrushTiles(pupselX, pupselY, pupselColor);
+                    }
+
+                    // break;
                 }
-
-                // distort color - generates more sprites
-                // pupselColor = distortColorSuperNew(pupselColor, 30);
-
-                // GRADIENT
-                pupselColor = brightenSuperNew(pupselColor, map(
-                    pupselX,
-                    this.shape.B.x,
-                    this.shape.C.x,
-                    -25, // -10
-                    25  // 10
-                ));
-
-                // DISTORT Color
-                // pupselColor = getRandomFromList([
-                //     pupselColor = color(red(pupselColor) - this.lowDist, green(pupselColor) - this.lowDist, blue(pupselColor) - this.lowDist),
-                //     pupselColor = color(red(pupselColor) - this.medDist, green(pupselColor) - this.medDist, blue(pupselColor) - this.medDist),
-                //     // pupselColor = color(red(pupselColor) - this.highDist, green(pupselColor) - this.highDist, blue(pupselColor) - this.highDist),
-                //     pupselColor = pupselColor,
-                //     pupselColor = color(red(pupselColor) + this.lowDist, green(pupselColor) + this.lowDist, blue(pupselColor) + this.lowDist),
-                //     pupselColor = color(red(pupselColor) + this.medDist, green(pupselColor) + this.medDist, blue(pupselColor) + this.medDist),
-                //     // pupselColor = color(red(pupselColor) + this.highDist, green(pupselColor) + this.highDist, blue(pupselColor) + this.highDist),
-                // ]);
-
-
-                if (this.shape.points) {
-                    this.showPoints(pupselX, pupselY, pupselColor);
-                    // this.showBrushStrokes(pupselX, pupselY, pupselColor);
-                } else {
-                    this.createBrushTiles(pupselX, pupselY, pupselColor);
-                }
-
                 // break;
             }
-            // break;
         }
 
         // this.buffer.push();
@@ -174,7 +176,7 @@ class PopselTexture {
     showPoints(x, y, colorObject) {
         this.buffer.push();
         this.buffer.stroke(colorObject);
-        this.buffer.strokeWeight(5);
+        this.buffer.strokeWeight(8);
         this.buffer.point(x, y);
         this.buffer.pop();
     }

@@ -1,7 +1,6 @@
 const NOISESEED = hashFnv32a(fxhash);
 // console.log("Noise seed: " + NOISESEED);
 
-// resolution difference
 
 let PROFILES = {
   title: "fine",
@@ -20,7 +19,7 @@ let RESOLUTION = 500; // how many dots per dominantside length, 200 - 700, 800 t
 let BRUSHSIZE;
 // let BRUSHSIZE = 0.007;  // 0.01, 0.006, 0.005, 0.003, 0.001
 let TRIANGLECOUNT = 200; // 200 - enough, 300, 400 cool - 1200 for full bodies
-let GEARBUFFERCOUNT = 20;
+let GEARBUFFERCOUNT = 20;  // how many buffers for rotation
 
 let startTime, endTime;
 let canvas;
@@ -35,11 +34,8 @@ let PALETTE_LABEL;
 let ALLDONE = false;
 let DOMINANTSIDE;  // side which is the limiting factor
 
-let MARGIN;  // ??
-let RESCALINGCONSTANT = 800;  // the width the painting was designed in
 let FRAMEDWIDTH = 800;
 let FRAMED = false;
-let SPOT = false;
 
 let TITLE = "I like its informality";
 let ARTIST = "Stefan Schwaha, @sektionschef";
@@ -50,8 +46,6 @@ let PRICE = "ꜩ 1";
 let EDITIONS = "50 editions";
 
 let CURRENTPIXELDENS = 1;
-
-// let GRAINAMOUNT = 0.03;  // shader
 
 
 const PALETTESYSTEM = {
@@ -65,13 +59,17 @@ const PALETTESYSTEM = {
   //   "background": "#a3b2c4",
   //   "pixelColors": ["#16202b", "#0f447c", "#5a84bb", "#91c6f5"],
   // },
-  // "the admiral": {
+  // "the smokol": {
   //   "background": "#96a1b3ff",
   //   "pixelColors": ["#242f40ff", "#cca43bff", "#7e7e7eff", "#ddddddff"],
   // },
   // "jeunesse": {
   //   "background": "#c1c2c4ff",
   //   "pixelColors": ["#cf773bff", "#279ca0ff", "#242424ff"],  //  "#242424ff", "#99409cff"
+  // },
+  // "duo": {
+  //   "background": "#C7C757",
+  //   "pixelColors": ["#FBFBA0", "#8E1C3C", "#790724"],  //  "#242424ff", "#99409cff"
   // },
 
 }
@@ -83,9 +81,6 @@ function preload() {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
 
-  if (urlParams.has('highres')) {
-    CURRENTPIXELDENS = parseInt(urlParams.get('highres'));
-  }
   // console.log("CURRENTPIXELDENS: " + CURRENTPIXELDENS);
 
   // if (urlParams.has('infinity')) {
@@ -100,12 +95,6 @@ function preload() {
     }
   }
 
-  if (urlParams.has('spot')) {
-    if (urlParams.get("spot") === "true") {
-      SPOT = true;
-    }
-  }
-
   if (urlParams.has('animated')) {
     if (urlParams.get("animated") === "true") {
       ANIMATIONSTATE = true;
@@ -115,8 +104,6 @@ function preload() {
   if (FRAMED) {
     setFrameHTML();
     // setLabelHTML();
-  } else if (SPOT) {
-    setSpotHTML();
   } else {
     setPlainHTML();
   }
@@ -143,8 +130,6 @@ function setup() {
   canvas.id('badAssCanvas');
   if (FRAMED) {
     canvas.parent("canvasHolderFrame");
-  } else if (SPOT) {
-    canvas.parent("fullscreen");
   } else {
     canvas.parent("canvasHolderPlain");
   }
@@ -171,11 +156,10 @@ function setup() {
 
   backgroundTexture = new BackgroundTexture();
 
-  triangleSystem = new TriangleSystem();
+  // triangleSystem = new TriangleSystem();
 
   let hatchColor = color(red(color(PALETTE.background)) - 40, green(color(PALETTE.background)) - 40, blue(color(PALETTE.background)) - 40);
   hatchSystem = new hatchSystem(0, 0, width, height, 30, hatchColor);
-
   while (hatchSystem.check_all_complete() == false) {
     hatchSystem.show();
   }
@@ -193,7 +177,7 @@ function draw() {
     fxpreview();
 
     let endTime = performance.now()
-    console.log(`Call to doSomething took ${endTime - startTime} milliseconds`)
+    console.log(`It took ${(endTime - startTime) / 1000} seconds.`)
     // background(170);
   }
 
@@ -212,5 +196,5 @@ function showArt() {
   background(PALETTE.background);
   image(backgroundTexture.buffer, 0, 0);
   image(hatchSystem.buffer, 0, 0);
-  triangleSystem.show();
+  // triangleSystem.show();
 }
