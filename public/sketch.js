@@ -159,7 +159,7 @@ function setup() {
   // triangleSystem = new TriangleSystem();
 
   let hatchColor = color(red(color(PALETTE.background)) - 40, green(color(PALETTE.background)) - 40, blue(color(PALETTE.background)) - 40);
-  hatchSystem = new hatchSystem(0, 0, width, height, 30, hatchColor);
+  hatchSystem = new hatchSystem(0, 0, width, height, DOMINANTSIDE * 0.015, hatchColor);
   while (hatchSystem.check_all_complete() == false) {
     hatchSystem.show();
   }

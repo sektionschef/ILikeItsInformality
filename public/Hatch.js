@@ -1,17 +1,15 @@
 class Hatch {
     constructor(start, end, colorObject, buffer) {
-        this.hatchfullspeedmin = 1;
-        this.hatchfullspeedmax = 2;
-        this.hatchfullspeed = Math.round(getRandomFromInterval(this.hatchfullspeedmin, this.hatchfullspeedmax) * 100) / 100;
-        this.fullspeed = 3; // hatchFULLSPEED // 2-5;
+        // this.hatchfullspeedmin = 1;
+        // this.hatchfullspeedmax = 2;
+        // this.hatchfullspeed = // Math.round(getRandomFromInterval(this.hatchfullspeedmin, this.hatchfullspeedmax) * 100) / 100;
+        this.fullspeed = 5; // hatchFULLSPEED // 2-5;
         this.opacityLevel = 255;
-        this.radiusMin = 0.001 * DOMINANTSIDE; // 1;
-        this.radiusMax = 0.002 * DOMINANTSIDE; // 2;
-        // this.hatchShape = "Ellipse";
-        // this.hatchShape = "Line";
-        this.hatchShape = "Triangle";
-        this.buffer = buffer;
+        this.radiusMin = 0.001 * DOMINANTSIDE; // 0.001;
+        this.radiusMax = 0.002 * DOMINANTSIDE; // 0.002;
         this.distanceBoost = 4; // 4 faster, 8 slower, but thicker - where the points are
+
+        this.buffer = buffer;
         // this.noiseYzoom = 0.007;  // zoom on noise
         // this.amplitudeNoiseY = 3.5;  // up and down on Y axis
         this.OkLevel = 40;  // some offset is ok.
@@ -19,7 +17,7 @@ class Hatch {
         this.fillColor = color(red(colorObject), green(colorObject), blue(colorObject), this.opacityLevel);
         // this.strokeColor = colorObject;
         this.strokeColor = color(red(colorObject), green(colorObject), blue(colorObject), this.opacityLevel);
-        this.strokeSize = 0.2; // hatchFIBRESIZE;  // good one
+        // this.strokeSize = 0.5; // hatchFIBRESIZE;  // good one
         this.strokeColorDistort = 10; // hatchFIBRECOLORNOISE;
 
         this.start = start;
@@ -30,7 +28,7 @@ class Hatch {
         this.passedB = false;
 
         this.pos = this.start.copy();
-        this.elementCount = 5;  // per step
+        this.elementCount = 1;  // per step
         this.elements = [];
 
         this.vel = createVector(0, 0, 0);
@@ -125,51 +123,6 @@ class Hatch {
 
     }
 
-    savePath() {
-
-        this.hatchSize = this.radius;
-
-        this.elements = [];  // remove history
-
-        if (this.hatchShape == "Line") {
-
-            for (var i = 0; i < this.elementCount; i++) {
-                this.elements.push({
-                    shape: "Line",
-                    posX: this.pos.x + getP5RandomFromInterval(-this.hatchSize, this.hatchSize),
-                    posY: this.pos.y + getP5RandomFromInterval(-this.hatchSize, this.hatchSize),
-                    posBX: this.pos.x + getP5RandomFromInterval(-this.hatchSize, this.hatchSize),
-                    posBY: this.pos.y + getP5RandomFromInterval(-this.hatchSize, this.hatchSize),
-                })
-            }
-        } else if (this.hatchShape == "Ellipse") {
-
-            for (var i = 0; i < this.elementCount; i++) {
-                this.elements.push({
-                    shape: "Ellipse",
-                    posX: this.pos.x + getP5RandomFromInterval(-this.hatchSize, this.hatchSize),
-                    posY: this.pos.y + getP5RandomFromInterval(-this.hatchSize, this.hatchSize),
-                    width: getP5RandomFromInterval(0, this.hatchSize / 2),
-                    height: getP5RandomFromInterval(0, this.hatchSize / 2),
-                })
-            }
-        } else if (this.hatchShape == "Triangle") {
-            for (var i = 0; i < this.elementCount; i++) {
-                this.elements.push({
-                    shape: "Triangle",
-                    posX: this.pos.x + getP5RandomFromInterval(-this.hatchSize, this.hatchSize),
-                    posY: this.pos.y + getP5RandomFromInterval(-this.hatchSize, this.hatchSize),
-                    posBX: this.pos.x + getP5RandomFromInterval(-this.hatchSize, this.hatchSize),
-                    posBY: this.pos.y + getP5RandomFromInterval(-this.hatchSize, this.hatchSize),
-                    posCX: this.pos.x + getP5RandomFromInterval(-this.hatchSize, this.hatchSize),
-                    posCY: this.pos.y + getP5RandomFromInterval(-this.hatchSize, this.hatchSize),
-                })
-            }
-        } else {
-            console.warn("No hatch shape specified, oida!")
-        }
-    }
-
 
     update() {
 
@@ -193,9 +146,9 @@ class Hatch {
             this.vel.add(this.acc);
             this.pos.add(this.vel);
 
-            if (this.acc.x < 0 || this.acc.x < 0 || this.acc.x < 0) {
-                // this.vel = createVector(0, 0, 0);
-            }
+            // if (this.acc.x < 0 || this.acc.x < 0 || this.acc.x < 0) {
+            // this.vel = createVector(0, 0, 0);
+            // }
 
             // if (this.orientation == "x") {
             // this.pos.y = this.start2 + this.noisesY[Math.round(mover)];
@@ -205,16 +158,19 @@ class Hatch {
             // }
             // MISSING THE NOISE
 
+            this.strokeSize = Math.round(map(this.vel.mag(), 1, 3, 15, 5) * 100) / 100
 
-            if (this.vel.x > 0) {
-                // this.radius = map(this.vel.x, 0, 3, 1, 0.3)
-                this.radius = Math.round(map(this.vel.x, this.hatchfullspeedmin, this.hatchfullspeedmax, this.radiusMax, this.radiusMin) * 100) / 100
-            } else if (this.vel.y > 0) {
-                // this.radius = map(this.vel.y, 0, 3, 1, 0.3)
-                this.radius = Math.round(map(this.vel.y, this.hatchfullspeedmin, this.hatchfullspeedmax, this.radiusMax, this.radiusMin) * 100) / 100
-            }
 
-            this.savePath();
+            // if (this.vel.x > 0) {
+            //     // this.radius = map(this.vel.x, 0, 3, 1, 0.3)
+            //     this.radius = Math.round(map(this.vel.x, this.hatchfullspeedmin, this.hatchfullspeedmax, this.radiusMax, this.radiusMin) * 100) / 100
+            //     this.strokeSize = Math.round(map(this.vel.x, 0, 5, 3, 5) * 100) / 100
+            // } else if (this.vel.y > 0) {
+            //     // this.radius = map(this.vel.y, 0, 3, 1, 0.3)
+            //     // console.log(this.vel);
+            //     this.radius = Math.round(map(this.vel.y, this.hatchfullspeedmin, this.hatchfullspeedmax, this.radiusMax, this.radiusMin) * 100) / 100
+            //     this.strokeSize = Math.round(map(this.vel.y, 0, 0.01, 3, 5) * 100) / 100
+            // }
 
         }
 
@@ -274,8 +230,6 @@ class Hatch {
             pop();
         }
 
-        // if (this.alive) {
-
         // with moving circle
         if (MODE >= 5) {
             push();
@@ -288,37 +242,19 @@ class Hatch {
         } else {
             this.drawHatch();
         }
-        // }
     }
 
     drawHatch() {
 
         if (this.alive) {
+            // this.strokeSize = 5;
 
-            for (var i = 0; i < this.elements.length; i++) {
-                this.buffer.push();
-                // hatchBuffer.translate(-width / 2, -height / 2);
-                // console.log(this.elements);
-                this.buffer.strokeWeight(this.strokeSize);
-                // this.buffer.stroke(distortColorNew(this.strokeColor, this.strokeColorDistort, false))
-                // this.buffer.stroke(distortColorNew(this.strokeColorTemp, this.strokeColorDistort, false))
-                this.buffer.stroke(this.strokeColor);
-                // this.buffer.stroke("black");
-                // this.buffer.noFill();
-                // this.buffer.fill(this.strokeColorTemp);
-                // this.buffer.fill(color("pink"));
-                this.buffer.noFill();
-                if (this.hatchShape == "Line") {
-                    this.buffer.line(this.elements[i].posX, this.elements[i].posY, this.elements[i].posBX, this.elements[i].posBY);
-                } else if (this.hatchShape == "Ellipse") {
-                    this.buffer.ellipse(this.elements[i].posX, this.elements[i].posY, this.elements[i].width, this.elements[i].height);
-                } else if (this.hatchShape == "Triangle") {
-                    this.buffer.triangle(this.elements[i].posX, this.elements[i].posY, this.elements[i].posBX, this.elements[i].posBY, this.elements[i].posCX, this.elements[i].posCY);
-                } else {
-                    console.warn("No hatch shape specified, oida!")
-                }
-                this.buffer.pop();
-            }
+            this.buffer.push();
+            this.buffer.strokeWeight(this.strokeSize);
+            this.buffer.stroke(this.strokeColor);
+            this.buffer.noFill();
+            this.buffer.point(this.pos.x, this.pos.y);
+            this.buffer.pop();
         }
     }
 
@@ -339,9 +275,9 @@ class hatchSystem {
         this.buffer = createGraphics(width, height);
 
         // this.chosen_axis = getRandomFromList(["x", "y", "xy", "yx", "blank"])
-        this.chosen_axis = getRandomFromList(["x", "y", "xy", "yx"])
-        // this.chosen_axis = getRandomFromList(["yx"])
-        console.log("chosen axis: " + this.chosen_axis);
+        // this.chosen_axis = getRandomFromList(["x", "y", "xy", "yx"])
+        this.chosen_axis = getRandomFromList(["yx", "xy"])
+        // console.log("chosen axis: " + this.chosen_axis);
 
         this.createHatches();
     }
