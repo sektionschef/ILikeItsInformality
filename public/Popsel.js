@@ -69,12 +69,13 @@ class PopselTexture {
                     if (this.pattern > 0) {
                         // if (i % this.pattern == 0 || (i - 1) % this.pattern == 0) {
                         if (i % this.pattern == 0) {
-                            if (brightness(pupselColor) > 50) {
-                                colorboost = -50;
-                            } else {
-                                colorboost = 50
-                            }
-                            pupselColor = color(red(pupselColor) + colorboost, green(pupselColor) + colorboost, blue(pupselColor) + colorboost);
+                            // if (brightness(pupselColor) > 50) {
+                            //     colorboost = -50;
+                            // } else {
+                            //     colorboost = 50
+                            // }
+                            // pupselColor = color(red(pupselColor) + colorboost, green(pupselColor) + colorboost, blue(pupselColor) + colorboost);
+                            pupselColor = this.shape.colorB;
                         }
                     }
 
@@ -170,11 +171,12 @@ class PopselTexture {
         this.bufferShape.push();
         this.bufferShape.drawingContext.filter = `blur(${this.blurSize}px)` //- 'blur(10px)'
 
-        if (brightness(this.shape.color) > 50) {
-            this.strokeColor = color(red(this.shape.color) - 100, green(this.shape.color) - 100, blue(this.shape.color) - 100);
-        } else {
-            this.strokeColor = color(red(this.shape.color) + 100, green(this.shape.color) + 100, blue(this.shape.color) + 100);
-        }
+        // if (brightness(this.shape.color) > 50) {
+        //     this.strokeColor = color(red(this.shape.color) - 100, green(this.shape.color) - 100, blue(this.shape.color) - 100);
+        // } else {
+        //     this.strokeColor = color(red(this.shape.color) + 100, green(this.shape.color) + 100, blue(this.shape.color) + 100);
+        // }
+        this.strokeColor = this.shape.color;
         this.bufferShape.stroke(this.strokeColor);
         this.bufferShape.strokeWeight(this.strokeWeight); // 18
         this.bufferShape.noFill();

@@ -276,8 +276,7 @@ class hatchSystem {
 
         // this.chosen_axis = getRandomFromList(["x", "y", "xy", "yx", "blank"])
         // this.chosen_axis = getRandomFromList(["x", "y", "xy", "yx"])
-        // this.chosen_axis = getRandomFromList(["yx", "xy"])
-        this.chosen_axis = getRandomFromList(["x&y"])
+        this.chosen_axis = getRandomFromList(["yx", "xy", "x&y"])
         // console.log("chosen axis: " + this.chosen_axis);
 
         this.createHatches();

@@ -5,7 +5,7 @@ class Triangle {
         this.minLength = 0.1;
         this.angleSpeed = getRandomFromList([-0.001, -0.0005, 0.0005, 0.001]);// irrelevant in caes of gearbuffers
         // this.brushSize = DOMINANTSIDE * getRandomFromList([0.02, 0.01, 0.008, 0.006, 0.005, 0.003]);
-        this.brushSize = DOMINANTSIDE * getRandomFromList([0.02, 0.007, 0.005, 0.003]);
+        this.brushSize = DOMINANTSIDE * getRandomFromList([0.02, 0.007, 0.005]);
 
         var picker = fxrand();
         if (picker < PICKER[0]) {
@@ -27,6 +27,7 @@ class Triangle {
         this.lengthC = DOMINANTSIDE * getRandomFromInterval(this.minLength, this.maxLength); // 0.1 -0.3
 
         this.color = getRandomFromList(PALETTE.pixelColors);
+        this.colorB = color(getRandomFromList(PALETTE.pixelColors));
         this.colorStroke = color("#323232"); // getRandomFromList(PALETTE.pixelColors);
 
         // RANDOM PLACEMENT - total Position

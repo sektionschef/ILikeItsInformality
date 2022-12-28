@@ -16,10 +16,10 @@ let PROFILES = {
 }
 
 // let BRUSHSIZE = 0.007;  // 0.01, 0.006, 0.005, 0.003, 0.001
-let TRIANGLECOUNT = getRandomFromList([100, 200, 300]); // 100- 300 - enough, 300, 400 cool - 1200 for full bodies
+let TRIANGLECOUNT = getRandomFromList([200, 300]); // 100- 300 - enough, 300, 400 cool - 1200 for full bodies
 // points, pupsel, plain, naked
-// let PICKER = [0.2, 0.5, 0.8];
-let PICKER = [0, 0, 1];  // only plain
+let PICKER = [0.2, 0.5, 0.8];
+// let PICKER = [0, 0, 1];  // only plain
 let GEARBUFFERCOUNT = 20;  // how many buffers for rotation
 
 let startTime, endTime;
@@ -51,9 +51,17 @@ let CURRENTPIXELDENS = 1;
 
 const PALETTESYSTEM = {
   "by the power of greyscale": {
-    "background": "#adadad",
+    "background": ["#adadad", "#707070"],
     "pixelColors": ["#303030", "#6b6b6b", "#eeeeee"],
   },
+  // "the admiral duo": {
+  //   "background": ["#DE5B34", "#312A3C"],
+  //   "pixelColors": ["#16202b", "#0f447c", "#5a84bb", "#91c6f5"],
+  // },
+  // "Augenarzt": {
+  //   "background": ["#DE5B34", "#312A3C"],
+  //   "pixelColors": ["#DE5B34", "#312A3C", "#A92D0F", "#4C475D", "#F97D54", "#292233"],
+  // },
   // "the admiral": {
   //   "background": "#a3b2c4",
   //   "pixelColors": ["#16202b", "#0f447c", "#5a84bb", "#91c6f5"],
@@ -220,12 +228,10 @@ function setup() {
   // mastahatch2 = new Hatch(B1, B2, color("#181818"), "", hatchSystem.buffer);
   // hatchSystem.add(mastahatch2);
 
-  backgroundTexture = new BackgroundTexture();
+  backgroundTexture = new BackgroundTexture(color(PALETTE.background[0]));
+  hatchSystem = new hatchSystem(0, 0, width, height, DOMINANTSIDE * 0.015, color(PALETTE.background[1]));
 
   triangleSystem = new TriangleSystem();
-
-  let hatchColor = color(red(color(PALETTE.background)) - 30, green(color(PALETTE.background)) - 30, blue(color(PALETTE.background)) - 30);
-  hatchSystem = new hatchSystem(0, 0, width, height, DOMINANTSIDE * 0.015, hatchColor);
 }
 
 
@@ -254,7 +260,7 @@ function mousePressed() {
 }
 
 function showArt() {
-  background(PALETTE.background);
+  background(PALETTE.background[0]);
   image(backgroundTexture.buffer, 0, 0);
   image(hatchSystem.buffer, 0, 0);
   triangleSystem.show();
