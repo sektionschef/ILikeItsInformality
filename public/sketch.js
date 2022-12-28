@@ -54,98 +54,94 @@ const PALETTESYSTEM = {
     "background": ["#adadad", "#707070"],
     "pixelColors": ["#303030", "#6b6b6b", "#eeeeee"],
   },
-  // "the admiral duo": {
-  //   "background": ["#DE5B34", "#312A3C"],
-  //   "pixelColors": ["#16202b", "#0f447c", "#5a84bb", "#91c6f5"],
-  // },
-  // "Augenarzt": {
-  //   "background": ["#DE5B34", "#312A3C"],
-  //   "pixelColors": ["#DE5B34", "#312A3C", "#A92D0F", "#4C475D", "#F97D54", "#292233"],
-  // },
-  // "the admiral": {
-  //   "background": "#a3b2c4",
-  //   "pixelColors": ["#16202b", "#0f447c", "#5a84bb", "#91c6f5"],
-  // },
-  // "the smokol": {
-  //   "background": "#96a1b3ff",
-  //   "pixelColors": ["#242f40ff", "#cca43bff", "#7e7e7eff", "#ddddddff"],
-  // },
-  // "jeunesse": {
-  //   "background": "#c1c2c4ff",
-  //   "pixelColors": ["#cf773bff", "#279ca0ff", "#242424ff"],  //  "#242424ff", "#99409cff"
-  // },
-  // "chocolata": {
-  //   "background": "#211103",
-  //   "pixelColors": ["#3D1308", "#7B0D1E", "#be2a51"],  //  "#242424ff", "#99409cff"
-  // },
-  // "vota": {
-  //   "background": "#364652",
-  //   "pixelColors": ["#0C1618", "#BFB1C1", "#B5BEC6"],  //  "#D1AC00"
-  // },
-  // "Lorelei": {
-  //   "background": "#212f61",
-  //   "pixelColors": ["#030027", "#F2F3D9", "#DC9E82"],
-  // },
-  // "Idefix": {
-  //   "background": "#35363a",
-  //   "pixelColors": ["#CF5C36", "#7C7C7C", "#EEE5E9"],
-  // },
-  // "357": {
-  //   "background": "#55868C",
-  //   "pixelColors": ["#C8AB83", "#EEC584", "#CACAAA"],
-  // },
-  // "Bonbon": {
-  //   "background": "#FEF9EF",
-  //   "pixelColors": ["#227C9D", "#17C3B2", "#FFCB77"],
-  // },
-  // "Advent": {
-  //   "background": "#282A3A",
-  //   "pixelColors": ["#000000", "#735F32", "#C69749"],
-  // },
-  // "Erli": {
-  //   "background": "#E7DFD5",
-  //   "pixelColors": ["#84A9AC", "#3B6978", "#204051"],
-  // },
-  // "Erli": {
-  //   "background": "#E5E5CB",
-  //   "pixelColors": ["#1A120B", "#D5CEA3", "#3C2A21"],
-  // },
-  // "Vorarlberg": {
-  //   "background": "#9db3a2",
-  //   "pixelColors": ["#5F7161", "#EFEAD8", "#b4a898"],
-  // },
-  // "Unicorn": {
-  //   "background": "#BF5CAA",
-  //   "pixelColors": ["#EADADA", "#D59DC5", "#4D3A4D"],
-  // },
-  // "Poncho": {
-  //   "background": "#F32424",
-  //   "pixelColors": ["#9772FB", "#F2F2F2", "#764AF1"],
-  // },
-  // "Hader im Keller": {
-  //   "background": "#474E68",
-  //   "pixelColors": ["#404258", "#50577A", "#6B728E"],
-  // },
-  // "International": {
-  //   "background": "#c9bb79",
-  //   "pixelColors": ["#EAE1E1", "#03051E", "#0B5269"],
-  // },
-  // "Kinetics": {
-  //   "background": "#709FB0",
-  //   "pixelColors": ["#4A47A3", "#413C69", "#A7C5EB"],
-  // },
-  // "Korridor": {
-  //   "background": "#424242",
-  //   "pixelColors": ["#b19c83", "#81f3eb", "#a73a3a"],
-  // },
-  // "Brutus": {
-  //   "background": "#ECDBBA",
-  //   "pixelColors": ["#c55b46", "#3e5883", "#191919"],
-  // },
-  // "Jumbo": {
-  //   "background": "#638dc9",
-  //   "pixelColors": ["#1d2949", "#fff0d4", "#C4DDFF"],
-  // },
+  "the admiral duo": {
+    "background": ["#DE5B34", "#312A3C"],
+    "pixelColors": ["#16202b", "#0f447c", "#5a84bb", "#91c6f5"],
+  },
+  "the admiral": {
+    "background": ["#a3b2c4", "#808d9c"],
+    "pixelColors": ["#16202b", "#0f447c", "#5a84bb", "#91c6f5"],
+  },
+  "the smokol": {
+    "background": ["#96a1b3ff", "#595f69ff"],
+    "pixelColors": ["#242f40ff", "#cca43bff", "#7e7e7eff", "#ddddddff"],
+  },
+  "jeunesse": {
+    "background": ["#bd4d3eff", "#993f33ff"],
+    "pixelColors": ["#cfa83bff", "#0f9ba0ff", "#242424ff"],
+  },
+  "chocolata": {
+    "background": ["#211103", "#3f2107"],
+    "pixelColors": ["#3D1308", "#d3305b"],  // "#7B0D1E", 
+  },
+  "Vota": {
+    "background": ["#364652", "#465a69"],
+    "pixelColors": ["#0C1618", "#bea0c2", "#B5BEC6"],  //  "#D1AC00"
+  },
+  "Lorelei": {
+    "background": ["#212f61", "#31458d"],
+    "pixelColors": ["#030027", "#F2F3D9", "#DC9E82"],
+  },
+  "Idefix": {
+    "background": ["#35363a", "#4f5157"],
+    "pixelColors": ["#CF5C36", "#523e31", "#EEE5E9"],
+  },
+  "357": {
+    "background": ["#55868C", "#41666b"],
+    "pixelColors": ["#C8AB83", "#EEC584", "#CACAAA"],
+  },
+  "Bonbon": {
+    "background": ["#fd9090", "#dd7d7d"],
+    "pixelColors": ["#386a7c", "#58b1a8", "#fabc5a"],
+  },
+  "Advent": {
+    "background": ["#282A3A", "#7e6134"],
+    "pixelColors": ["#000000", "#735F32", "#C69749"],
+  },
+  "Erli": {
+    "background": ["#E7DFD5", "#bdccce"],
+    "pixelColors": ["#84A9AC", "#3B6978", "#204051"],
+  },
+  "Bärli": {
+    "background": ["#5d5866", "#524c5a"],
+    "pixelColors": ["#D5CEA3", "#3C2A21", "#1A120B"],  // "#1A120B"
+  },
+  "Vorarlberg": {
+    "background": ["#9db3a2", "#7e9483"],
+    "pixelColors": ["#5F7161", "#EFEAD8", "#b4a898"],
+  },
+  "Unicorn": {
+    "background": "#BF5CAA",
+    "pixelColors": ["#EADADA", "#D59DC5", "#4D3A4D"],
+  },
+  "Poncho": {
+    "background": ["#eb6161", "#d35a5a"],
+    "pixelColors": ["#ffb259", "#d4d4d4", "#54467a", "#2d743c"],
+  },
+  "Hader im Keller": {
+    "background": ["#474E68", "#323749"],
+    "pixelColors": ["#404258", "#50577A", "#6B728E"],
+  },
+  "International": {
+    "background": ["#cac7b6", "#9b998e"],
+    "pixelColors": ["#EAE1E1", "#03051E", "#0B5269"],
+  },
+  "Kinetics": {
+    "background": ["#f8d3d3", "#ffc4c4"],
+    "pixelColors": ["#4a46b4", "#413C69", "#A7C5EB"],
+  },
+  "Korridor": {
+    "background": ["#424242", "#303030"],
+    "pixelColors": ["#b19c83", "#64c2bc", "#a73a3a"],
+  },
+  "Jumbo": {
+    "background": ["#638dc9", "#5a81b8"],
+    "pixelColors": ["#1d2949", "#ddcfb4", "#C4DDFF"],
+  },
+  "Brutus": {
+    "background": ["#dac289", "#bea977"],
+    "pixelColors": ["#8ad1f7", "#0778C2", "#034370"],
+  },
 }
 
 choosePalette();
@@ -246,6 +242,8 @@ function draw() {
     let endTime = performance.now()
     // console.log(`It took ${(endTime - startTime) / 1000} seconds.`)
     // background(170);
+
+    exportCanvas(canvas);
   }
 
 

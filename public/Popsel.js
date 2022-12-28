@@ -135,11 +135,12 @@ class PopselTexture {
 
         // this.bufferShape.blendMode(BURN);
         // this.bufferShape.stroke("#323232");
-        if (brightness(this.shape.color) > 50) {
-            this.strokeColor = color(red(this.shape.color) - 100, green(this.shape.color) - 100, blue(this.shape.color) - 100);
-        } else {
-            this.strokeColor = color(red(this.shape.color) + 100, green(this.shape.color) + 100, blue(this.shape.color) + 100);
-        }
+        // if (brightness(this.shape.color) > 50) {
+        //     this.strokeColor = color(red(this.shape.color) - 100, green(this.shape.color) - 100, blue(this.shape.color) - 100);
+        // } else {
+        //     this.strokeColor = color(red(this.shape.color) + 100, green(this.shape.color) + 100, blue(this.shape.color) + 100);
+        // }
+        this.strokeColor = this.shape.colorB;
         this.bufferShape.stroke(this.strokeColor);
         this.bufferShape.strokeWeight(this.strokeWeight); // 18
         // this.bufferShape.noFill();
