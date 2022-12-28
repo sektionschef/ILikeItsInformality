@@ -1,23 +1,18 @@
 class PopselTexture {
 
     constructor(shape) {
-        // this.pupselNumber = RESOLUTION;
         this.pupselNumber = getRandomFromList([500, 400, 300, 200]); // RESOLUTION; 
         this.brushNumber = 15;
-        // this.brushSize = DOMINANTSIDE * BRUSHSIZE;
         this.brushSize = shape.brushSize;
         this.brushStrokeWeight = 1; // 1, 2
 
-        this.lowDist = 10;
-        this.medDist = 20;
-        this.highDist = 30;
         this.spriteCount = 10;
 
         this.shape = shape;
         this.pupselSize = DOMINANTSIDE / this.pupselNumber;
         this.pupselColors = PALETTE.pixelColors;
 
-        this.pattern = getRandomFromList([0, 0, 0, 3, 4, 5]);
+        this.pattern = getRandomFromList([0, 0, 3, 4, 5]);
 
         this.pupsels = [];
         this.sprites = {};
@@ -25,6 +20,7 @@ class PopselTexture {
         // SHOULD BE DYNAMIC
         this.buffer = createGraphics(DOMINANTSIDE * 0.3, DOMINANTSIDE * 0.3);
 
+        // if something was drawn
         // this.buffer.image(shape.buffer, 0, 0);
 
         // DEBUG - show buffer edges
@@ -32,7 +28,10 @@ class PopselTexture {
 
         if (this.shape.nature == "pupsel" || this.shape.nature == "plain") {
             this.drawShape();
+        } else if (this.shape.nature == "naked") {
+            this.drawNakedShape();
         } else {
+
         }
 
         if (this.shape.nature == "pupsel" || this.shape.nature == "points") {
@@ -91,17 +90,6 @@ class PopselTexture {
                         25  // 10
                     ));
 
-                    // DISTORT Color
-                    // pupselColor = getRandomFromList([
-                    //     pupselColor = color(red(pupselColor) - this.lowDist, green(pupselColor) - this.lowDist, blue(pupselColor) - this.lowDist),
-                    //     pupselColor = color(red(pupselColor) - this.medDist, green(pupselColor) - this.medDist, blue(pupselColor) - this.medDist),
-                    //     // pupselColor = color(red(pupselColor) - this.highDist, green(pupselColor) - this.highDist, blue(pupselColor) - this.highDist),
-                    //     pupselColor = pupselColor,
-                    //     pupselColor = color(red(pupselColor) + this.lowDist, green(pupselColor) + this.lowDist, blue(pupselColor) + this.lowDist),
-                    //     pupselColor = color(red(pupselColor) + this.medDist, green(pupselColor) + this.medDist, blue(pupselColor) + this.medDist),
-                    //     // pupselColor = color(red(pupselColor) + this.highDist, green(pupselColor) + this.highDist, blue(pupselColor) + this.highDist),
-                    // ]);
-
 
                     if (this.shape.nature == "points") {
                         this.showPoints(pupselX, pupselY, pupselColor);
@@ -141,7 +129,6 @@ class PopselTexture {
 
         this.bufferShape = createGraphics(this.buffer.width, this.buffer.height);
 
-        // fill polygon!!
         this.bufferShape.push();
         this.bufferShape.drawingContext.filter = `blur(${this.blurSize}px)` //- 'blur(10px)'
 
@@ -161,6 +148,36 @@ class PopselTexture {
         this.bufferShape.fill(color(red(this.shape.color), green(this.shape.color), blue(this.shape.color), 150));
         // this.bufferShape.fill("#2525257c");
         // this.bufferShape.fill(color(red(this.shape.color) - 100, green(this.shape.color) - 100, blue(this.shape.color) - 100, 180));
+
+        this.bufferShape.beginShape();
+        this.bufferShape.vertex(this.shape.A.x, this.shape.A.y);
+        this.bufferShape.vertex(this.shape.B.x, this.shape.B.y);
+        this.bufferShape.vertex(this.shape.C.x, this.shape.C.y);
+        this.bufferShape.endShape(CLOSE);
+        this.bufferShape.pop();
+
+        this.buffer.image(this.bufferShape, 0, 0);
+
+    }
+
+    drawNakedShape() {
+
+        this.strokeWeight = 7 // 8, 18;
+        this.blurSize = 2 // 10, 20;
+
+        this.bufferShape = createGraphics(this.buffer.width, this.buffer.height);
+
+        this.bufferShape.push();
+        this.bufferShape.drawingContext.filter = `blur(${this.blurSize}px)` //- 'blur(10px)'
+
+        if (brightness(this.shape.color) > 50) {
+            this.strokeColor = color(red(this.shape.color) - 100, green(this.shape.color) - 100, blue(this.shape.color) - 100);
+        } else {
+            this.strokeColor = color(red(this.shape.color) + 100, green(this.shape.color) + 100, blue(this.shape.color) + 100);
+        }
+        this.bufferShape.stroke(this.strokeColor);
+        this.bufferShape.strokeWeight(this.strokeWeight); // 18
+        this.bufferShape.noFill();
 
         this.bufferShape.beginShape();
         this.bufferShape.vertex(this.shape.A.x, this.shape.A.y);

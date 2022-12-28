@@ -3,18 +3,19 @@ class Triangle {
     constructor(rank, totalCenter) {
         this.maxLength = 0.3;
         this.minLength = 0.1;
-        this.angleSpeed = getRandomFromList([-0.001, -0.0005, 0.0005, 0.001]);// 0.001;
+        this.angleSpeed = getRandomFromList([-0.001, -0.0005, 0.0005, 0.001]);// irrelevant in caes of gearbuffers
         // this.brushSize = DOMINANTSIDE * getRandomFromList([0.02, 0.01, 0.008, 0.006, 0.005, 0.003]);
-        this.brushSize = DOMINANTSIDE * 0.008; // getRandomFromList([0.008, 0.006, 0.005, 0.003]);
-
+        this.brushSize = DOMINANTSIDE * getRandomFromList([0.02, 0.007, 0.005, 0.003]);
 
         var picker = fxrand();
-        if (picker < 0.333) {
+        if (picker < PICKER[0]) {
             this.nature = "points";
-        } else if (picker < 0.666) {
+        } else if (picker < PICKER[1]) {
             this.nature = "pupsel";
-        } else {
+        } else if (picker < PICKER[2]) {
             this.nature = "plain";
+        } else {
+            this.nature = "naked";
         }
 
         this.rank = rank;
