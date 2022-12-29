@@ -17,11 +17,23 @@
 
 // FEATURES
 
-// window.$fxhashFeatures = {
-//     "Palette": PALETTE_LABEL,
-//     "Color smudge": ROUGHYPUFFYLABEL,
-//     "Brush direction": BRUSHDIRECTIONLABEL,
-// }
+TRIANGLECOUNT_LABEL = label_feature(TRIANGLECOUNT, 200, 300)
+console.log("Triangle count: " + TRIANGLECOUNT_LABEL);
+
+if ([0.2, 0.5, 0.8]) {
+    PICKER_LABEL = "balanced";
+} else if ([0.1, 0.5, 0.9]) {
+    PICKER_LABEL = "reduced"
+} else if ([0, 0, 1]) {
+    PICKER_LABEL = "plain"
+} else { }
+console.log("Element types: " + PICKER_LABEL);
+
+window.$fxhashFeatures = {
+    "Palette": PALETTE_LABEL,
+    "Element Count": TRIANGLECOUNT_LABEL,
+    "Element types": PICKER_LABEL,
+}
 
 // console.info(`fxhash: %c${fxhash}`, 'font-weight: bold');
 // console.log('');

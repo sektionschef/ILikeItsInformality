@@ -228,16 +228,19 @@ function exportHighResolution() {
     draw();
 }
 
-function exportCanvas(canvasName) {
+function exportCanvas(canvasName, dev) {
 
     // window.location.reload();
     // Get timestamp to name the ouput file
     let timestamp = getTimestamp();
+    let filename;
 
-    save(canvasName, fxhash + "_" + timestamp, 'png');
-    // save(canvasName, fxhash + "_" + timestamp, 'jpg');
-    // saveCanvas(canvasName, fxhash + "_" + timestamp, 'png');
-
+    if (dev) {
+        filename = TRIANGLECOUNT + "_" + PICKER + "_" + PALETTE_LABEL;
+    } else {
+        filename = fxhash + "_" + timestamp;
+    }
+    save(canvasName, filename, 'png');
 }
 
 function getTimestamp() {
@@ -283,7 +286,7 @@ function choosePalette() {
     }
     // console.log(allPalettes);
     PALETTE_LABEL = getRandomFromList(allPalettes);
-    // console.log("Palette: " + PALETTE_LABEL);
+    console.log("Palette: " + PALETTE_LABEL);
     PALETTE = PALETTESYSTEM[PALETTE_LABEL];
 }
 

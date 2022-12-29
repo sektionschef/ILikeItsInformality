@@ -41,6 +41,7 @@ class Triangle {
         // this.angleDyn = 0;  // mountain
 
 
+
         this.center = createVector(
             this.buffer.width / 2,
             this.buffer.height / 2,

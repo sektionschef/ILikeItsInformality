@@ -1,27 +1,14 @@
 const NOISESEED = hashFnv32a(fxhash);
 // console.log("Noise seed: " + NOISESEED);
 
-
-let PROFILES = {
-  title: "fine",
-  Resolution: 600,
-  Brushsize: 0.001,
-  TRIANGLECOUNT: 200,
-  GEARBUFFERCOUNT: 20,
-  title: "furry",
-  Resolution: 600,
-  Brushsize: 0.01,
-  TRIANGLECOUNT: 200,
-  GEARBUFFERCOUNT: 20,
-}
-
-// let BRUSHSIZE = 0.007;  // 0.01, 0.006, 0.005, 0.003, 0.001
-let TRIANGLECOUNT = getRandomFromList([200, 300]); // 100- 300 - enough, 300, 400 cool - 1200 for full bodies
+let TRIANGLECOUNT = getRandomFromList([200, 250, 300]); // 100- 300 - enough, 300, 400 cool - 1200 for full bodies
 // points, pupsel, plain, naked
-let PICKER = [0.2, 0.5, 0.8];
+console.log("trianglecount: " + TRIANGLECOUNT);
+let PICKER = getRandomFromList([[0.2, 0.5, 0.8], [0.1, 0.5, 0.9], [0, 0, 1]]);
+console.log("Picker: " + PICKER);
 // let PICKER = [0, 0, 1];  // only plain
-let GEARBUFFERCOUNT = 20;  // how many buffers for rotation
 
+let GEARBUFFERCOUNT = 20;  // how many buffers for rotation
 let startTime, endTime;
 let canvas;
 let rescaling_width;
@@ -66,7 +53,7 @@ const PALETTESYSTEM = {
     "background": ["#96a1b3ff", "#595f69ff"],
     "pixelColors": ["#242f40ff", "#cca43bff", "#7e7e7eff", "#ddddddff"],
   },
-  "jeunesse": {
+  "jeunesse": { // andrea
     "background": ["#bd4d3eff", "#993f33ff"],
     "pixelColors": ["#cfa83bff", "#0f9ba0ff", "#242424ff"],
   },
@@ -111,16 +98,12 @@ const PALETTESYSTEM = {
     "pixelColors": ["#5F7161", "#EFEAD8", "#b4a898"],
   },
   "Unicorn": {
-    "background": "#BF5CAA",
+    "background": ["#BF5CAA", "#a54f92"],
     "pixelColors": ["#EADADA", "#D59DC5", "#4D3A4D"],
   },
-  "Poncho": {
-    "background": ["#eb6161", "#d35a5a"],
-    "pixelColors": ["#ffb259", "#d4d4d4", "#54467a", "#2d743c"],
-  },
   "Hader im Keller": {
-    "background": ["#474E68", "#323749"],
-    "pixelColors": ["#404258", "#50577A", "#6B728E"],
+    "background": ["#c4a475", "#d6b27d"],
+    "pixelColors": ["#24252e", "#50577A", "#8c98ca"],
   },
   "International": {
     "background": ["#cac7b6", "#9b998e"],
@@ -243,7 +226,7 @@ function draw() {
     // console.log(`It took ${(endTime - startTime) / 1000} seconds.`)
     // background(170);
 
-    exportCanvas(canvas);
+    // exportCanvas(canvas, true);
   }
 
 
