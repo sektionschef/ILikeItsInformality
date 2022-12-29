@@ -1,0 +1,1 @@
+TRIANGLECOUNT_LABEL=label_feature(TRIANGLECOUNT,200,300),console.log("Triangle count: "+TRIANGLECOUNT_LABEL),PICKER_LABEL="balanced",console.log("Element types: "+PICKER_LABEL),window.$fxhashFeatures={Palette:PALETTE_LABEL,"Element Count":TRIANGLECOUNT_LABEL,"Element types":PICKER_LABEL};
