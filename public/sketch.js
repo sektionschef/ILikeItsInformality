@@ -224,7 +224,6 @@ function draw() {
 
     let endTime = performance.now()
     // console.log(`It took ${(endTime - startTime) / 1000} seconds.`)
-    // background(170);
 
     // exportCanvas(canvas, true);
   }

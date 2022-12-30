@@ -1,11 +1,17 @@
-# Oida
+# I like its informality
+
+“You can’t depend on your eyes when your imagination is out of focus.” — Mark Twain
+
+The artwork featuring triangles captures the essence of focus and movement. The sharp angles of the triangles draw the viewer's gaze towards the center of the piece, where the lines converge and intersect. This central point of focus is further emphasized by the sweeping curves and dynamic shapes that flow outwards from it, creating a sense of motion and energy.
+
+The use of triangles also adds a sense of balance and stability to the artwork. The strong, symmetrical shapes ground the piece and anchor it firmly in place, while the curves and lines suggest a sense of motion and change.
+
+Overall, the combination of triangles, focus, and movement creates a sense of tension and drama, inviting the viewer to explore the piece and discover its hidden depths. Whether viewed up close or from a distance, this artwork is sure to captivate and engage the viewer with its dynamic interplay of form and movement.
 
 
+Subtle animation around a focus.
 
-For higher resolution renderings, e.g. 4x resolution of current canvas size: Open the artwork in its own browser tab, add the parameter *&highres=4* to the url and reload. e.g. https://gateway.fxhash2.xyz/ipfs/<something>/?fxhash=ooXrQmk42nyJd4HAB63v7jJ9R27DiwcbwDaUEYuX3FvGDzfwNog&highres=4 . Adapt this procedure for 8x resolution or similar.
-
-For exporting as .png press *e*.
-
-The artwork itself is responsive and generated 100% by code. You find the source code here: 
+With *spacebar* you stop and restart the animation.
+press *e* to epxor the as PNG - 4000x4000px
 
 Stefan Schwaha, @sektionschef, https://digitalitility.com/
