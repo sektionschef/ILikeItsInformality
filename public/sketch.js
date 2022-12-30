@@ -16,7 +16,7 @@ let rescaling_height;
 
 let backgroundTexture;
 
-let ANIMATIONSTATE = false;
+let ANIMATIONSTATE = true;
 let PALETTE;
 let PALETTE_LABEL;
 let ALLDONE = false;
@@ -29,9 +29,9 @@ let TITLE = "I like its informality";
 let ARTIST = "Stefan Schwaha, @sektionschef";
 let DESCRIPTION = "Javascript on html canvas";
 let URL = "https://digitalitility.com";
-let YEAR = "2022";
+let YEAR = "2023";
 let PRICE = "ꜩ 1";
-let EDITIONS = "50 editions";
+let EDITIONS = "100 editions";
 
 let CURRENTPIXELDENS = 1;
 

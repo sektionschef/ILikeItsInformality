@@ -1,14 +1,19 @@
 class PopselTexture {
 
     constructor(shape) {
-        this.pupselNumber = 500 // getRandomFromList([500, 400, 300, 200]); // RESOLUTION; 
+
+        this.shape = shape;
+        if (this.shape.nature == "points") {
+            this.pupselNumber = getRandomFromList([500, 400, 300, 200]); // RESOLUTION; 
+        } else {
+            this.pupselNumber = 500;
+        };
         this.brushNumber = 15;
         this.brushSize = shape.brushSize;
         this.brushStrokeWeight = 1; // 1, 2
 
         this.spriteCount = 10;
 
-        this.shape = shape;
         this.pupselSize = DOMINANTSIDE / this.pupselNumber;
         this.pupselColors = PALETTE.pixelColors;
 
