@@ -120,6 +120,9 @@ const PALETTESYSTEM = {
 }
 
 choosePalette();
+// if (PALETTE_LABEL != "International") {
+//   window.location.reload();
+// }
 
 let TRIANGLECOUNT = getRandomFromList([200, 250, 300]); // 100- 300 - enough, 300, 400 cool - 1200 for full bodies
 // console.log("trianglecount: " + TRIANGLECOUNT);
@@ -129,7 +132,7 @@ let PICKER = getRandomFromList([[0.2, 0.5, 0.8], [0.1, 0.5, 0.9], [0, 0, 1]]);
 // console.log("Picker: " + PICKER);
 // let PICKER = [0, 0, 1];  // only plain
 
-let GEARBUFFERCOUNT = 20;  // how many buffers for rotation
+let GEARBUFFERCOUNT = 15;  // how many buffers for rotation
 
 function preload() {
 
