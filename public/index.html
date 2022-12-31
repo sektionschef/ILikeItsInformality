@@ -22,14 +22,9 @@
     //---- do not edit the following code (you can indent as you wish)
     let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
     var fxhash = "oo" + Array(49).fill(0).map(_ => alphabet[(Math.random() * alphabet.length) | 0]).join('')
-    // var fxhash = "ooXB3vN4NGykC11axfCBAsLKMwrREJoL2FghcKPBHpQrf5mAfSX"
-    // var fxhash = "oozmHC37ff54XPGhFjriFCV2fihQ72VvyhXuv4LuwmdsBTgpz8N"
-    // var fxhash = "ooUtejyM23vBPKtnv8mXrCQaya1iSJFSYfYXMDYi3RfauDLBtPN"
-    // var fxhash = "oozjHe23f9kHu59KSH64aiv6Bc2bQ5VHKBMDToQztyNeaBjKg2R"
-    // var fxhash = "ooNLJebZCC6mh9SaoupKL8f8iDkpf1UQGZ45QaDjP83mjhsoSuW"
-    // var fxhash = "oo8hjXgTDJWtUrTrqjfzWSMioCZNtJVLpHaSSTXb7PXxjxrCy3G"
-    // var fxhash = "ooEGqaAxWyEVwruTEpunQQjW71FGuz1HWbFAvENdnC9NNqDRYvY"
-    // var fxhash = "oorcbiugTcZBec4WU2c5bmNHzyhmXu5gFwoBPznrZAxBVbHa2HH"
+    // var fxhash = "ooeNtGwoYY8YJK3dzxLhNGQq5G3Ttc3eCAug3FYbqY2xVa5zgPa"
+    // var fxhash = "ooxAuMVNXFwEjwy3HFW5GfXLENPdiKdSxUN94XX3vTMDzbLLzJ3"
+    var fxhash = "ooHU4boHmYTX1y1jec7VKbDgwYA3vNbkhTt9XT25nS6YGLje8dc"
 
     let b58dec = str => [...str].reduce((p, c) => p * alphabet.length + alphabet.indexOf(c) | 0, 0)
     let fxhashTrunc = fxhash.slice(2)

@@ -1,19 +1,11 @@
+// console.log("fxhash: " + fxhash);
 const NOISESEED = hashFnv32a(fxhash);
 // console.log("Noise seed: " + NOISESEED);
 
-let TRIANGLECOUNT = getRandomFromList([200, 250, 300]); // 100- 300 - enough, 300, 400 cool - 1200 for full bodies
-// points, pupsel, plain, naked
-console.log("trianglecount: " + TRIANGLECOUNT);
-let PICKER = getRandomFromList([[0.2, 0.5, 0.8], [0.1, 0.5, 0.9], [0, 0, 1]]);
-console.log("Picker: " + PICKER);
-// let PICKER = [0, 0, 1];  // only plain
-
-let GEARBUFFERCOUNT = 20;  // how many buffers for rotation
 let startTime, endTime;
 let canvas;
 let rescaling_width;
 let rescaling_height;
-
 let backgroundTexture;
 
 let ANIMATIONSTATE = true;
@@ -41,29 +33,29 @@ const PALETTESYSTEM = {
     "background": ["#adadad", "#707070"],
     "pixelColors": ["#303030", "#6b6b6b", "#eeeeee"],
   },
-  "the admiral duo": {
+  "The Two Admirals": {
     "background": ["#DE5B34", "#312A3C"],
     "pixelColors": ["#16202b", "#0f447c", "#5a84bb", "#91c6f5"],
   },
-  "the admiral": {
+  "The Admiral": {
     "background": ["#a3b2c4", "#808d9c"],
     "pixelColors": ["#16202b", "#0f447c", "#5a84bb", "#91c6f5"],
   },
-  "the smokol": {
+  "The Smokol": {
     "background": ["#96a1b3ff", "#595f69ff"],
     "pixelColors": ["#242f40ff", "#cca43bff", "#7e7e7eff", "#ddddddff"],
   },
-  "jeunesse": { // andrea
+  "Jeunesse": {
     "background": ["#bd4d3eff", "#993f33ff"],
     "pixelColors": ["#cfa83bff", "#0f9ba0ff", "#242424ff"],
   },
-  "chocolata": {
+  "Chocolata": {
     "background": ["#211103", "#3f2107"],
-    "pixelColors": ["#3D1308", "#d3305b"],  // "#7B0D1E", 
+    "pixelColors": ["#3D1308", "#d3305b"],
   },
   "Vota": {
     "background": ["#364652", "#465a69"],
-    "pixelColors": ["#0C1618", "#bea0c2", "#B5BEC6"],  //  "#D1AC00"
+    "pixelColors": ["#0C1618", "#bea0c2", "#B5BEC6"],
   },
   "Lorelei": {
     "background": ["#212f61", "#31458d"],
@@ -91,7 +83,7 @@ const PALETTESYSTEM = {
   },
   "Bärli": {
     "background": ["#5d5866", "#524c5a"],
-    "pixelColors": ["#D5CEA3", "#3C2A21", "#1A120B"],  // "#1A120B"
+    "pixelColors": ["#D5CEA3", "#3C2A21", "#1A120B"],
   },
   "Vorarlberg": {
     "background": ["#9db3a2", "#7e9483"],
@@ -129,6 +121,16 @@ const PALETTESYSTEM = {
 
 choosePalette();
 
+let TRIANGLECOUNT = getRandomFromList([200, 250, 300]); // 100- 300 - enough, 300, 400 cool - 1200 for full bodies
+// console.log("trianglecount: " + TRIANGLECOUNT);
+
+// points, pupsel, plain, naked
+let PICKER = getRandomFromList([[0.2, 0.5, 0.8], [0.1, 0.5, 0.9], [0, 0, 1]]);
+// console.log("Picker: " + PICKER);
+// let PICKER = [0, 0, 1];  // only plain
+
+let GEARBUFFERCOUNT = 20;  // how many buffers for rotation
+
 function preload() {
 
   const queryString = window.location.search;
@@ -149,8 +151,8 @@ function preload() {
   }
 
   if (urlParams.has('animated')) {
-    if (urlParams.get("animated") === "true") {
-      ANIMATIONSTATE = true;
+    if (urlParams.get("animated") === "false") {
+      ANIMATIONSTATE = false;
     }
   }
 
@@ -166,13 +168,10 @@ function preload() {
 }
 
 function setup() {
-  startTime = performance.now()
+  // startTime = performance.now()
 
   noiseSeed(NOISESEED);
   randomSeed(NOISESEED);
-
-  // setAttributes('alpha', true);
-  // setAttributes('antialias', true);
 
   rescaling_width = 4000;
   rescaling_height = 4000;
@@ -208,7 +207,7 @@ function setup() {
   // hatchSystem.add(mastahatch2);
 
   backgroundTexture = new BackgroundTexture(color(PALETTE.background[0]));
-  hatchSystem = new hatchSystem(0, 0, width, height, DOMINANTSIDE * 0.015, color(PALETTE.background[1]));
+  hatchSystem = new hatchSystem(0, 0, width, height, DOMINANTSIDE * getP5RandomFromList([0.010, 0.015, 0.020]), color(PALETTE.background[1]));
 
   triangleSystem = new TriangleSystem();
 }
@@ -222,7 +221,7 @@ function draw() {
     showArt();
     fxpreview();
 
-    let endTime = performance.now()
+    // let endTime = performance.now()
     // console.log(`It took ${(endTime - startTime) / 1000} seconds.`)
 
     // exportCanvas(canvas, true);

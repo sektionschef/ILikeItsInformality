@@ -148,13 +148,9 @@ class PopselTexture {
         this.strokeColor = this.shape.colorB;
         this.bufferShape.stroke(this.strokeColor);
         this.bufferShape.strokeWeight(this.strokeWeight); // 18
-        // this.bufferShape.noFill();
 
-        // this.bufferShape.noStroke();
         // this.bufferShape.fill(this.shape.color);
         this.bufferShape.fill(color(red(this.shape.color), green(this.shape.color), blue(this.shape.color), 150));
-        // this.bufferShape.fill("#2525257c");
-        // this.bufferShape.fill(color(red(this.shape.color) - 100, green(this.shape.color) - 100, blue(this.shape.color) - 100, 180));
 
         this.bufferShape.beginShape();
         this.bufferShape.vertex(this.shape.A.x, this.shape.A.y);
